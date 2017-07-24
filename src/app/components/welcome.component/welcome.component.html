@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar">
+        <li><i *ngIf="auth.isAuthenticated()" class="fa-li fa fa-calendar fa-3x" (click)="cdlg.showDialog()"></i></li>
+        <li><a routerLink="/home" *ngIf="auth.isAuthenticated()">Home</a></li>
+        <!--<li><calendar *ngIf="auth.authenticated()"></calendar></li>-->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" (click)="auth.login()" *ngIf="!auth.isAuthenticated()">Login</a></li>
+        <li><a routerLink="/accountapp" *ngIf="auth.isAuthenticated()">AccountApp</a></li>
+        <li>
+          <a routerLink="/profile" *ngIf="auth.isAuthenticated()">
+            <!--<img class="img-circle" style="width:10%" src="{{profile.picture}}" *ngIf="!profile.picture=='null'">-->
+            Profile</a>
+        </li>
+        <li><a href="#" (click)="auth.logout()" *ngIf="auth.isAuthenticated()">Logout</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</nav>
+
+<calendar-dlg #cdlg></calendar-dlg>
+<router-outlet></router-outlet>

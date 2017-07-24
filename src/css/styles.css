@@ -1,0 +1,193 @@
+/* Master Styles */
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body, input[text], button {
+  color: #888;
+  font-family: Cambria, Georgia;
+}
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+
+/* Navigation link styles */
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #607D8B;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+nav li:hover {
+  color: #039be5;
+  cursor: pointer;
+}
+nav a.active {
+  color: #039be5;
+}
+
+/* items class */
+.items {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  /*width: 10em;*/
+  /*width: auto;*/
+  height:400px;
+  overflow:hidden;
+  overflow-y:scroll;
+  overflow-x:scroll;
+  text-align: left;
+  white-space: nowrap;
+}
+.items li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  /*background-color: #EEE;*/
+  /*margin: .5em;
+  padding: .3em 0;*/
+ /* height: 1.6em;
+  border-radius: 4px;*/
+}
+.items li ul {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  /*margin: 1.5em;*/
+  /*padding: 0.3em 0;*/
+  /*height: 1em;
+  border-radius: 4px;*/
+}
+.items li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.items li.selected:hover {
+  background-color: #BBD8DC;
+  color: white;
+}
+.items .text {
+  position: relative;
+  top: -3px;
+}
+.items li.selected {
+  background-color: #CFD8DC;
+  color: white;
+}
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+
+/*itemdocs*/
+.itemdocs {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: auto;
+}
+.itemdocs li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+}
+.itemdocs li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+
+/*отображение папок*/
+.isChild {
+  list-style: none;  /*Скрываем маркеры списка */
+  text-indent: -1em;
+}
+.isChild::before{
+  font-family: FontAwesome;
+  content: '\f114'; /* '\25ba' Добавляем маркер в шестнадцатеричном формате*/
+  padding-right: 0px; /* Расстояние от маркеров до текста */
+  /*color:red;*/
+}
+.noChild{
+  padding-left: 20px; /* Расстояние от маркеров до текста */
+}
+i {
+    padding-left: 10px;
+}
+
+/*.calendarDlg li {
+  margin:7px;
+}*/
+
+/*ui-g*/
+.error {color:red;}
+.ui-inputtext {
+    width: 80px;
+}
+.ui-g {
+    /*background-color: #ededed;*/
+    border: 1px solid #aaa;
+}
+/*Настройка цвета строк в таблице документов*/
+.green-row-class {
+    background-color: #C1FFE1 !important;
+}
+.ui-datatable tbody > tr.ui-widget-content.ui-state-highlight {
+    background-color: #186ba0 !important;
+} 
+.red-row-class {
+    background-color: #FFE4E4 !important;
+}
+
+/*.my > .ui-dialog > .ui-widget > .ui-widget-content > .ui-corner-all > .ui-shadow > .ui-dialog-draggable {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}*/
+
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}

@@ -1,0 +1,54 @@
+<p-dialog [(visible)]="display" height=310 width=370 class="calendarDlg">
+    <p-header>
+      Выберите период
+    </p-header>
+      <ul>
+          <li>Текущий год 
+              <p-dropdown [options]="years" [(ngModel)]="selectedYear" [style]="{'width':'70px'}" appendTo="body"></p-dropdown>
+          </li>
+          <li>Месяц 
+              <p-radioButton name="groupname" value="Mounth" [(ngModel)]="selectedType"></p-radioButton>
+              <p-dropdown *ngIf="selectedType=='Mounth'" [options]="months" (onChange)="onMonth(selectedMonth)"
+                [(ngModel)]="selectedMonth" [style]="{'width':'95px'}" appendTo="body">
+              </p-dropdown>
+          </li>
+          <li>Квартал <p-radioButton name="groupname" value="Quartal" [(ngModel)]="selectedType"></p-radioButton>
+              <p-dropdown *ngIf="selectedType=='Quartal'" [options]="quartals" (onChange)="onQuartal(selectedQurtal)"
+                  [(ngModel)]="selectedQurtal" [style]="{'width':'95px'}" appendTo="body" >
+              </p-dropdown>
+          </li>
+          <li>Полугодие <p-radioButton name="groupname" value="Semiyear" [(ngModel)]="selectedType"></p-radioButton>
+              <p-dropdown *ngIf="selectedType=='Semiyear'" [options]="semiyears" (onChange)="onSemiyear(selectedSemiYear)"
+                  [(ngModel)]="selectedSemiYear" [style]="{'width':'90px'}" appendTo="body">
+              </p-dropdown>
+          </li>
+          <li>Произвольно <p-radioButton name="groupname" value="TwoMonth" [(ngModel)]="selectedType"></p-radioButton>
+              <p-calendar *ngIf="selectedType=='TwoMonth'" [(ngModel)]="startDate" (onSelect)="onSelectStartDate(startDate)"
+                  dateFormat="dd.mm.yy" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="2000:2030" appendTo="body"> 
+              </p-calendar> - 
+              <p-calendar *ngIf="selectedType=='TwoMonth'" [(ngModel)]="endDate" (onSelect)="onSelectEndDate(endDate)"
+                  dateFormat="dd.mm.yy" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="2000:2030" appendTo="body">
+              </p-calendar>
+          </li>
+          <li>Все данные за текущий год 
+              <p-radioButton name="groupname" value="CurentYear" [(ngModel)]="selectedType"
+                  (onClick)="onCurrentYear()">
+              </p-radioButton>
+          </li>
+          <li>Все данные в базе 
+              <p-radioButton name="groupname" value="AllData" [(ngModel)]="selectedType"
+                  (onClick)="onAllData()">
+              </p-radioButton>
+          </li>
+      </ul>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content">
+            <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+            <button type="button" pButton icon="fa-check" (click)="display=false; onOkClick()" label="Yes"></button>
+        </div>
+        <!--{{selectedType}} - {{startDate}} - {{endDate}}-->
+        {{startDate}} - {{endDate}}
+    </p-footer>
+</p-dialog>

@@ -1,0 +1,12 @@
+.my-flex-container {
+    margin-top: 40px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /*align-items: center;*/
+    /*min-width: 100px;*/
+}
+.my-flex-block{
+    align-items: center;
+    /*flex-basis:auto;*/
+}
