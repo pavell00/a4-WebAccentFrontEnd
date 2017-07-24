@@ -1,11 +1,9 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {WelcomeComponent} from './components/welcome.component/welcome.component';
-import {RootComponent} from './components/root.component/root.component';
-import { ProfileComponent } from './components/profile.component/profile.component'
-import { HomeComponent } from './components/home.componet/home.component';
-import { CallbackComponent } from './components/callback/callback.component';
+import {WelcomeComponent, RootComponent,
+        ProfileComponent, HomeComponent,
+        CallbackComponent} from './components';
 
 import {AuthGuard} from './auth.guard';
 

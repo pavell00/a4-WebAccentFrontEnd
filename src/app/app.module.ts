@@ -27,7 +27,7 @@ import { TypeSelectorComponent } from './components/type-selector.component/type
 import { HomeComponent } from './components/home.componet/home.component';
 import {InnerComponent} from './components/inner.component/inner.component';
 import { CalendarDlgComponent } from './components/calendar-dlg.component/calendar-dlg.component';
-import {CallbackComponent} from './components/callback/callback.component';
+import {CallbackComponent} from './components/callback.component/callback.component';
 
 import { AppService } from './services/app.service';
 import {Auth} from './services/auth0.service';

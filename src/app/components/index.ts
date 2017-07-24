@@ -40,4 +40,4 @@ export {RootComponent} from './root.component/root.component';
 export {TypeSelectorComponent} from './type-selector.component/type-selector.component';
 export {WelcomeComponent} from './welcome.component/welcome.component';
 export {CalendarDlgComponent} from './calendar-dlg.component/calendar-dlg.component';
-export {CallbackComponent} from './callback/callback.component';
+export {CallbackComponent} from './callback.component/callback.component';
