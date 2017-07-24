@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Entity } from '../../model/entity';
+import { Entity } from '../../model';
 import {AppService} from '../../services/app.service';
 
 //import {} from 'rxjs'

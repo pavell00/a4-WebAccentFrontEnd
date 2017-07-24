@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Folder, BreadCramber } from '../../model/index';
+import { Folder, BreadCramber } from '../../model';
 import { AppService } from '../../services/app.service';
 
 @Component({

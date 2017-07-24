@@ -37,6 +37,7 @@ export {HomeComponent} from './home.componet/home.component';
 export {JournalComponent} from './journal.component/journal.component';
 export {ProfileComponent} from './profile.component/profile.component';
 export {RootComponent} from './root.component/root.component';
+export {InnerComponent} from './inner.component/inner.component';
 export {TypeSelectorComponent} from './type-selector.component/type-selector.component';
 export {WelcomeComponent} from './welcome.component/welcome.component';
 export {CalendarDlgComponent} from './calendar-dlg.component/calendar-dlg.component';

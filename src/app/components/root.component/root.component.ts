@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../services/app.service';
-import {BreadCramber} from '../../model/breadcramber'
+import {BreadCramber} from '../../model';
 
 @Component({
   moduleId: module.id,

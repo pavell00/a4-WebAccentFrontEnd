@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Document } from '../../model/index';
+import { Document } from '../../model';
 import {AppService} from '../../services/app.service';
 import {Subject} from 'rxjs/Subject';
 
