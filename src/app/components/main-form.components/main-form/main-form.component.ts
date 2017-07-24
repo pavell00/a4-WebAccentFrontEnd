@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/primeng';
 import { BinderSelectorComponent } from '../binder-selector/binder-selector.component';
 import { TemplateSelectorComponent } from '../template-selector/template-selector.component';
+import { MainformService } from '../../../services/main-form.service';
 
 @Component({
   selector: 'main-form',
   templateUrl: './main-form.component.html',
-  styleUrls: ['./main-form.component.css']
+  styleUrls: ['./main-form.component.css'],
+  providers: [MainformService]
 })
 export class MainFormComponent implements OnInit {
 

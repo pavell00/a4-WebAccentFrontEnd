@@ -6,7 +6,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
+//primeng
 import { CalendarModule, DataTableModule,
         ToolbarModule, SplitButtonModule, DialogModule,
         InputSwitchModule, DropdownModule, CheckboxModule, 
@@ -26,8 +26,8 @@ import { AgentSelectorComponent, BinderSelectorComponent,
 
 import { AppService } from './services/app.service';
 import { MainformService } from './services/main-form.service';
-import {Auth} from './services/auth0.service';
-import {AuthGuard} from './auth.guard';
+import { Auth } from './services/auth0.service';
+import { AuthGuard } from './auth.guard';
 
 import { Logger } from "angular2-logger/core";
 import { Headers, Http, RequestOptions } from '@angular/http';
