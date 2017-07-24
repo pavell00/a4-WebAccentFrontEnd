@@ -1,0 +1,67 @@
+<div class="binder" (window:keypress)="onInputSearchTermBinder($event)">
+        <p>Подшивка:</p>
+        <input name="searchBinder" type="search" [(ngModel)]="BinderName"
+                #bn (input)="clearSearch(bn.value)"
+                pInputText placeholder='Укажите подшивку' size=17/>
+        <p>Находится в подшивках:</p>
+            <ul>
+                <li *ngFor="let bind of linkBinders" style="display:inline;">{{bind}}; </li>
+            </ul>
+</div>
+
+<p-dialog id="addBinders" header="Результат поиска" [(visible)]="displayDialogAddBinders" modal="true">
+    <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
+        <div class="scrollingtable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Наименование подшивки</th>
+                    </tr>
+                </thead>
+                <tbody (window:keydown)="keydown($event)">
+                    <tr class="items2" *ngFor="let binder of binders; let i=index, let last=last" 
+                            (click)="onSelect(binder, i)"
+                            [class.selected]="binder === selectedBinder">
+                        <td>{{binder.bind_id}}</td>
+                        <td>{{binder.bind_name}}</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="onClickNo()" label="No"></button>
+            <button type="button" pButton icon="fa-check" label="Yes" (click)="onClickOk()">
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<p-dialog id="delBinders" header="Результат поиска" [(visible)]="displayDialogDelBinders" modal="true">
+    <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
+        <div class="scrollingtable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Х</th><th>№п/п</th><th>Наименование подшивки</th>
+                    </tr>
+                </thead>
+                <tbody (window:keydown)="keydown($event)">
+                    <tr class="items2" *ngFor="let binder of linkBinders; let i=index, let last=last">
+                        <td><button type="button" pButton (click)="removeBinder(i)"
+                            class="ui-button-danger" icon="fa-trash"></button></td>
+                        <td>{{i+1}}</td>
+                        <td>{{binder}}</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" label="Close" (click)="onClickCloseDelBinders()">
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>

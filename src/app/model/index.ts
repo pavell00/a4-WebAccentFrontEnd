@@ -3,3 +3,7 @@ export * from './Document';
 export * from './Journal';
 export * from './entity';
 export * from './Breadcramber';
+export * from './agent';
+export * from './binder';
+export * from './priceLists';
+export * from './template';

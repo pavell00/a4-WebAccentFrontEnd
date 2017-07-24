@@ -1,0 +1,21 @@
+.items {
+    list-style-type: none;
+    padding: 0em;
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    text-align: left;
+    white-space: nowrap;
+}
+.items li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+}
+.items li:hover {
+    background-color: #DDD;
+}
+.items li.selected {
+    background-color: #56C8FF;
+}

@@ -1,0 +1,8 @@
+<span>Прайс-лист</span>
+<p-dropdown [options]="pricelists" [(ngModel)]="selectedPriceList"
+      (onChange)="onChangePriceLists()" [style]="{'width': '100%;'}">
+</p-dropdown>
+<span>Цена</span>
+<p-dropdown [options]="prices" [(ngModel)]="selectedPrice"
+      [style]="{'width': '100%;'}">
+</p-dropdown>

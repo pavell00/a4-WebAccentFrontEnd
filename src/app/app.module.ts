@@ -3,27 +3,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
-import {routing, appRoutingProviders} from './app.routing';
+import { routing, appRoutingProviders } from './app.routing';
 
-//import { AppData } from './data/app.data';
-//import {AUTH_PROVIDERS} from 'angular2-jwt';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
-import { CalendarModule, DataTableModule, AutoCompleteModule,
+import { CalendarModule, DataTableModule,
         ToolbarModule, SplitButtonModule, DialogModule,
         InputSwitchModule, DropdownModule, CheckboxModule, 
-        RadioButtonModule } from 'primeng/primeng';
-
+        RadioButtonModule, MenubarModule } from 'primeng/primeng';
+//interface main window
 import { WelcomeComponent, RootComponent, FolderComponent,
         DocumentComponent, JournalComponent, EditDialogComponent,
         BreadCramberComponent, ProfileComponent, TypeSelectorComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
         CallbackComponent} from './components';
+//interface main form
+import { AgentSelectorComponent, BinderSelectorComponent,
+        DocNoDateComponent, MainFormComponent,
+        PriceListComponent, SearchEntityComponent,
+        TableEntityComponent, TemplateSelectorComponent
+        } from './components/main-form.components/';
 
 import { AppService } from './services/app.service';
+import { MainformService } from './services/main-form.service';
 import {Auth} from './services/auth0.service';
 import {AuthGuard} from './auth.guard';
 
+import { Logger } from "angular2-logger/core";
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -36,7 +42,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   imports:      [ BrowserModule, routing,
                   BrowserAnimationsModule,
                   HttpModule, FormsModule, JsonpModule,
-                  CalendarModule, DataTableModule, AutoCompleteModule,
+                  CalendarModule, DataTableModule, MenubarModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule],
   declarations: [ 
@@ -45,10 +51,15 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   EditDialogComponent, BreadCramberComponent, WelcomeComponent,
                   ProfileComponent,
                   HomeComponent, CallbackComponent,
-                  TypeSelectorComponent, InnerComponent, CalendarDlgComponent
+                  TypeSelectorComponent, InnerComponent, CalendarDlgComponent,
+                  //main-form
+                  AgentSelectorComponent, BinderSelectorComponent,
+                  DocNoDateComponent, MainFormComponent,
+                  PriceListComponent, SearchEntityComponent,
+                  TableEntityComponent, TemplateSelectorComponent
                 ],
   providers:    [ AppService, appRoutingProviders,
-                  Auth, AuthGuard,
+                  Auth, AuthGuard, Logger,
                   {
                     provide: AuthHttp,
                     useFactory: authHttpServiceFactory,

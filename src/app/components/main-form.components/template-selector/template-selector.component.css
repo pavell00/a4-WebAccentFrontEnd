@@ -1,0 +1,26 @@
+tr.items2 {
+    padding: 0em;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    text-align: left;
+    white-space: nowrap;
+}
+tr.items2:hover {
+    background-color: #DDD;
+}
+tr.items2 {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+}
+tr.items2.selected {
+    background-color: #56C8FF;
+}
+.scrollingtable {
+    overflow: auto; /*scroll*/
+    height: 15em;
+}
+.scrollingtable * {
+    box-sizing: border-box;
+}

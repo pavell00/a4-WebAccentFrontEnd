@@ -27,7 +27,7 @@ export const groupedComponent = [
     ];
 export const startComponent = WelcomeComponent;*/
 
-export {AutoComplitEntityComponent} from './autocomplit.entity.component/autocomplit.entity.component';
+//export {AutoComplitEntityComponent} from './autocomplit.entity.component/autocomplit.entity.component';
 export {BreadCramberComponent} from './breadcramber.component/breadcramber.component';
 export {CalendarComponent} from './calendar.component/calendar.component';
 export {DocumentComponent} from './document.component/document.component';

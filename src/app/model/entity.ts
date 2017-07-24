@@ -1,9 +1,6 @@
-export class Entity {
-    entId: number;
-    name: string;
+export class Entities {
 
-    constructor(entId: number, name: string){
-        this.entId = entId;
-        this.name = name;
-    }
+    constructor(public ent_id?: number, 
+                public ent_nom?: string, 
+                public ent_name?: string) {}
 }

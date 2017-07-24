@@ -1,0 +1,49 @@
+<div class="ui-g" (window:keypress)="onInputSearchTermAgent($event)">
+    <div class="ui-g-2">
+        <p>Корреспондент Кому:</p>
+    </div>
+    <div class="ui-g-3">
+      <input name="searchAgentTo" type="search" [(ngModel)]="AgToName" 
+            #at (input)="clearSearch(at.value, 'searchAgentTo')"
+            pInputText placeholder='Укажите корреспондента Кому' size=35/>
+    </div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-2">
+        <p>Корреспондент Кто:</p>
+    </div>
+    <div class="ui-g-3">
+        <input name="searchAgentFrom" type="search" [(ngModel)]="AgFromName" 
+            #af (input)="clearSearch(af.value, 'searchAgentFrom')"
+            pInputText placeholder='Укажите корреспондента Кто' size=35/>
+    </div>
+</div>
+<p-dialog header="Результат поиска" [(visible)]="displayDialog" modal="true">
+    <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
+        <div class="scrollingtable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>№ ИНН</th><th>Наименование корреспондента</th>
+                    </tr>
+                </thead>
+                <tbody (window:keydown)="keydown($event)">
+                    <tr class="items2" *ngFor="let agent of agents; let i=index, let last=last" 
+                            (click)="onSelect(agent, i)"
+                            [class.selected]="agent === selectedAgent">
+                        <td>{{agent.ag_id}}</td>
+                        <td>{{agent.ag_vatno}}</td>
+                        <td>{{agent.ag_name}}</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="onClickNo()" label="No"></button>
+            <button type="button" pButton icon="fa-check" label="Yes" (click)="onClickOk()">
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>

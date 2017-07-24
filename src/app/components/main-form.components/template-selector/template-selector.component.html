@@ -1,0 +1,27 @@
+<p-dialog id="selectTemplates" header="Результат поиска" [(visible)]="displayDialog" modal="true">
+    <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
+        <div class="scrollingtable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№п/п</th><th>Наименование шаблона</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="items2" *ngFor="let template of linkTemplates; let i=index, let last=last"
+                          (click)="onSelect(template, i)"
+                          [class.selected]="template === selectedTemplate">
+                      <td>{{i+1}}</td>
+                      <td>{{template.tml_name}}</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" label="Close" (click)="onCloseSelectTml()">
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>
