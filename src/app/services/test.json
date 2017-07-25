@@ -1,0 +1,14 @@
+[
+    {"prl_id":1,
+    "prl_name":"01. Оптовый",
+    "prices":[{"prc_id":2,"prc_name":"Список 2"},
+                {"prc_id":3,"prc_name":"Список 3"},
+                {"prc_id":8,"prc_name":"Список 5"},
+                {"prc_id":9,"prc_name":"Список 6"}]
+    },
+    {"prl_id":3,
+    "prl_name":"Производственный",
+    "prices":[{"prc_id":5,"prc_name":"Цена с НДС"},
+              {"prc_id":4,"prc_name":"Цена без НДС"}]
+    }
+]

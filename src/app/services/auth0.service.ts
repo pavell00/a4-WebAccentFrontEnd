@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import * as auth0 from 'auth0-js';
+import Auth0Lock from 'auth0-lock';
 
 @Injectable()
 export class Auth {
@@ -12,33 +12,37 @@ export class Auth {
   userProfile: any;
   requestedScopes: string = 'openid profile read:messages write:messages';
 
-  auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain,
-    responseType: 'token id_token',
-    audience: AUTH_CONFIG.apiUrl,
-    redirectUri: AUTH_CONFIG.callbackURL,
-    scope: this.requestedScopes
+  lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
+    oidcConformant: true,
+    autoclose: true,
+    auth: {
+      redirectUrl: AUTH_CONFIG.callbackURL,
+      responseType: 'token id_token',
+      audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+      params: {
+        scope: this.requestedScopes
+      }
+    }
   });
 
   constructor(public router: Router) {  }
 
   public login(){
-    this.auth0.authorize();
+    this.lock.show();
   }
 
   public handleAuthentication(): void {
-    this.auth0.parseHash((err, authResult) => {
+    this.lock.on('authenticated', (authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/home']);
-      } else if (err) {
-        this.router.navigate(['/home']);
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
+    this.lock.on('authorization_error', (err) => {
+      this.router.navigate(['/home']);
+      console.log(err);
+      alert(`Error: ${err.error}. Check the console for further details.`);
+    });    
   }
 
   public getProfile(cb): void {
@@ -48,7 +52,7 @@ export class Auth {
     }
 
     const self = this;
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
+    this.lock.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         self.userProfile = profile;
       }
@@ -87,10 +91,5 @@ export class Auth {
     localStorage.removeItem('scopes');
     // Go back to the home route
     this.router.navigate(['/']);
-  }
-
-  public userHasScopes(scopes: Array<string>): boolean {
-    const grantedScopes = JSON.parse(localStorage.getItem('scopes')).split(' ');
-    return scopes.every(scope => grantedScopes.includes(scope));
   }
 }

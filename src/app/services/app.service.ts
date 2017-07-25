@@ -12,7 +12,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 //import {} from 'rxjs';
 
-import {Folder, Document, Journal, Entity, BreadCramber} from '../model/index'
+import {Folder, Document, Journal, Entities, BreadCramber} from '../model'
 
 @Injectable()
 export class AppService {
@@ -20,7 +20,7 @@ export class AppService {
   private docs = new Subject<Document[]>();
   private folders = new Subject<Folder[]>();
   private journals = new Subject<Journal[]>();
-  private entities = new Subject<Entity[]>();
+  private entities = new Subject<Entities[]>();
   //private calendar = new BehaviorSubject('23.03.2017');
   private calendarStartDt = new BehaviorSubject(new Date().toLocaleDateString());
   private calendarEndDt = new BehaviorSubject(new Date().toLocaleDateString()); //'23.03.2017'
@@ -238,11 +238,11 @@ export class AppService {
     params.set('name', term);
     let a = this.http
         .get(this.entitiesUrl, { search: params })
-        .map(response => <Entity[]> response.json())
+        .map(response => <Entities[]> response.json())
             a.subscribe(
                 (val) => {//this.entities.next(val);//without filtering
                     this.entities.next(
-                        val.filter(val => val.name == term) //with filtering
+                        val.filter(val => val.ent_name == term) //with filtering
                     );
                 },
                 (err) => (this.handleError)

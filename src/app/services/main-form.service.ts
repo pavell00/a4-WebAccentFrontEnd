@@ -15,11 +15,14 @@ import {Templates} from '../model/template';
 @Injectable()
 export class MainformService {
 
-    searchUrlEntity: string = 'http://localhost:3004/entities';
-    searchUrlAgent: string = 'http://localhost:3004/agents';
-    gethUrlPriceLists: string = 'http://localhost:3004/pricelists';
-    searchUrlBinder: string = 'http://localhost:3004/binders';
-    searchUrlTemplate: string = 'http://localhost:3004/templates';
+    private IpHost = '172.16.9.2';  //
+    private portHost = '8080';      //3004
+
+    private searchUrlEntity = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_entities';
+    private searchUrlAgent: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_agents';
+    private gethUrlPriceLists: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_pricelists';
+    private searchUrlBinder: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_binders';
+    private searchUrlTemplate: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_templates';
 
     constructor(private http: Http) { }
     
