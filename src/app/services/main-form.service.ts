@@ -45,9 +45,23 @@ export class MainformService {
     }
 
     getPriceLists (): Observable<PriceLists[]> {
+        /* localStorage.removeItem('price_lists');
+        const prl_data = localStorage.getItem('price_lists');
+        if (prl_data == null) {
+            let a = this.http
+                .get(this.gethUrlPriceLists)
+                .map(response => response.json())
+                .subscribe(
+                    (v) => {localStorage.setItem('price_lists', JSON.stringify(v))}
+                )
+        } */
+        //console.log(localStorage.getItem('price_lists'));
+        //let b = localStorage.getItem('price_lists');
         return this.http
-              .get(this.gethUrlPriceLists)
-              .map(response => response.json())
+            .get(this.gethUrlPriceLists)
+            //.get('src/app/services/test.json')
+            .map(response => response.json())
+        
     }
 
     searchBinder (term: string, nameField: string): Observable<Binders[]> {
