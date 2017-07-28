@@ -19,3 +19,7 @@
 .items li.selected {
     background-color: #56C8FF;
 }
+.dropdownLine {
+    display: flex;
+}
+

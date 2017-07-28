@@ -1,8 +1,5 @@
-<h3>
-  {{title}}
-</h3>
-<div (window:keypress)="dialog.onOpenDlg($event, val.value, selectedType)">
-    <p-dropdown [options]="types" [(ngModel)]="selectedType"></p-dropdown>
+<div (window:keypress)="dialog.onOpenDlg($event, val.value, selectedType)" class="dropdownLine">
+    <p-dropdown [options]="types" [(ngModel)]="selectedType" [style]="{'width':'130px'}"></p-dropdown>
     <input type="text" name="searchEntity" #val pInputText (value)="myValue" myAutofocus
         maxlength=15/>
 </div>

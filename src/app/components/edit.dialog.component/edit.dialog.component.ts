@@ -6,7 +6,8 @@ import {AppService} from '../../services/app.service';
 @Component({
     moduleId: module.id,
     selector: 'editDialog',
-    templateUrl: 'edit.dialog.component.html'
+    templateUrl: 'edit.dialog.component.html',
+      styleUrls: ['edit.dialog.component.css']
 })
 export class EditDialogComponent implements OnInit {
 

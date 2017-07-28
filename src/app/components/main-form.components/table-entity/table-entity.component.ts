@@ -9,7 +9,6 @@ import { SelectItem } from 'primeng/primeng';
 })
 export class TableEntityComponent implements OnInit{
 
-  title = 'DataTable component in table mode with drop-down selector';
   entities: Entities[]=[];
   selectedType: string;
   types: SelectItem[];
@@ -18,7 +17,7 @@ export class TableEntityComponent implements OnInit{
 
   constructor() {
     this.types = [];
-    this.types.push({label:'Имя ОУ', value:'ent_name'});
+    this.types.push({label:'Название ОУ', value:'ent_name'});
     this.types.push({label:'Nom №', value:'ent_nom'});
     this.types.push({label:'ID', value:'ent_id'});
     this.selectedType = this.types[0].value;

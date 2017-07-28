@@ -31,8 +31,8 @@ export class MainformService {
         let params = new URLSearchParams();
         params.set(nameField+'_like', term);
         return this.http
-              .get(this.searchUrlEntity, { search: params })
-              .map(response => response.json())
+            .get(this.searchUrlEntity, { search: params })
+            .map(response => response.json())
     }
 
     searchAgent (term: string, nameField: string): Observable<Agents[]> {
@@ -40,37 +40,22 @@ export class MainformService {
         let params = new URLSearchParams();
         params.set(nameField+'_like', term);
         return this.http
-              .get(this.searchUrlAgent, { search: params })
-              .map(response => response.json())
+            .get(this.searchUrlAgent, { search: params })
+            .map(response => response.json())
     }
 
     getPriceLists (): Observable<PriceLists[]> {
-        /* localStorage.removeItem('price_lists');
-        const prl_data = localStorage.getItem('price_lists');
-        if (prl_data == null) {
-            let a = this.http
-                .get(this.gethUrlPriceLists)
-                .map(response => response.json())
-                .subscribe(
-                    (v) => {localStorage.setItem('price_lists', JSON.stringify(v))}
-                )
-        } */
-        //console.log(localStorage.getItem('price_lists'));
-        //let b = localStorage.getItem('price_lists');
         return this.http
             .get(this.gethUrlPriceLists)
-            //.get('src/app/services/test.json')
             .map(response => response.json())
-        
     }
 
-    searchBinder (term: string, nameField: string): Observable<Binders[]> {
-        //console.log('searchAgent', term, nameField);
+    searchBinder (term: string): Observable<Binders[]> {
         let params = new URLSearchParams();
-        params.set(nameField+'_like', term);
+        params.set('bindername', term);
         return this.http
-                .get(this.searchUrlBinder, { search: params })
-                .map(response => response.json())
+            .get(this.searchUrlBinder, { search: params })
+            .map(response => response.json())
     }
 
     searchTemplate (term: string, nameField: string): Observable<Templates[]> {
@@ -78,7 +63,7 @@ export class MainformService {
         let params = new URLSearchParams();
         params.set(nameField, term);
         return this.http
-                .get(this.searchUrlTemplate, { search: params })
-                .map(response => response.json())
+            .get(this.searchUrlTemplate, { search: params })
+            .map(response => response.json())
     }
 }

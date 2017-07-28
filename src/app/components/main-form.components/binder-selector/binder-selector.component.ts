@@ -35,20 +35,20 @@ export class BinderSelectorComponent implements OnInit {
         //this._logger.info(e.target.name, this.AgToName);
         this.currentTrgBindName = e.target.name;
         if(this.BinderName !== undefined && this.BinderName !== '' && this.BinderName.length >= 2){
-          this.searchBinder(this.BinderName, 'bind_name');
+          this.searchBinder(this.BinderName);
           this.displayDialogAddBinders = true;
         }
       }
     }
   }
 
-  addBinders(){
-    this.searchBinder('', 'bind_name');
+  addBinders() {
+    this.searchBinder('');
     this.displayDialogAddBinders = true;
   }
 
-  searchBinder(term :string, nameField:string) {
-    this.mformService.searchBinder(term, nameField).subscribe(
+  searchBinder(term :string) {
+    this.mformService.searchBinder(term).subscribe(
         (v) => {this.binders = v;
                 this.selectedBinder = this.binders[0];
                 this.result_length = this.binders.length;},
@@ -57,26 +57,26 @@ export class BinderSelectorComponent implements OnInit {
     )
   }
 
-  onSelect(a: Binders, i: number){
+  onSelect(a: Binders, i: number) {
     this.selectedBinder = a;
     this.index = i;
   }
 
-  onClickOk(){
+  onClickOk() {
   //  if (this.currentTrgBindName === 'searchBinder'){
-      this.linkBinders.push(this.selectedBinder.bind_name);//refactor to add object Binders type
+      this.linkBinders.push(this.selectedBinder.bindName);//refactor to add object Binders type
       this.BinderName = '';
    // }
     this.displayDialogAddBinders = false
     console.log(JSON.stringify(this.linkBinders));
   }
 
-  onClickNo(){
+  onClickNo() {
     this.index = 0;
     this.displayDialogAddBinders = false
   }
 
-  clearSearch(e: string, a: string){
+  clearSearch(e: string, a: string) {
      if (e === ''){
       this._logger.info(a);
       if (a === 'searchBinder') {
@@ -86,7 +86,7 @@ export class BinderSelectorComponent implements OnInit {
     } //this._logger.info('handler search!') 
   }
 
-  keydown(e: any){
+  keydown(e: any) {
   /*    //console.log(e.key)
       switch (e.key) {
         case 'ArrowUp':
@@ -118,15 +118,15 @@ export class BinderSelectorComponent implements OnInit {
       }*/
   }
 
-  onClickCloseDelBinders(){
+  onClickCloseDelBinders() {
     this.displayDialogDelBinders = false;
   }
 
-  ShowDialogDelBinder(){
+  ShowDialogDelBinder() {
     this.displayDialogDelBinders = true;
   }
 
-  removeBinder(ri: number){
+  removeBinder(ri: number) {
     this.linkBinders = this.linkBinders.filter((val, i) => i!=ri);
   }
 }
