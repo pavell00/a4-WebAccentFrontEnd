@@ -9,13 +9,11 @@ import { Logger } from "angular2-logger/core";
   styleUrls: ['./binder-selector.component.css']
 })
 export class BinderSelectorComponent implements OnInit {
-
   private displayDialogAddBinders: boolean;
   private displayDialogDelBinders: boolean;
   private linkBinders: string[] =
       ['Расчеты за материалы', 'Бутков', 'Напханюк В.Н.'];//refactor to add object Binders type
   private BinderName: string;
-  
   private binders: Binders[] = [];
   private currentTrgBindName: string;
   private selectedBinder: Binders;
@@ -64,7 +62,7 @@ export class BinderSelectorComponent implements OnInit {
 
   onClickOk() {
   //  if (this.currentTrgBindName === 'searchBinder'){
-      this.linkBinders.push(this.selectedBinder.bindName);//refactor to add object Binders type
+      this.linkBinders.push(this.selectedBinder.bind_name);//refactor to add object Binders type
       this.BinderName = '';
    // }
     this.displayDialogAddBinders = false

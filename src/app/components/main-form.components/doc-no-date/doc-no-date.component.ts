@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MainformService } from '../../../services/main-form.service';
 
 @Component({
   selector: 'doc-no-date',
@@ -7,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocNoDateComponent implements OnInit {
 
-  private docNo: string = 'б/н';
-  private docName: string = 'накладная №';
-  private docDate: string;
+  @Input('docNoIn') docNo: string;
+  @Input('docNameIn') docName: string;
+  @Input('docDateIn') docDate: string;
 
-  constructor() { }
+  constructor(private mfService: MainformService) { }
 
   ngOnInit() {
     let d = new Date();
@@ -26,9 +27,17 @@ export class DocNoDateComponent implements OnInit {
     if (d.getMinutes() < 10) MinutesNo = '0'+d.getMinutes().toString()+':00';
     s = d.getFullYear().toString();
     s = s +'-'+MontNo+'-'+DayNo+'T'+HoursNo+':'+MinutesNo;
-    //console.log(s);
     this.docDate = s;
 
+    /*     this.mfService.getOperation().subscribe(
+      (v) => {this.docNo = v.doc_no;
+              this.docName = v.doc_name;
+            console.log(v.doc_no, v.doc_name)}
+    ) */
+  }
+
+  setDn(e: any){
+    console.log(e);
   }
 
 }

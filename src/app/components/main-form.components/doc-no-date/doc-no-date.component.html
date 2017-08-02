@@ -1,7 +1,7 @@
 <div class="head">
-      <h2 style="margin:0em">{{docName}}</h2>
-      <input name="docNo" type="text" [(ngModel)]="docNo" 
-            pInputText placeholder='Номер документа' size=15/>
-      <input name="docNo" type="datetime-local" pInputText [(ngModel)]="docDate"/>
+      <h4 style="margin:0em">{{docName}} № </h4>
+      <input name="docNo" type="text" [(ngModel)]="docNo"
+            pInputText placeholder='Номер документа' size=15/> от 
+      <input name="docDate" type="datetime-local" pInputText [(ngModel)]="docDate"/>
       <price-list #prl></price-list>
 </div>

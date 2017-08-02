@@ -58,7 +58,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   PriceListComponent, SearchEntityComponent,
                   TableEntityComponent, TemplateSelectorComponent
                 ],
-  providers:    [ AppService, appRoutingProviders,
+  providers:    [ AppService, MainformService, appRoutingProviders,
                   Auth, AuthGuard, Logger,
                   {
                     provide: AuthHttp,

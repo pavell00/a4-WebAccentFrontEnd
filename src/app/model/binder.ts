@@ -1,5 +1,5 @@
 export class Binders {
 
-    constructor(public id?: number, 
-                public bindName?: string) {}
+    constructor(public bind_id?: number, 
+                public bind_name?: string) {}
 }
