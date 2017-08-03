@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, Output, 
+import { Component, OnInit, ViewChild,
         OnChanges, SimpleChanges, EventEmitter,
         Input } from '@angular/core';
 import { MenuItem } from 'primeng/primeng';
 import { BinderSelectorComponent } from '../binder-selector/binder-selector.component';
 import { TemplateSelectorComponent } from '../template-selector/template-selector.component';
 import { MainformService } from '../../../services/main-form.service';
-import { Operation } from '../../../model';
+import { Operation, Binders } from '../../../model';
 
 @Component({
   selector: 'main-form',
@@ -16,40 +16,39 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     @ViewChild(BinderSelectorComponent) private bsc: BinderSelectorComponent;
     @ViewChild(TemplateSelectorComponent) private tsc: TemplateSelectorComponent;
-    //@Output() getOpEvent: EventEmitter<string> = new EventEmitter();
     @Input() curentdoc: Document;
 
     private operation: Operation[] = []; // не работет без фиктивного массива ???
     private items: MenuItem[];
     private currentTemlateID: number = 1;
     private linkTemplatesID: number[] = [1, 2, 3, 4];
-    changeLog: any[]=[];
     private outDocNo: string;
     private outDocName: string;
     private outDocDate: string;
+    private outBinders: Binders[] = [];
 
     constructor(private mfService: MainformService) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        /*for (let propName in changes) {
-            let chng = changes[propName];
-            let cur  = JSON.stringify(chng.currentValue);
-            let prev = JSON.stringify(chng.previousValue);
-            this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-        }*/
-        //console.log(changes["curentdoc"].currentValue);
          if (changes["curentdoc"].currentValue != undefined) {
+            this.outBinders.length = 0; //clear array
             let obj = changes["curentdoc"].currentValue;
             this.mfService.searchOperation(obj.id).subscribe(
                 (v) => {this.operation = v;
                         this.outDocNo = this.operation[0].doc_no;
                         this.outDocName = this.operation[0].doc_name;
                         this.outDocDate = this.operation[0].doc_date;
-                        //console.log(this.operation[0].doc_no)
+                        //console.log(this.operation[0].binders);
+                        let o = this.operation[0].binders;
+                        for (var key in o) {
+                            if (o.hasOwnProperty(key)) {
+                                var element = o[key];
+                                this.outBinders.push(element);
+                            }
                         }
+                    }
             )
         }
-
     }
 
     ngOnInit() {

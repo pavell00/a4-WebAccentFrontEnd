@@ -1,6 +1,6 @@
 import {Binders, Templates, Transactions} from './'
 
-export class Operation {
+export interface Operation {
     doc_id?: number;
     doc_name?: string;
     doc_date?: string;
@@ -23,18 +23,11 @@ export class Operation {
     doc_pl1?: number;
     doc_pl2?: number;
     doc_pl3?: number;
+    binders?: { [key: string]: Binders; };
+    templates?: { [key: string]: Templates; };
+    transList?: { [key: string]: Transactions; }
 
-    doc_bindLinks?: {
-        [key: string]: Binders[];
-    };
-    doc_templates?: {
-        [key: string]: Templates;
-    };
-    doc_transList?: {
-        [key: string]: Transactions[];
-    }
-
-    constructor(doc_id?: number,
+    /*constructor(doc_id?: number,
                 doc_name?: string,
                 doc_date?: string,
                 doc_no?: string,
@@ -55,8 +48,8 @@ export class Operation {
                 doc_pd3? :string,
                 doc_pl1?: number,
                 doc_pl2?: number,
-                doc_pl3?: number){
-                this.doc_id = doc_id,
+                doc_pl3?: number)  {
+                 this.doc_id = doc_id,
                 this.doc_name=doc_name,
                 this.doc_date=doc_date,
                 this.doc_no=doc_no,
@@ -77,6 +70,6 @@ export class Operation {
                 this.doc_pd3=doc_pd3,
                 this.doc_pl1=doc_pl1,
                 this.doc_pl2=doc_pl2,
-                this.doc_pl3=doc_pl3
-    }
+                this.doc_pl3=doc_pl3 
+    } */
 }

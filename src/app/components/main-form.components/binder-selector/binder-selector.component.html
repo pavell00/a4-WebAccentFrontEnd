@@ -5,11 +5,11 @@
                 pInputText placeholder='Укажите подшивку' size=17/>
         <p>Находится в подшивках:</p>
             <ul>
-                <li *ngFor="let bind of linkBinders" style="display:inline;">{{bind}}; </li>
+                <li *ngFor="let binder of linkBinders" style="display:inline;">{{binder.bind_name}}; </li>
             </ul>
 </div>
 
-<p-dialog id="addBinders" header="Результат поиска" [(visible)]="displayDialogAddBinders" modal="true">
+<p-dialog id="addBinders" header="Результат поиска" [(visible)]="displayDialogAddBinders">
     <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
         <div class="scrollingtable">
             <table>
@@ -38,7 +38,7 @@
     </p-footer>
 </p-dialog>
 
-<p-dialog id="delBinders" header="Результат поиска" [(visible)]="displayDialogDelBinders" modal="true">
+<p-dialog id="delBinders" header="Результат поиска" [(visible)]="displayDialogDelBinders">
     <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
         <div class="scrollingtable">
             <table>
@@ -52,7 +52,7 @@
                         <td><button type="button" pButton (click)="removeBinder(i)"
                             class="ui-button-danger" icon="fa-trash"></button></td>
                         <td>{{i+1}}</td>
-                        <td>{{binder}}</td>
+                        <td>{{binder.bind_name}}</td>
                     </tr>
                 </tbody>
             </table>            

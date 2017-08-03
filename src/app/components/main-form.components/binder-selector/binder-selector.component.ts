@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Binders } from '../../../model';
 import { MainformService } from '../../../services/main-form.service';
 import { Logger } from "angular2-logger/core";
@@ -9,10 +9,13 @@ import { Logger } from "angular2-logger/core";
   styleUrls: ['./binder-selector.component.css']
 })
 export class BinderSelectorComponent implements OnInit {
+
+  @Input('docBindsIn') linkBinders: Binders[];
   private displayDialogAddBinders: boolean;
   private displayDialogDelBinders: boolean;
-  private linkBinders: string[] =
+  /* private linkBinders: string[] =
       ['Расчеты за материалы', 'Бутков', 'Напханюк В.Н.'];//refactor to add object Binders type
+     */
   private BinderName: string;
   private binders: Binders[] = [];
   private currentTrgBindName: string;
@@ -62,11 +65,11 @@ export class BinderSelectorComponent implements OnInit {
 
   onClickOk() {
   //  if (this.currentTrgBindName === 'searchBinder'){
-      this.linkBinders.push(this.selectedBinder.bind_name);//refactor to add object Binders type
+      this.linkBinders.push(this.selectedBinder);//refactor to add object Binders type
       this.BinderName = '';
    // }
     this.displayDialogAddBinders = false
-    console.log(JSON.stringify(this.linkBinders));
+    //console.log(JSON.stringify(this.linkBinders));
   }
 
   onClickNo() {
