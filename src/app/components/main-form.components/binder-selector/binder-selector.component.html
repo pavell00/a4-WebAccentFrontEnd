@@ -5,28 +5,27 @@
                 pInputText placeholder='Укажите подшивку' size=17/>
         <p>Находится в подшивках:</p>
             <ul>
-                <li *ngFor="let binder of linkBinders" style="display:inline;">{{binder.bind_name}}; </li>
+                <li *ngFor="let binder of linkBinders" style="display:inline;">{{binder.bindName}}; </li>
             </ul>
 </div>
 
-<p-dialog id="addBinders" header="Результат поиска" [(visible)]="displayDialogAddBinders">
+ <p-dialog id="addBinders" header="Результат поиска подшивки" [(visible)]="displayDialogAddBinders">
     <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
         <div class="scrollingtable">
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th><th>Наименование подшивки</th>
+                        <th>Наименование подшивки</th>
                     </tr>
                 </thead>
                 <tbody (window:keydown)="keydown($event)">
                     <tr class="items2" *ngFor="let binder of binders; let i=index, let last=last" 
                             (click)="onSelect(binder, i)"
                             [class.selected]="binder === selectedBinder">
-                        <td>{{binder.bind_id}}</td>
-                        <td>{{binder.bind_name}}</td>
+                        <td>{{binder.bindName}}</td>
                     </tr>
                 </tbody>
-            </table>            
+            </table>           
         </div>
     </div>
     <p-footer>
@@ -38,7 +37,7 @@
     </p-footer>
 </p-dialog>
 
-<p-dialog id="delBinders" header="Результат поиска" [(visible)]="displayDialogDelBinders">
+<p-dialog id="delBinders" header="Результат поиска подшивки" [(visible)]="displayDialogDelBinders">
     <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
         <div class="scrollingtable">
             <table>
@@ -52,7 +51,7 @@
                         <td><button type="button" pButton (click)="removeBinder(i)"
                             class="ui-button-danger" icon="fa-trash"></button></td>
                         <td>{{i+1}}</td>
-                        <td>{{binder.bind_name}}</td>
+                        <td>{{binder.bindName}}</td>
                     </tr>
                 </tbody>
             </table>            
@@ -64,4 +63,12 @@
             </button>
         </div>
     </p-footer>
-</p-dialog>
+</p-dialog> 
+
+<!-- <popup  #popup1 (confirmClick)="ConfirmEvent()" (cancelClick)="CancelEvent()">
+    <div class="scrollingtable">
+        <ul>
+            <li *ngFor="let bind of binders; let i=index">{{bind.bindName}}</li>
+        </ul>
+    </div>
+</popup> -->

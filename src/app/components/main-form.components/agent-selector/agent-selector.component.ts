@@ -48,7 +48,7 @@ export class AgentSelectorComponent implements OnInit {
         //this._logger.info(e.target.name, this.AgToName);
         this.currentTrgAgName = e.target.name;
         if(this.AgToName !== undefined && this.AgToName !== '' && this.AgToName.length >= 2){
-          this.searchAgent(this.AgToName, 'ag_name');
+          this.searchAgent(this.AgToName);
           this.displayDialog = true;
         }
       }
@@ -57,15 +57,15 @@ export class AgentSelectorComponent implements OnInit {
         this.currentTrgAgName = e.target.name;
         //this._logger.info(e.target.name, this.AgFromName);
         if(this.AgFromName !== undefined && this.AgFromName !== '' && this.AgFromName.length >= 2){
-          this.searchAgent(this.AgFromName, 'ag_name');
+          this.searchAgent(this.AgFromName);
           this.displayDialog = true;
         }
       }
     }
   }
 
-  searchAgent(term :string, nameField:string) {
-    this.mformService.searchAgent(term, nameField).subscribe(
+  searchAgent(term :string) {
+    this.mformService.searchAgent(term).subscribe(
         (v) => {this.agents = v;
                 this.selectedAgent = this.agents[0];
                 this.result_length = this.agents.length;},

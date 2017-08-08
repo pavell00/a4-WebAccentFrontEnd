@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Binders } from '../../../model';
 import { MainformService } from '../../../services/main-form.service';
 import { Logger } from "angular2-logger/core";
@@ -52,7 +52,7 @@ export class BinderSelectorComponent implements OnInit {
     this.mformService.searchBinder(term).subscribe(
         (v) => {this.binders = v;
                 this.selectedBinder = this.binders[0];
-                this.result_length = this.binders.length;},
+                this.result_length = this.binders.length; console.log(this.result_length)},
         (error) => (console.log(error)),
         () => true
     )

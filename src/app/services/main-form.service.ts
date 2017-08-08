@@ -36,10 +36,10 @@ export class MainformService {
             .map(response => response.json())
     }
 
-    searchAgent (term: string, nameField: string): Observable<Agents[]> {
+    searchAgent (term: string): Observable<Agents[]> {
         //console.log('searchAgent', term, nameField);
         let params = new URLSearchParams();
-        params.set(nameField+'_like', term);
+        params.set('agentname', term);
         return this.http
             .get(this.searchUrlAgent, { search: params })
             .map(response => response.json())

@@ -26,7 +26,9 @@
         </div>
     </p-footer>
 </p-dialog> -->
-<p-dialog header="Document Details" [(visible)]="displayDialog" [contentStyle]="{'height':'600px'}"
-    [responsive]="true" showEffect="fade" [modal]="true" [height]="550" [width]="1100">
-        <main-form [curentdoc]="document"></main-form>
-</p-dialog>
+<div class="documentDlg">
+    <p-dialog header="Document Details" [(visible)]="displayDialog" [contentStyle]="{'height':'600px'}"
+        [responsive]="true" showEffect="fade" [modal]="true" [height]="550" [width]="1100">
+            <div class="operationDlg"><main-form [curentdoc]="document"></main-form></div>
+    </p-dialog>
+</div>
