@@ -25,7 +25,7 @@ export interface Operation {
     doc_pl3?: number;
     binders?: { [key: string]: Binders; };
     templates?: { [key: string]: Templates; };
-    transList?: { [key: string]: Transactions; }
+    transactions?: { [key: string]: Transactions; }
 
     /*constructor(doc_id?: number,
                 doc_name?: string,

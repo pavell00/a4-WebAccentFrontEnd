@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Agents } from '../../../model';
 import { MainformService } from '../../../services/main-form.service';
 import { Logger } from "angular2-logger/core";
@@ -25,7 +25,7 @@ export class AgentSelectorComponent implements OnInit {
   constructor(private mformService: MainformService,
               private _logger: Logger) { }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
   clearSearch(e: string, a: string){
     if (e === ''){
@@ -65,7 +65,7 @@ export class AgentSelectorComponent implements OnInit {
   }
 
   searchAgent(term :string) {
-    this.mformService.searchAgent(term).subscribe(
+    this.mformService.searchAgent('name', term, 0).subscribe(
         (v) => {this.agents = v;
                 this.selectedAgent = this.agents[0];
                 this.result_length = this.agents.length;},
@@ -114,11 +114,11 @@ export class AgentSelectorComponent implements OnInit {
   onClickOk(){
     if (this.currentTrgAgName === 'searchAgentTo'){
       this.AgTo = this.selectedAgent;
-      this.AgToName = this.selectedAgent.ag_name;
+      this.AgToName = this.selectedAgent.agName;
     }
     if (this.currentTrgAgName === 'searchAgentFrom'){
       this.AgFrom = this.selectedAgent;
-      this.AgFromName = this.selectedAgent.ag_name;
+      this.AgFromName = this.selectedAgent.agName;
     }
     this.displayDialog = false
   }
@@ -130,14 +130,14 @@ export class AgentSelectorComponent implements OnInit {
       case 'searchAgentTo':
         if (this.AgTo != undefined)
           {
-            this.AgToName = this.AgTo.ag_name
+            this.AgToName = this.AgTo.agName
           } else {
              this.AgToName = '';
           }
         break;
       case 'searchAgentFrom':
         if (this.AgFrom != undefined) {
-          this.AgFromName = this.AgFrom.ag_name;
+          this.AgFromName = this.AgFrom.agName;
         } else {
           this.AgFromName = '';
         }

@@ -1,6 +1,16 @@
 export class Agents {
 
-    constructor(public ag_id?: number, 
-                public ag_vatno?: string, 
-                public ag_name?: string) {}
+    constructor(public id?: number,
+        public agGuid?: string,
+        public agName?: string,
+        public agType?: number,
+        public agTag?: string,
+        public agMemo?: string,
+        public agCode?: string,
+        public agAddress?: string,
+        public agPhone?: string,
+        public agPassport?: string,
+        public agVatno?: string, 
+        public agRegno?: string
+    ) {}
 }

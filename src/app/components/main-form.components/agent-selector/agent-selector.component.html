@@ -31,9 +31,9 @@
                     <tr class="items2" *ngFor="let agent of agents; let i=index, let last=last" 
                             (click)="onSelect(agent, i)"
                             [class.selected]="agent === selectedAgent">
-                        <td>{{agent.ag_id}}</td>
-                        <td>{{agent.ag_vatno}}</td>
-                        <td>{{agent.ag_name}}</td>
+                        <td>{{agent.id}}</td>
+                        <td>{{agent.agVatno}}</td>
+                        <td>{{agent.agName}}</td>
                     </tr>
                 </tbody>
             </table>            

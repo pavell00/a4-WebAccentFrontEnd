@@ -19,7 +19,7 @@ export class MainformService {
     private IpHost = '172.16.9.2';  //
     private portHost = '8080';      //3004
     private searchUrlEntity = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_entities';
-    private searchUrlAgent: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_agents';
+    private searchUrlAgent: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_findagent';
     private gethUrlPriceLists: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_pricelists';
     private searchUrlBinder: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_binders';
     private searchUrlTemplate: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_templates';
@@ -36,12 +36,26 @@ export class MainformService {
             .map(response => response.json())
     }
 
-    searchAgent (term: string): Observable<Agents[]> {
+    searchAgent (criteria: string, term: string, termLng: number): Observable<Agents[]> {
         //console.log('searchAgent', term, nameField);
         let params = new URLSearchParams();
-        params.set('agentname', term);
+        params.set('criteria', criteria);
+        params.set('valuestr', term);
+        params.set('valuelong', String(termLng));
         return this.http
             .get(this.searchUrlAgent, { search: params })
+            .map(response => response.json())
+    }
+
+    searchAgent2 (criteria: string, term: string, termLng: number):Observable<Agents> {
+        //console.log('searchAgent', term, nameField);
+        let params = new URLSearchParams();
+        params.set('criteria', criteria);
+        params.set('valuestr', term);
+        params.set('valuelong', String(termLng));
+        return this.http
+            .get(this.searchUrlAgent, { search: params })
+            //.toPromise()
             .map(response => response.json())
     }
 

@@ -5,7 +5,7 @@ import { MenuItem } from 'primeng/primeng';
 import { BinderSelectorComponent } from '../binder-selector/binder-selector.component';
 import { TemplateSelectorComponent } from '../template-selector/template-selector.component';
 import { MainformService } from '../../../services/main-form.service';
-import { Operation, Binders } from '../../../model';
+import { Operation, Binders, Agents } from '../../../model';
 
 @Component({
   selector: 'main-form',
@@ -26,6 +26,9 @@ export class MainFormComponent implements OnInit, OnChanges {
     private outDocName: string;
     private outDocDate: string;
     private outBinders: Binders[] = [];
+    private outAgToId: number;
+    private outAgFromId: number;
+    private testAgent: any;
 
     constructor(private mfService: MainformService) { }
 
@@ -38,7 +41,10 @@ export class MainFormComponent implements OnInit, OnChanges {
                         this.outDocNo = this.operation[0].doc_no;
                         this.outDocName = this.operation[0].doc_name;
                         this.outDocDate = this.operation[0].doc_date;
-                        //console.log(this.operation[0].binders);
+                        this.outAgToId = this.operation[0].transactions[0].j_ag1;
+                        this.outAgFromId = this.operation[0].transactions[0].j_ag2;
+                        //this.getAgent(this.operation[0].transactions[0].j_ag1, this.operation[0].transactions[0].j_ag2);
+                        //console.log(this.operation[0].transactions[0].j_ag1, this.operation[0].transactions[0].j_ag2);
                         let o = this.operation[0].binders;
                         for (var key in o) {
                             if (o.hasOwnProperty(key)) {
@@ -48,8 +54,22 @@ export class MainFormComponent implements OnInit, OnChanges {
                         }
                     }
             )
+            this.mfService.searchAgent2('ID', '', this.outAgToId).subscribe(
+                    (v) => {this.testAgent = v}
+                )
+            console.log(this.testAgent);
         }
     }
+
+/*       getAgent(agToId: number, agFromID: number){
+        this.mfService.searchAgent('ID', '', agToId).subscribe(
+            (v) => {this.outAgTo = v[0]}
+        )
+        this.mfService.searchAgent('ID', '', agFromID).subscribe(
+            (v) => {this.outAgFrom = v[0]}
+        )
+        console.log(this.outAgFrom, this.outAgTo);
+    }  */ 
 
     ngOnInit() {
         this.items = [
