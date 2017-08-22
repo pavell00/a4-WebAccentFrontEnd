@@ -34,12 +34,14 @@ export class EditDialogComponent implements OnInit {
         this.formId = this.appService.getCurrentFolder().formId;
         this.docIsNew = false;
         this.displayDialog = true;
+        console.log('onOpenDlg() ' + JSON.stringify(this.document));
     }
 
     onOpenDlgNew(){
         this.docIsNew = true;
-        this.document = new Document(1, "test", new Date().toLocaleDateString(),0,0,'');
+        this.document = new Document(1, "test", new Date().toLocaleDateString(),0,0,'',0);
         this.displayDialog = true;
+        console.log('onOpenDlgNew() ' + JSON.stringify(this.document));
     }
 
     close(){this.displayDialog = false}

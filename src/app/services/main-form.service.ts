@@ -47,16 +47,17 @@ export class MainformService {
             .map(response => response.json())
     }
 
-    searchAgent2 (criteria: string, term: string, termLng: number):Observable<Agents> {
-        //console.log('searchAgent', term, nameField);
+    //add fake array ???
+    searchAgentPromise (criteria: string, term: string, termLng: number):Promise<Agents[]> {
         let params = new URLSearchParams();
         params.set('criteria', criteria);
         params.set('valuestr', term);
         params.set('valuelong', String(termLng));
         return this.http
             .get(this.searchUrlAgent, { search: params })
-            //.toPromise()
-            .map(response => response.json())
+            .toPromise()
+            .then((response: Response) => response.json() || {})
+            .catch(this.handleError);
     }
 
     getPriceLists (): Observable<PriceLists[]> {

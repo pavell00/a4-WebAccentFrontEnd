@@ -25,7 +25,18 @@ export class AgentSelectorComponent implements OnInit {
   constructor(private mformService: MainformService,
               private _logger: Logger) { }
 
-  ngOnInit() { }
+    ngOnInit() { }
+
+    setAgents(Ag: Agents, AgType: string){
+      if (AgType === 'AgTo') {
+          this.AgTo = Ag;
+          this.AgToName = Ag.agName;
+      } else {
+        this.AgFrom = Ag;
+        this.AgFromName = Ag.agName;
+      }
+      //console.log(this.AgTo, this.AgToName);
+    }
 
   clearSearch(e: string, a: string){
     if (e === ''){
