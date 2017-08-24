@@ -109,6 +109,22 @@ export class MainformService {
         return this.operation;
     } */
 
+    getDateToStringFormat(): string{
+        let d = new Date();
+        let s: string;
+        let DayNo: string = d.getDate().toString();
+        if (d.getDate() < 10) DayNo = '0' + d.getDate().toString();
+        let MontNo: string = d.getMonth().toString();
+        if (d.getMonth() < 10) MontNo = '0' + d.getMonth().toString();
+        let HoursNo: string = d.getHours().toString();
+        if (d.getHours() < 10) HoursNo = '0' + d.getHours().toString();
+        let MinutesNo: string =  d.getMinutes().toString()+':00';
+        if (d.getMinutes() < 10) MinutesNo = '0'+d.getMinutes().toString()+':00';
+        s = d.getFullYear().toString();
+        s = s +'-'+MontNo+'-'+DayNo+'T'+HoursNo+':'+MinutesNo;
+        return s
+    }
+
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

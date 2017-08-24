@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,
         OnChanges, SimpleChanges, EventEmitter,
-        Input } from '@angular/core';
+        Input, Output } from '@angular/core';
 import { Logger } from "angular2-logger/core";        
 import { MenuItem } from 'primeng/primeng';
 import { TemplateSelectorComponent} from '../template-selector/template-selector.component';
@@ -32,38 +32,48 @@ export class MainFormComponent implements OnInit, OnChanges {
     private AgFrom: Agents = {};
     private testAgent: any;
 
+    @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
+
     constructor(private mfService: MainformService,
                 private _logger: Logger) { }
 
     ngOnChanges(changes: SimpleChanges) {
-         if (changes["curentdoc"].currentValue != undefined) {
+        if (changes["curentdoc"].currentValue != undefined) {
             this.outBinders.length = 0; //clear array
             let obj = changes["curentdoc"].currentValue;
-            console.log(obj.id);
-            this.mfService.searchOperation(obj.id).subscribe(
-                (v) => {this.operation = v;
-                        this.outDocNo = this.operation[0].doc_no;
-                        this.outDocName = this.operation[0].doc_name;
-                        this.outDocDate = this.operation[0].doc_date;
-                        let o = this.operation[0].binders;
-                        for (var key in o) {
-                            if (o.hasOwnProperty(key)) {
-                                var element = o[key];
-                                this.outBinders.push(element);
+            //operation not new
+            if (obj.id != 0) {
+                this.mfService.searchOperation(obj.id).subscribe(
+                    (v) => {this.operation = v;
+                            this.outDocNo = this.operation[0].doc_no;
+                            this.outDocName = this.operation[0].doc_name;
+                            this.outDocDate = this.operation[0].doc_date;
+                            let o = this.operation[0].binders;
+                            for (var key in o) {
+                                if (o.hasOwnProperty(key)) {
+                                    var element = o[key];
+                                    this.outBinders.push(element);
+                                }
                             }
+                            //select Agent from zero lines first transaction
+                            this.mfService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
+                                .then(data => { this.AgTo = data[0];
+                                                this.asc.setAgents(this.AgTo, 'AgTo');})
+                                .catch(error => this._logger.error(error));
+                            this.mfService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag2)
+                                .then(data => { this.AgFrom = data[0];
+                                                this.asc.setAgents(this.AgFrom, 'AgFrom');})
+                                .catch(error => this._logger.error(error));
+                            
                         }
-                        //select Agent from zero lines first transaction
-                        this.mfService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
-                            .then(data => { this.AgTo = data[0];
-                                            this.asc.setAgents(this.AgTo, 'AgTo');})
-                            .catch(error => this._logger.error(error));
-                        this.mfService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag2)
-                            .then(data => { this.AgFrom = data[0];
-                                            this.asc.setAgents(this.AgFrom, 'AgFrom');})
-                            .catch(error => this._logger.error(error));
-                        
-                    }
-            )
+                )
+            } else { // operation is new
+                this.outDocNo = obj.docNo;
+                this.outDocName = obj.docName;
+                this.outDocDate = obj.docDate
+                this.asc.setAgents({}, 'AgTo');
+                this.asc.setAgents({}, 'AgFrom');
+            }
         }
     }
 
@@ -80,7 +90,8 @@ export class MainFormComponent implements OnInit, OnChanges {
                 disabled: true
             }, {
                 label: 'Закрыть',
-                icon: 'fa-times'
+                icon: 'fa-times',
+                command: () => this.closeDocEvent.emit('closeDoc')
             }, {
                 label: 'Печать',
                 icon: 'fa-print',

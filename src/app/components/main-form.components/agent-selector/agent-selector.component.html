@@ -1,6 +1,6 @@
 <div class="ui-g" (window:keypress)="onInputSearchTermAgent($event)">
-    <div class="ui-g-2">
-        <p>Корреспондент Кому:</p>
+    <div class="ui-g-2" style="width:45px;">
+        <p>Кому:</p>
     </div>
     <div class="ui-g-3">
       <input name="searchAgentTo" type="search" [(ngModel)]="AgToName" 
@@ -9,8 +9,8 @@
     </div>
 </div>
 <div class="ui-g">
-    <div class="ui-g-2">
-        <p>Корреспондент Кто:</p>
+    <div class="ui-g-2" style="width:45px;">
+        <p>Кто:</p>
     </div>
     <div class="ui-g-3">
         <input name="searchAgentFrom" type="search" [(ngModel)]="AgFromName" 

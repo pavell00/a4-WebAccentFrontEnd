@@ -27,8 +27,10 @@
     </p-footer>
 </p-dialog> -->
 <div class="documentDlg">
-    <p-dialog header="Document Details" [(visible)]="displayDialog" [contentStyle]="{'height':'600px'}"
+    <p-dialog header="Содержимое документа" [(visible)]="displayDialog" [contentStyle]="{'height':'600px'}"
         [responsive]="true" showEffect="fade" [modal]="true" [height]="550" [width]="1100">
-            <div class="operationDlg"><main-form [curentdoc]="document"></main-form></div>
+            <div class="operationDlg">
+                <main-form [curentdoc]="document" (closeDocEvent)="close($event)"></main-form>
+            </div>
     </p-dialog>
 </div>

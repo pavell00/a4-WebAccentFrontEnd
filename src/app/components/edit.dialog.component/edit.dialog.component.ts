@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Document, Folder } from '../../model/index';
-import {AppService} from '../../services/app.service';
+import { AppService } from '../../services/app.service';
+import { MainformService } from '../../services/main-form.service';
 
 @Component({
     moduleId: module.id,
@@ -19,7 +20,8 @@ export class EditDialogComponent implements OnInit {
 
     @Output() addDocEvent: EventEmitter<Document> = new EventEmitter();
 
-    constructor(private appService: AppService) { }
+    constructor(private appService: AppService,
+                private mfService: MainformService) { }
 
     ngOnInit() { }
 
@@ -34,14 +36,15 @@ export class EditDialogComponent implements OnInit {
         this.formId = this.appService.getCurrentFolder().formId;
         this.docIsNew = false;
         this.displayDialog = true;
-        console.log('onOpenDlg() ' + JSON.stringify(this.document));
+        //console.log('onOpenDlg() ' + JSON.stringify(this.document));
     }
 
     onOpenDlgNew(){
         this.docIsNew = true;
-        this.document = new Document(1, "test", new Date().toLocaleDateString(),0,0,'',0);
+        let docName = this.appService.getCurrentFolder().name;
+        this.document = new Document(1, docName, this.mfService.getDateToStringFormat(),0,0,'',0);
         this.displayDialog = true;
-        console.log('onOpenDlgNew() ' + JSON.stringify(this.document));
+        //console.log('onOpenDlgNew() ' + JSON.stringify(this.document));
     }
 
     close(){this.displayDialog = false}
