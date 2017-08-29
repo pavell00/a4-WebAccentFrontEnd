@@ -15,6 +15,7 @@ export class DocumentComponent implements OnInit {
     private displayDialog: boolean;
     private document: Document;
     private documentIsNew: boolean;
+    private fldTmlId: number;
 
     private documentSource: Subject<Document> = new Subject<Document>();
     private documentSelect$ = this.documentSource.asObservable();
@@ -69,6 +70,7 @@ export class DocumentComponent implements OnInit {
         //console.log(this.documents.documentsOfFooler);
         //this.docs = this.documents.documentsOfFooler;
         //console.log(a);
+        this.fldTmlId = a.tmlId;
         this.getAll();
     }
 
@@ -95,5 +97,9 @@ export class DocumentComponent implements OnInit {
 
     mysort(event: any){
         console.log(event.field, event.order);
+    }
+
+    isTmlLink(){
+        return !this.fldTmlId;
     }
 }

@@ -6,7 +6,7 @@ import { MenuItem } from 'primeng/primeng';
 import { TemplateSelectorComponent} from '../template-selector/template-selector.component';
 import { AgentSelectorComponent, BinderSelectorComponent } from '../index';
 import { MainformService } from '../../../services/main-form.service';
-import { Operation, Binders, Agents } from '../../../model';
+import { Operation, Binders, Agents, Templates } from '../../../model';
 
 @Component({
   selector: 'main-form',
@@ -19,15 +19,15 @@ export class MainFormComponent implements OnInit, OnChanges {
     @ViewChild(TemplateSelectorComponent) private tsc: TemplateSelectorComponent;
     @ViewChild(AgentSelectorComponent) private asc: AgentSelectorComponent;
     @Input() curentdoc: Document;
+    @Input() fldTmlId: number;
 
     private operation: Operation[] = []; // не работет без фиктивного массива ???
     private items: MenuItem[];
-    private currentTemlateID: number = 1;
-    private linkTemplatesID: number[] = [1, 2, 3, 4];
     private outDocNo: string;
     private outDocName: string;
     private outDocDate: string;
     private outBinders: Binders[] = [];
+    private outTemplateId: number;
     private AgTo: Agents = {};
     private AgFrom: Agents = {};
     private testAgent: any;
@@ -38,9 +38,21 @@ export class MainFormComponent implements OnInit, OnChanges {
                 private _logger: Logger) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes["curentdoc"].currentValue != undefined) {
+        for (let propName in changes){
+            let change = changes[propName];
+            if (propName === 'curentdoc') {
+                this.fillCurentDocData(change.currentValue);
+            }
+            if (propName === 'fldTmlId') {
+                this.fillCurentfldTmlIdData(change.currentValue);
+            }
+        }
+    }
+
+    fillCurentDocData(e: any){
+        if (e != undefined) {
             this.outBinders.length = 0; //clear array
-            let obj = changes["curentdoc"].currentValue;
+            let obj = e;
             //operation not new
             if (obj.id != 0) {
                 this.mfService.searchOperation(obj.id).subscribe(
@@ -48,6 +60,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                             this.outDocNo = this.operation[0].doc_no;
                             this.outDocName = this.operation[0].doc_name;
                             this.outDocDate = this.operation[0].doc_date;
+                            this.outTemplateId = this.operation[0].tml_id;
                             let o = this.operation[0].binders;
                             for (var key in o) {
                                 if (o.hasOwnProperty(key)) {
@@ -64,7 +77,6 @@ export class MainFormComponent implements OnInit, OnChanges {
                                 .then(data => { this.AgFrom = data[0];
                                                 this.asc.setAgents(this.AgFrom, 'AgFrom');})
                                 .catch(error => this._logger.error(error));
-                            
                         }
                 )
             } else { // operation is new
@@ -73,8 +85,16 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.outDocDate = obj.docDate
                 this.asc.setAgents({}, 'AgTo');
                 this.asc.setAgents({}, 'AgFrom');
+                if (this.fldTmlId != 0) {
+                    this.outTemplateId = this.fldTmlId; //set default temlate linked to folder
+                }
             }
         }
+    }
+
+    fillCurentfldTmlIdData(e: any){
+        //console.log(e);
+        if (e != undefined) { }
     }
 
     ngOnInit() {

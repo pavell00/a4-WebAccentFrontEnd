@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Templates } from '../../../model/template';
 import { MainformService } from '../../../services/main-form.service';
 import { Logger } from "angular2-logger/core";
@@ -10,11 +10,9 @@ import { Logger } from "angular2-logger/core";
 })
 export class TemplateSelectorComponent implements OnInit {
 
+  @Input('docTemplateIn') docTemplateId: number;
   private displayDialog: boolean;
   private linkTemplates: Templates[] = [];
-  private currentTemplateID: string = "3";
-  private currentFormID: string = "1";
-  private templates: Templates[] = [];
   private selectedTemplate: Templates;
   private index: number = 0;
 
@@ -23,33 +21,34 @@ export class TemplateSelectorComponent implements OnInit {
 
   ngOnInit() {  }
 
-  searchTemplate(term :string, nameField:string) {
-    this.mformService.searchTemplate(term, nameField).subscribe(
+  searchTemplate(tmlid: string, mode: string) {
+    this.mformService.searchTemplate(tmlid, mode).subscribe(
         (v) => {this.linkTemplates = v;
-                if (this.currentTemplateID != ''){
+                if (this.docTemplateId != undefined){
                   let i: number = 0;
-                  this.linkTemplates.forEach(element => {
-                    if (element.tml_id.toString() == this.currentTemplateID) {
+                  for (let tml of this.linkTemplates){
+                    if (tml.id === this.docTemplateId) {
                       this.index = i;
-                      this.selectedTemplate = element;
+                      this.selectedTemplate = tml;
+                      break;
                     }
                     ++i;
-                  });
-                }},
+                  }
+                }
+              },
         (error) => (console.log(error)),
         () => true
     )
   }
 
   ShowDialogTemplateSelector(){
-    this.searchTemplate(this.currentFormID, 'frm_id');
+    this.searchTemplate(String(this.docTemplateId), '0'); //select all linked tmplates
     this.displayDialog = true;
   }
 
   onCloseSelectTml(){
     this.displayDialog = false;
-    this.currentTemplateID = this.selectedTemplate.tml_id.toString();
-    //console.log(this.currentTemplateID);
+    this.docTemplateId = this.selectedTemplate.id;
   }
 
   onSelect(a: Templates, i: number){

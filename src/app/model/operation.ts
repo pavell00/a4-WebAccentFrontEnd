@@ -23,8 +23,8 @@ export interface Operation {
     doc_pl1?: number;
     doc_pl2?: number;
     doc_pl3?: number;
+    tml_id?: number;
     binders?: { [key: string]: Binders; };
-    templates?: { [key: string]: Templates; };
     transactions?: { [key: string]: Transactions; }
 
     /*constructor(doc_id?: number,

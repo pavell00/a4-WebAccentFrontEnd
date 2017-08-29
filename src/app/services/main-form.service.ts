@@ -22,7 +22,7 @@ export class MainformService {
     private searchUrlAgent: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_findagent';
     private gethUrlPriceLists: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_pricelists';
     private searchUrlBinder: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_binders';
-    private searchUrlTemplate: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_templates';
+    private searchUrlTemplate: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_template';
     private gethUrlOperation: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_operations';
 
     constructor(private http: Http) { }
@@ -76,9 +76,10 @@ export class MainformService {
             .catch(this.handleError);
     }
 
-    searchTemplate (term: string, nameField: string): Observable<Templates[]> {
+    searchTemplate (tmlid: string, mode: string): Observable<Templates[]> {
         let params = new URLSearchParams();
-        params.set(nameField, term);
+        params.set('tmlid', tmlid);
+        params.set('mode', mode);
         return this.http
             .get(this.searchUrlTemplate, { search: params })
             .map(response => response.json())

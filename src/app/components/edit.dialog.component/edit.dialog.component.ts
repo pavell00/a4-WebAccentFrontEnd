@@ -13,6 +13,7 @@ import { MainformService } from '../../services/main-form.service';
 export class EditDialogComponent implements OnInit {
 
     @Input() document: Document;
+    @Input() fldTmlId: number;
 
     displayDialog: boolean;
     private docIsNew: boolean;
