@@ -52,7 +52,7 @@ export class BinderSelectorComponent implements OnInit {
     this.mformService.searchBinder(term).subscribe(
         (v) => {this.binders = v;
                 this.selectedBinder = this.binders[0];
-                this.result_length = this.binders.length; console.log(this.result_length)},
+                this.result_length = this.binders.length},
         (error) => (console.log(error)),
         () => true
     )
@@ -64,12 +64,9 @@ export class BinderSelectorComponent implements OnInit {
   }
 
   onClickOk() {
-  //  if (this.currentTrgBindName === 'searchBinder'){
-      this.linkBinders.push(this.selectedBinder);//refactor to add object Binders type
-      this.BinderName = '';
-   // }
+    this.linkBinders.push(this.selectedBinder);
+    this.BinderName = '';
     this.displayDialogAddBinders = false
-    //console.log(JSON.stringify(this.linkBinders));
   }
 
   onClickNo() {

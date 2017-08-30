@@ -15,7 +15,7 @@ export class DocumentComponent implements OnInit {
     private displayDialog: boolean;
     private document: Document;
     private documentIsNew: boolean;
-    private fldTmlId: number;
+    private fldTmlId: number = 0;
 
     private documentSource: Subject<Document> = new Subject<Document>();
     private documentSelect$ = this.documentSource.asObservable();

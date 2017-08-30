@@ -1,10 +1,12 @@
 <div class="row" style="margin-top: 100px;">
     <div class="col-md-2">
-        <img class="img-circle" style="width:10%" src="{{profile.picture}}">
+        <!--<img class="img-circle" style="width:50%" src="{{profile.picture}}">-->
+        <img class="img-circle" style="width:80%" src="./assets/hidden_cat.jpg">
     </div>
     <div class="col-md-10">
         <h3>{{profile.nickname}}'s profile</h3>
         <p>Email: {{profile.name}}</p>
         <p>Last update: {{profile.created_at}}</p>
     </div>
+    {{profile|json}}
 </div>
