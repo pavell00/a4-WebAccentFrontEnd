@@ -1,9 +1,8 @@
-// ./auth.service.ts
-
 import {Injectable} from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import * as auth0 from 'auth0-js';
 import Auth0Lock from 'auth0-lock';
 
 @Injectable()
@@ -12,7 +11,7 @@ export class Auth {
   userProfile: any;
   requestedScopes: string = 'openid profile read:messages write:messages';
 
-  lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
+  lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, { 
     oidcConformant: true,
     autoclose: true,
     auth: {
@@ -25,9 +24,18 @@ export class Auth {
     }
   });
 
+  auth0 = new auth0.WebAuth({
+    clientID: AUTH_CONFIG.clientID,
+    domain: AUTH_CONFIG.domain,
+    responseType: 'token id_token',
+    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+    redirectUri: AUTH_CONFIG.callbackURL,      
+    scope: this.requestedScopes
+  });
+
   constructor(public router: Router) {  }
 
-  public login(){
+  public login(): void{
     this.lock.show();
   }
 
@@ -39,10 +47,10 @@ export class Auth {
       }
     });
     this.lock.on('authorization_error', (err) => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/welcome']);
       console.log(err);
       alert(`Error: ${err.error}. Check the console for further details.`);
-    });    
+    }); 
   }
 
   public getProfile(cb): void {
@@ -52,9 +60,10 @@ export class Auth {
     }
 
     const self = this;
-    this.lock.client.userInfo(accessToken, (err, profile) => {
+    this.auth0.client.userInfo(accessToken, (err:any, profile:any) => {
       if (profile) {
         self.userProfile = profile;
+        //localStorage.setItem('profile', JSON.stringify(profile));
       }
       cb(err, profile);
     });
