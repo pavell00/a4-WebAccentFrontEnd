@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Entity } from '../../model';
+import { Entities } from '../../model';
 import {AppService} from '../../services/app.service';
 
 //import {} from 'rxjs'
@@ -11,9 +11,9 @@ import {AppService} from '../../services/app.service';
 })
 export class AutoComplitEntityComponent implements OnInit {
 
-    val: Entity;
-    results: Entity[];
-    selectedRow: Entity;
+    val: Entities;
+    results: Entities[];
+    selectedRow: Entities;
 
     constructor(private appService: AppService) { }
 

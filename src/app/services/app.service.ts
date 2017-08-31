@@ -10,6 +10,7 @@ import 'rxjs/add/operator/distinctuntilchanged';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
+import { environment } from '../../environments/environment';
 //import {} from 'rxjs';
 
 import {Folder, Document, Journal, Entities, BreadCramber} from '../model'
@@ -41,7 +42,7 @@ export class AppService {
     //private currentFolderSource: BehaviorSubject<string> = new BehaviorSubject<string>("0");
     //currentFolderChange$ = this.currentFolderSource.asObservable();
     //Home - http://192.168.0.101
-    private IpHost = '172.16.9.2';  //
+    private IpHost: string;  //
     private portHost = '8080';      //3004
     private foldersUrl = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_folders';
     private docmentsUrl = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_documents';
@@ -51,7 +52,9 @@ export class AppService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
-    constructor(private http: Http, private jsonp: Jsonp) { }
+    constructor(private http: Http, private jsonp: Jsonp) {
+        this.IpHost = environment.IpHost;
+    }
     
     setCurrentFolder(f: Folder){this.currentFolderSource.next(f);}
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
@@ -140,6 +143,7 @@ export class AppService {
 
     searchFolder () {
         //console.log(this.f.typeFolder);
+        console.log(this.IpHost);
         let params = new URLSearchParams();
         params.set('rootid', String(this.f.id));
         params.set('typefolder', this.f.typeFolder);

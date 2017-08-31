@@ -10,13 +10,14 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { CalendarModule, DataTableModule,
         ToolbarModule, SplitButtonModule, DialogModule,
         InputSwitchModule, DropdownModule, CheckboxModule, 
-        RadioButtonModule, MenubarModule } from 'primeng/primeng';
+        RadioButtonModule, MenubarModule, AutoCompleteModule } from 'primeng/primeng';
 //interface main window
 import { WelcomeComponent, RootComponent, FolderComponent,
         DocumentComponent, JournalComponent, EditDialogComponent,
         BreadCramberComponent, ProfileComponent, TypeSelectorComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
-        CallbackComponent} from './components';
+        CallbackComponent, CalendarComponent,
+        AutoComplitEntityComponent} from './components';
 //interface main form
 import { AgentSelectorComponent, BinderSelectorComponent,
         DocNoDateComponent, MainFormComponent,
@@ -29,7 +30,7 @@ import { MainformService } from './services/main-form.service';
 import { Auth } from './services/auth0.service';
 import { AuthGuard } from './auth.guard';
 
-import { Logger } from "angular2-logger/core";
+import { Logger } from 'angular2-logger/app/core/logger';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -42,14 +43,14 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   imports:      [ BrowserModule, routing,
                   BrowserAnimationsModule,
                   HttpModule, FormsModule, JsonpModule,
-                  CalendarModule, DataTableModule, MenubarModule,
+                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule],
   declarations: [ 
                   RootComponent, JournalComponent,
                   DocumentComponent, FolderComponent,
                   EditDialogComponent, BreadCramberComponent, WelcomeComponent,
-                  ProfileComponent,
+                  ProfileComponent, CalendarComponent, AutoComplitEntityComponent,
                   HomeComponent, CallbackComponent,
                   TypeSelectorComponent, InnerComponent, CalendarDlgComponent,
                   //main-form
