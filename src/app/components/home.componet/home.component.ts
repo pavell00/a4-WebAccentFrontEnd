@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Auth} from '../../services/auth0.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +8,9 @@ import {Auth} from '../../services/auth0.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-    constructor(private auth: Auth) { }
+    
+    private environmentName = environment.envName+' - '+environment.IpHost;
+    constructor(private auth: Auth) {  }
 
   ngOnInit() {
   }

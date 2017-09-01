@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/distinctuntilchanged';
+import { environment } from '../../environments/environment';
 
 import {Entities, Agents, PriceLists, Price,
         Binders, Templates, Operation} from '../model';
@@ -16,7 +17,7 @@ export class MainformService {
     private operation = new Subject<Operation>();
     docId: number = 0;
 
-    private IpHost = '172.16.9.2';  //
+    private IpHost = environment.IpHost; //= '172.16.9.2';
     private portHost = '8080';      //3004
     private searchUrlEntity = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_entities';
     private searchUrlAgent: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_findagent';

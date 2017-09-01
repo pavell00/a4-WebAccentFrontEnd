@@ -42,8 +42,8 @@ export class AppService {
     //private currentFolderSource: BehaviorSubject<string> = new BehaviorSubject<string>("0");
     //currentFolderChange$ = this.currentFolderSource.asObservable();
     //Home - http://192.168.0.101
-    private IpHost: string;  //
-    private portHost = '8080';      //3004
+    private IpHost = environment.IpHost;
+    private portHost = '8080';
     private foldersUrl = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_folders';
     private docmentsUrl = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_documents';
     private journalsUrl = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_journals';
@@ -52,9 +52,7 @@ export class AppService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
-    constructor(private http: Http, private jsonp: Jsonp) {
-        this.IpHost = environment.IpHost;
-    }
+    constructor(private http: Http, private jsonp: Jsonp) { }
     
     setCurrentFolder(f: Folder){this.currentFolderSource.next(f);}
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
@@ -143,7 +141,6 @@ export class AppService {
 
     searchFolder () {
         //console.log(this.f.typeFolder);
-        console.log(this.IpHost);
         let params = new URLSearchParams();
         params.set('rootid', String(this.f.id));
         params.set('typefolder', this.f.typeFolder);
