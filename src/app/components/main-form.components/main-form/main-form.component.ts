@@ -4,9 +4,11 @@ import { Component, OnInit, ViewChild,
 import { Logger } from "angular2-logger/core";        
 import { MenuItem } from 'primeng/primeng';
 import { TemplateSelectorComponent} from '../template-selector/template-selector.component';
+import { TableEntityComponent } from '../table-entity/table-entity.component';
 import { AgentSelectorComponent, BinderSelectorComponent } from '../index';
 import { MainformService } from '../../../services/main-form.service';
-import { Operation, Binders, Agents, Templates } from '../../../model';
+import { Operation, Binders, Agents, 
+        Templates, Entities } from '../../../model';
 
 @Component({
   selector: 'main-form',
@@ -18,6 +20,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     @ViewChild(BinderSelectorComponent) private bsc: BinderSelectorComponent;
     @ViewChild(TemplateSelectorComponent) private tsc: TemplateSelectorComponent;
     @ViewChild(AgentSelectorComponent) private asc: AgentSelectorComponent;
+    @ViewChild(TableEntityComponent) private tec: TableEntityComponent;
     @Input() curentdoc: Document;
     @Input() fldTmlId: number;
 
@@ -85,6 +88,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.outDocDate = obj.docDate
                 this.asc.setAgents({}, 'AgTo');
                 this.asc.setAgents({}, 'AgFrom');
+                this.tec.clearEntities();
                 if (this.fldTmlId != 0) {
                     this.outTemplateId = this.fldTmlId; //set default temlate linked to folder
                 }
@@ -111,7 +115,7 @@ export class MainFormComponent implements OnInit, OnChanges {
             }, {
                 label: 'Закрыть',
                 icon: 'fa-times',
-                command: () => this.closeDocEvent.emit('closeDoc')
+                command: () => {this.closeDocEvent.emit('closeDoc'); this.test('any');}
             }, {
                 label: 'Печать',
                 icon: 'fa-print',
@@ -150,7 +154,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     }
 
     test(e: any){
-        console.log('command! ', e);
+        //console.log('command! ', e);
     }
 
 }

@@ -78,7 +78,7 @@ export class SearchEntityComponent implements OnInit {
     //console.log(e.target.id, term, field);
     if(e.key === 'Enter' && e.target.name === 'searchEntity') {
       if(term !== undefined && term !== '' && term.length >= 1){
-        this.search(term, field);
+        this.search(field, term);
         if(this.result_length !== 0) {
             this.displayDialog = true;
         } else {
@@ -95,8 +95,8 @@ export class SearchEntityComponent implements OnInit {
     this.displayDialog = false
   }
 
-  search(term :string, nameField:string) {
-    this.mformService.searchEntity(term, nameField).subscribe(
+  search(criteria:string, term :string) {
+    this.mformService.searchEntity(criteria, term, 0).subscribe(
         (v) => {this.entities = v;
                 this.result_length = this.entities.length;
                 this.selectedEntities = this.entities[0];},

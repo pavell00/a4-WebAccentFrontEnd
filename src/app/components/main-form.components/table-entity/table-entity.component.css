@@ -23,3 +23,13 @@
     display: flex;
 }
 
+.scrollingtable {
+    overflow: auto; /*scroll*/
+    height: 15em;
+/*  position:relative;
+    height:10em;  
+    overflow:auto;*/
+}
+.scrollingtable * {
+    box-sizing: border-box;
+}

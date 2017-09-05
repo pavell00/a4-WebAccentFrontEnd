@@ -13,12 +13,8 @@ import {Entities, Agents, PriceLists, Price,
 
 @Injectable()
 export class MainformService {
-
-    private operation = new Subject<Operation>();
-    docId: number = 0;
-
     private urlPrefix = environment.urlPrefix;
-    private searchUrlEntity = this.urlPrefix+'/sp_search_entities';
+    private searchUrlEntity = this.urlPrefix+'/sp_findentities';
     private searchUrlAgent: string = this.urlPrefix+'/sp_findagent';
     private gethUrlPriceLists: string = this.urlPrefix+'/sp_search_pricelists';
     private searchUrlBinder: string = this.urlPrefix+'/sp_search_binders';
@@ -27,10 +23,11 @@ export class MainformService {
 
     constructor(private http: Http) { }
     
-    searchEntity (term: string, nameField: string): Observable<Entities[]> {
-        //console.log('searchEntity', term, nameField);
+    searchEntity (criteria: string, valuestr: string, valuelong: number): Observable<Entities[]> {
         let params = new URLSearchParams();
-        params.set(nameField+'_like', term);
+        params.set('criteria', criteria);
+        params.set('valuestr', valuestr);
+        params.set('valuelong', String(valuelong));
         return this.http
             .get(this.searchUrlEntity, { search: params })
             .map(response => response.json())

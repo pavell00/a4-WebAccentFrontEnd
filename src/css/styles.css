@@ -148,7 +148,7 @@ nav a.active {
   /*color:red;*/
 }
 .noChild{
-  padding-left: 20px; /* Расстояние от маркеров до текста */
+  /*padding-left: 20px;  Расстояние от маркеров до текста */
 }
 i {
     padding-left: 10px;

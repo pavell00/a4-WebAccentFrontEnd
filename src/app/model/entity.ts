@@ -1,6 +1,7 @@
 export class Entities {
 
-    constructor(public ent_id?: number, 
-                public ent_nom?: string, 
-                public ent_name?: string) {}
+    constructor(public id?: number, 
+                public entNom?: string, 
+                public entName?: string,
+                public entQty?: number) {}
 }

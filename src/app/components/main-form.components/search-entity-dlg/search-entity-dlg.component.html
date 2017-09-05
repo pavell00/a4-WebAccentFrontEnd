@@ -1,4 +1,4 @@
-<p-dialog header="Результат поиска" [(visible)]="displayDialog" modal="true" >
+<p-dialog header="Результат поиска" [(visible)]="displayDialog" >
     <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
         <!--<ul class="items" (window:keydown)="keydown($event)">
             <li *ngFor="let entity of entities; let i=index, let last=last" (click)="onSelect(entity, i)"
@@ -33,9 +33,9 @@
                     <tr class="items2" *ngFor="let entity of entities; let i=index, let last=last" 
                             (click)="onSelect(entity, i)"
                             [class.selected]="entity === selectedEntities">
-                        <td>{{entity.ent_id}}</td>
-                        <td>{{entity.ent_nom}}</td>
-                        <td>{{entity.ent_name}}</td>
+                        <td>{{entity.id}}</td>
+                        <td>{{entity.entNom}}</td>
+                        <td>{{entity.entName}}</td>
                         <td contenteditable='true'>1</td>
                     </tr>
                 </tbody>

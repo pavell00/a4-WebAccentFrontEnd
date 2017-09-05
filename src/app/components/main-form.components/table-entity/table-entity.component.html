@@ -3,35 +3,36 @@
     <input type="text" name="searchEntity" #val pInputText (value)="myValue" myAutofocus
         maxlength=15/>
 </div>
-<p-dataTable [value]="entities"  [editable]="true"
-        [(selection)]="selectedRow"
-        [rowHover]="true"
-        dataKey="fullName"
-        (onRowClick)="onRowClick($event)"
-        (onEditInit)="onEditInit($event)"
-        (onEdit)="onEdit($event)">
-        <p-column styleClass="col-button"  [style]="{'width':'50px'}">
-            <ng-template pTemplate="header">
-                <button type="button" pButton  icon="fa-plus" (click)="addRow()"></button>
-            </ng-template>
-            <ng-template let-ri="rowIndex" let-myRow="rowData" pTemplate="body">
-                <button type="button" pButton (click)="deleteRow(myRow, ri)"
-                 class="ui-button-danger" icon="fa-trash">
-                </button>
-            </ng-template>
-        </p-column>
-        <p-column styleClass="col-button"  [style]="{'width':'50px'}" >
-            <ng-template pTemplate="item" let-ri="rowIndex" let-rd="rowData">
-                <p-radioButton name="groupname" (onClick)="onRowEdit(ri, rd)" ></p-radioButton>
-            </ng-template>
-        </p-column>
-        <p-column header="№">
-            <ng-template let-ri="rowIndex" pTemplate="item">{{ri+1}}</ng-template>
-        </p-column> 
-        <p-column field="ent_id" header="ID"></p-column>
-        <p-column field="ent_nom" header="Ном. №"></p-column> 
-        <p-column field="ent_name" header="Название объекта учета"></p-column>
-        <p-column field="" header="Кол-во"  [editable]="true"></p-column>         
-</p-dataTable>
-
+<div class="scrollingtable">
+    <p-dataTable [value]="entities"  [editable]="true"
+            [(selection)]="selectedRow"
+            [rowHover]="true"
+            dataKey="fullName"
+            (onRowClick)="onRowClick($event)"
+            (onEditInit)="onEditInit($event)"
+            (onEdit)="onEdit($event)">
+            <p-column styleClass="col-button"  [style]="{'width':'50px'}">
+                <ng-template pTemplate="header">
+                    <button type="button" pButton  icon="fa-plus" (click)="addRow()"></button>
+                </ng-template>
+                <ng-template let-ri="rowIndex" let-myRow="rowData" pTemplate="body">
+                    <button type="button" pButton (click)="deleteRow(myRow, ri)"
+                    class="ui-button-danger" icon="fa-trash">
+                    </button>
+                </ng-template>
+            </p-column>
+            <p-column styleClass="col-button"  [style]="{'width':'50px'}" >
+                <ng-template pTemplate="item" let-ri="rowIndex" let-rd="rowData">
+                    <p-radioButton name="groupname" (onClick)="onRowEdit(ri, rd)" ></p-radioButton>
+                </ng-template>
+            </p-column>
+            <p-column header="№">
+                <ng-template let-ri="rowIndex" pTemplate="item">{{ri+1}}</ng-template>
+            </p-column> 
+            <p-column field="id" header="ID"></p-column>
+            <p-column field="entNom" header="Ном. №"></p-column> 
+            <p-column field="entName" header="Название объекта учета"></p-column>
+            <p-column field="entQty" header="Кол-во" [editable]="true"></p-column>         
+    </p-dataTable>
+</div>
 <search-entity-dlg #dialog (myEvent)="onGetItem($event)"></search-entity-dlg>
