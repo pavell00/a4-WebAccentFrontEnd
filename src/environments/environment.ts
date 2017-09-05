@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  IpHost: '172.16.9.2',
-  envName: 'develop'
+  envName: 'develop',
+  urlPrefix: 'http://localhost:8080'
 };

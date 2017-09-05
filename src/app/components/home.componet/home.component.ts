@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class HomeComponent implements OnInit {
     
-    private environmentName = environment.envName+' - '+environment.IpHost;
+    private environmentName = environment.envName+' - '+environment.urlPrefix;
     constructor(private auth: Auth) {  }
 
   ngOnInit() {

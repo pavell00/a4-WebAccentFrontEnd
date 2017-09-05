@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  IpHost: '172.16.13.66',
-  envName: 'production'
+  envName: 'production',
+  urlPrefix: 'http://localhost:8080/SQLRest'
 };

@@ -17,14 +17,13 @@ export class MainformService {
     private operation = new Subject<Operation>();
     docId: number = 0;
 
-    private IpHost = environment.IpHost; //= '172.16.9.2';
-    private portHost = '8080';      //3004
-    private searchUrlEntity = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_entities';
-    private searchUrlAgent: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_findagent';
-    private gethUrlPriceLists: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_pricelists';
-    private searchUrlBinder: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_binders';
-    private searchUrlTemplate: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_template';
-    private gethUrlOperation: string = 'http://'+ this.IpHost+ ':'+ this.portHost +'/sp_search_operations';
+    private urlPrefix = environment.urlPrefix;
+    private searchUrlEntity = this.urlPrefix+'/sp_search_entities';
+    private searchUrlAgent: string = this.urlPrefix+'/sp_findagent';
+    private gethUrlPriceLists: string = this.urlPrefix+'/sp_search_pricelists';
+    private searchUrlBinder: string = this.urlPrefix+'/sp_search_binders';
+    private searchUrlTemplate: string = this.urlPrefix+'/sp_template';
+    private gethUrlOperation: string = this.urlPrefix+'/sp_search_operations';
 
     constructor(private http: Http) { }
     
