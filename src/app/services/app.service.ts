@@ -241,7 +241,7 @@ export class AppService {
                 a.subscribe(
                     (val) => {//this.entities.next(val);//without filtering
                         this.entities.next(
-                            val.filter(val => val.ent_name == term) //with filtering
+                            val.filter(val => val.entName == term) //with filtering
                         );
                     },
                     (err) => (this.handleError)
