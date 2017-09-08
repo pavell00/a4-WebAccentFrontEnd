@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Document } from '../../model';
 import {AppService} from '../../services/app.service';
+import {MainformService} from '../../services/main-form.service';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -26,7 +27,8 @@ export class DocumentComponent implements OnInit {
     private counter: number = 0;
     private docLazy: Document[];
 
-    constructor(private appService: AppService) { }
+    constructor(private appService: AppService,
+                private mformService: MainformService) { }
 
     ngOnInit() {
         //this.getAll();
@@ -70,6 +72,7 @@ export class DocumentComponent implements OnInit {
         //console.log(this.documents.documentsOfFooler);
         //this.docs = this.documents.documentsOfFooler;
         //console.log(a);
+        this.mformService.setCurTemplate(a.tmlId);
         this.fldTmlId = a.tmlId;
         this.getAll();
     }

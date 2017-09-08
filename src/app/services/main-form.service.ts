@@ -20,7 +20,8 @@ export class MainformService {
     private searchUrlBinder: string = this.urlPrefix+'/sp_search_binders';
     private searchUrlTemplate: string = this.urlPrefix+'/sp_template';
     private gethUrlOperation: string = this.urlPrefix+'/sp_search_operations';
-
+    private currentTemplate = new BehaviorSubject<Templates>({'id':0,'tmlGuid':'','tmlName':'ww','frmId':'', 'tmlScript':''});
+    
     constructor(private http: Http) { }
     
     searchEntity (criteria: string, valuestr: string, valuelong: number): Observable<Entities[]> {
@@ -127,4 +128,17 @@ export class MainformService {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
+
+    setCurTemplate(e: number){
+        this.searchTemplate(String(e), '1').subscribe(
+            (res) => this.currentTemplate.next(res[0])
+        )
+    }
+
+    getCurTemplate(): Observable<Templates> {
+        return this.currentTemplate.asObservable();
+    }
+
+//    getTypeSelector(): Observable<string> {return this.typeSelector.asObservable();}
+//    setTypeSelector(s: string){this.typeSelector.next(s);}
 }

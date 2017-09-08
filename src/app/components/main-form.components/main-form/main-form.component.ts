@@ -22,7 +22,6 @@ export class MainFormComponent implements OnInit, OnChanges {
     @ViewChild(AgentSelectorComponent) private asc: AgentSelectorComponent;
     @ViewChild(TableEntityComponent) private tec: TableEntityComponent;
     @Input() curentdoc: Document;
-    @Input() fldTmlId: number;
 
     private operation: Operation[] = []; // не работет без фиктивного массива ???
     private items: MenuItem[];
@@ -34,10 +33,11 @@ export class MainFormComponent implements OnInit, OnChanges {
     private AgTo: Agents = {};
     private AgFrom: Agents = {};
     private testAgent: any;
+    private curentTemlate: Templates = {};
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
-    constructor(private mfService: MainformService,
+    constructor(private mformService: MainformService,
                 private _logger: Logger) { }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -47,7 +47,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.fillCurentDocData(change.currentValue);
             }
             if (propName === 'fldTmlId') {
-                this.fillCurentfldTmlIdData(change.currentValue);
+                //this.fillCurentfldTmlIdData(change.currentValue);
             }
         }
     }
@@ -58,12 +58,13 @@ export class MainFormComponent implements OnInit, OnChanges {
             let obj = e;
             //operation not new
             if (obj.id != 0) {
-                this.mfService.searchOperation(obj.id).subscribe(
+                this.mformService.searchOperation(obj.id).subscribe(
                     (v) => {this.operation = v;
                             this.outDocNo = this.operation[0].doc_no;
                             this.outDocName = this.operation[0].doc_name;
                             this.outDocDate = this.operation[0].doc_date;
                             this.outTemplateId = this.operation[0].tml_id;
+                            this.mformService.setCurTemplate(this.operation[0].tml_id);
                             let o = this.operation[0].binders;
                             for (var key in o) {
                                 if (o.hasOwnProperty(key)) {
@@ -72,11 +73,11 @@ export class MainFormComponent implements OnInit, OnChanges {
                                 }
                             }
                             //select Agent from zero lines first transaction
-                            this.mfService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
+                            this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
                                 .then(data => { this.AgTo = data[0];
                                                 this.asc.setAgents(this.AgTo, 'AgTo');})
                                 .catch(error => this._logger.error(error));
-                            this.mfService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag2)
+                            this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag2)
                                 .then(data => { this.AgFrom = data[0];
                                                 this.asc.setAgents(this.AgFrom, 'AgFrom');})
                                 .catch(error => this._logger.error(error));
@@ -89,16 +90,23 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.asc.setAgents({}, 'AgTo');
                 this.asc.setAgents({}, 'AgFrom');
                 this.tec.clearEntities();
-                if (this.fldTmlId != 0) {
-                    this.outTemplateId = this.fldTmlId; //set default temlate linked to folder
-                }
+                this.mformService.getCurTemplate().toPromise().then(response => { 
+                    if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
+                });
+
             }
         }
     }
 
-    fillCurentfldTmlIdData(e: any){
-        //console.log(e);
-        if (e != undefined) { }
+    fillCurentfldTmlIdData(tml: any){
+        //console.log(tml);
+/*         if (tml != undefined && tml != 0) {
+            this.mformService.searchTemplate(tml, '1').subscribe(
+                (v) => {this.curentTemlate = v[0]},
+                (error) => this._logger.error(error),
+                () => true
+            )
+        } */
     }
 
     ngOnInit() {

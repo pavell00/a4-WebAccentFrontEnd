@@ -13,18 +13,22 @@ import { MainformService } from '../../services/main-form.service';
 export class EditDialogComponent implements OnInit {
 
     @Input() document: Document;
-    @Input() fldTmlId: number;
 
     displayDialog: boolean;
     private docIsNew: boolean;
-    private tmlId: number;
+    //private tmlId: number;
+    private tmlName: string;
 
     @Output() addDocEvent: EventEmitter<Document> = new EventEmitter();
 
     constructor(private appService: AppService,
                 private mfService: MainformService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.mfService.getCurTemplate().subscribe(
+            (res) => { if (res != undefined) this.tmlName = res.tmlName; }
+        )
+    }
 
     getAll(){
         this.appService.searchDocs2().subscribe(
@@ -33,19 +37,21 @@ export class EditDialogComponent implements OnInit {
                      })
     }
 
-    onOpenDlg(){
-        this.tmlId = this.appService.getCurrentFolder().tmlId;
-        this.docIsNew = false;
-        this.displayDialog = true;
-        //console.log('onOpenDlg() ' + JSON.stringify(this.document));
-    }
-
-    onOpenDlgNew(){
-        this.docIsNew = true;
-        let docName = this.appService.getCurrentFolder().name;
-        this.document = new Document(1, docName, this.mfService.getDateToStringFormat(),0,0,'',0);
-        this.displayDialog = true;
-        //console.log('onOpenDlgNew() ' + JSON.stringify(this.document));
+    onOpenDlg(e: number){
+        ///let tml = this.mfService.getCurTemplate();
+        //this.tmlName = tml.tmlName;
+        if (e === 1) { // open exist document
+            this.docIsNew = false;
+            this.displayDialog = true;
+        } else { // open new document
+            this.docIsNew = true;
+            let docName = this.appService.getCurrentFolder().name;
+            this.document = new Document(1, docName, this.mfService.getDateToStringFormat(),0,0,'',0);
+            this.displayDialog = true;
+        }
+        //this.tmlId = this.appService.getCurrentFolder().tmlId;
+        //this.tmlName = this.mfService.getCurTemplate()
+        //console.log('onOpenDlg() ' + JSON.stringify(this.mfService.getCurTemplate()));
     }
 
     close(){this.displayDialog = false}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Templates } from '../../../model/template';
 import { MainformService } from '../../../services/main-form.service';
 import { Logger } from "angular2-logger/core";
@@ -10,7 +10,8 @@ import { Logger } from "angular2-logger/core";
 })
 export class TemplateSelectorComponent implements OnInit {
 
-  @Input('docTemplateIn') docTemplateId: number;
+  //@Input('docTemplateIn') docTemplateId: number;
+  private docTemplateId: number;
   private displayDialog: boolean;
   private linkTemplates: Templates[] = [];
   private selectedTemplate: Templates;
@@ -19,7 +20,13 @@ export class TemplateSelectorComponent implements OnInit {
   constructor(private mformService: MainformService,
               private _logger: Logger) { }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    this.mformService.getCurTemplate().subscribe(
+      (res) => {
+                if (res != undefined) this.docTemplateId = res.id;
+      }
+  )
+  }
 
   searchTemplate(tmlid: string, mode: string) {
     this.mformService.searchTemplate(tmlid, mode).subscribe(
@@ -36,12 +43,13 @@ export class TemplateSelectorComponent implements OnInit {
                   }
                 }
               },
-        (error) => (console.log(error)),
+        (error) => this._logger.error(error),
         () => true
     )
   }
 
   ShowDialogTemplateSelector(){
+    //console.log('ShowDialogTemplateSelector - '+this.docTemplateId);
     this.searchTemplate(String(this.docTemplateId), '0'); //select all linked tmplates
     this.displayDialog = true;
   }
@@ -49,6 +57,7 @@ export class TemplateSelectorComponent implements OnInit {
   onCloseSelectTml(){
     this.displayDialog = false;
     this.docTemplateId = this.selectedTemplate.id;
+    this.mformService.setCurTemplate(this.selectedTemplate.id);
   }
 
   onSelect(a: Templates, i: number){
