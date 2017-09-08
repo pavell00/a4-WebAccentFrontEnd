@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Document } from '../../model';
+import { Document, Folder } from '../../model';
 import {AppService} from '../../services/app.service';
 import {MainformService} from '../../services/main-form.service';
 import {Subject} from 'rxjs/Subject';
@@ -68,12 +68,12 @@ export class DocumentComponent implements OnInit {
         }
     }
 
-    onGetDocs(a: any){
+    onGetDocs(f: Folder){
         //console.log(this.documents.documentsOfFooler);
         //this.docs = this.documents.documentsOfFooler;
         //console.log(a);
-        this.mformService.setCurTemplate(a.tmlId);
-        this.fldTmlId = a.tmlId;
+        if (f.tmlId != undefined) this.mformService.setCurTemplate(f.tmlId);
+        this.fldTmlId = f.tmlId;
         this.getAll();
     }
 

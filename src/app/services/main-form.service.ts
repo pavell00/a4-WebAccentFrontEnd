@@ -20,7 +20,8 @@ export class MainformService {
     private searchUrlBinder: string = this.urlPrefix+'/sp_search_binders';
     private searchUrlTemplate: string = this.urlPrefix+'/sp_template';
     private gethUrlOperation: string = this.urlPrefix+'/sp_search_operations';
-    private currentTemplate = new BehaviorSubject<Templates>({'id':0,'tmlGuid':'','tmlName':'ww','frmId':'', 'tmlScript':''});
+    //private currentTemplate = new BehaviorSubject<Templates>({'id':0,'tmlGuid':'','tmlName':'ww','frmId':'', 'tmlScript':''});
+    private currentTemplate = new BehaviorSubject<Templates>({});
     
     constructor(private http: Http) { }
     
@@ -139,6 +140,4 @@ export class MainformService {
         return this.currentTemplate.asObservable();
     }
 
-//    getTypeSelector(): Observable<string> {return this.typeSelector.asObservable();}
-//    setTypeSelector(s: string){this.typeSelector.next(s);}
 }

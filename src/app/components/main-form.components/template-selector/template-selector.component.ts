@@ -22,10 +22,8 @@ export class TemplateSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.mformService.getCurTemplate().subscribe(
-      (res) => {
-                if (res != undefined) this.docTemplateId = res.id;
-      }
-  )
+      (res) => { if (res != undefined) this.docTemplateId = res.id; }
+    )
   }
 
   searchTemplate(tmlid: string, mode: string) {
