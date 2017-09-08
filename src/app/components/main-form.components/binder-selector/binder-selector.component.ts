@@ -25,9 +25,9 @@ export class BinderSelectorComponent implements OnInit {
   private bFlag: boolean = false;
 
   constructor(private mformService: MainformService,
-              private _logger: Logger) { }
+    private _logger: Logger) { }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
   onInputSearchTermBinder(e: any) {
     if (e.key === 'Enter') {
@@ -35,7 +35,7 @@ export class BinderSelectorComponent implements OnInit {
         //console.log(e.target.name, this.AgToName);
         //this._logger.info(e.target.name, this.AgToName);
         this.currentTrgBindName = e.target.name;
-        if(this.BinderName !== undefined && this.BinderName !== '' && this.BinderName.length >= 2){
+        if (this.BinderName !== undefined && this.BinderName !== '' && this.BinderName.length >= 2) {
           this.searchBinder(this.BinderName);
           this.displayDialogAddBinders = true;
         }
@@ -48,13 +48,15 @@ export class BinderSelectorComponent implements OnInit {
     this.displayDialogAddBinders = true;
   }
 
-  searchBinder(term :string) {
+  searchBinder(term: string) {
     this.mformService.searchBinder(term).subscribe(
-        (v) => {this.binders = v;
-                this.selectedBinder = this.binders[0];
-                this.result_length = this.binders.length},
-        (error) => (console.log(error)),
-        () => true
+      (v) => {
+        this.binders = v;
+        this.selectedBinder = this.binders[0];
+        this.result_length = this.binders.length
+      },
+      (error) => (console.log(error)),
+      () => true
     )
   }
 
@@ -75,7 +77,7 @@ export class BinderSelectorComponent implements OnInit {
   }
 
   clearSearch(e: string, a: string) {
-     if (e === ''){
+    if (e === '') {
       this._logger.info(a);
       if (a === 'searchBinder') {
         this.linkBinders = undefined;
@@ -85,35 +87,35 @@ export class BinderSelectorComponent implements OnInit {
   }
 
   keydown(e: any) {
-  /*    //console.log(e.key)
-      switch (e.key) {
-        case 'ArrowUp':
-          if (this.index > 0) {
-            this.index--
-            this.selectedAgent = this.agents[this.index]
-            this.bFlag = true;
-          }
-          break;
-        case 'ArrowDown':
-          if (this.index < this.result_length-1) {
-            this.index++
-            this.selectedAgent = this.agents[this.index]
-            this.bFlag = true;
-          }
-          break;
-        case 'Enter':
-          if (this.bFlag === true) { //костыль от самосрабатывания окна поиска ?
-            console.log(true);
-            this.onClickOk();
-            this.bFlag = false;
-          }
-          break;
-        case 'Escape':
-          this.onClickNo();
-          break;
-        default:
-          break;
-      }*/
+    /*    //console.log(e.key)
+        switch (e.key) {
+          case 'ArrowUp':
+            if (this.index > 0) {
+              this.index--
+              this.selectedAgent = this.agents[this.index]
+              this.bFlag = true;
+            }
+            break;
+          case 'ArrowDown':
+            if (this.index < this.result_length-1) {
+              this.index++
+              this.selectedAgent = this.agents[this.index]
+              this.bFlag = true;
+            }
+            break;
+          case 'Enter':
+            if (this.bFlag === true) { //костыль от самосрабатывания окна поиска ?
+              console.log(true);
+              this.onClickOk();
+              this.bFlag = false;
+            }
+            break;
+          case 'Escape':
+            this.onClickNo();
+            break;
+          default:
+            break;
+        }*/
   }
 
   onClickCloseDelBinders() {
@@ -125,6 +127,6 @@ export class BinderSelectorComponent implements OnInit {
   }
 
   removeBinder(ri: number) {
-    this.linkBinders = this.linkBinders.filter((val, i) => i!=ri);
+    this.linkBinders = this.linkBinders.filter((val, i) => i != ri);
   }
 }

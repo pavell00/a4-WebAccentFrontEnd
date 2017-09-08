@@ -3,17 +3,16 @@ import { Component, OnInit, ViewChild,
         Input, Output } from '@angular/core';
 import { Logger } from "angular2-logger/core";        
 import { MenuItem } from 'primeng/primeng';
-import { TemplateSelectorComponent} from '../template-selector/template-selector.component';
-import { TableEntityComponent } from '../table-entity/table-entity.component';
-import { AgentSelectorComponent, BinderSelectorComponent } from '../index';
+import { AgentSelectorComponent, BinderSelectorComponent, 
+        TableEntityComponent, TemplateSelectorComponent } from '../';
 import { MainformService } from '../../../services/main-form.service';
 import { Operation, Binders, Agents, 
         Templates, Entities } from '../../../model';
 
 @Component({
-  selector: 'main-form',
-  templateUrl: './main-form.component.html',
-  styleUrls: ['./main-form.component.css']
+    selector: 'main-form',
+    templateUrl: './main-form.component.html',
+    styleUrls: ['./main-form.component.css']
 })
 export class MainFormComponent implements OnInit, OnChanges {
 

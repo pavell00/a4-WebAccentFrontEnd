@@ -8,7 +8,7 @@ import { MainformService } from '../../services/main-form.service';
     moduleId: module.id,
     selector: 'editDialog',
     templateUrl: 'edit.dialog.component.html',
-      styleUrls: ['edit.dialog.component.css']
+    styleUrls: ['edit.dialog.component.css']
 })
 export class EditDialogComponent implements OnInit {
 
