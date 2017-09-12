@@ -9,7 +9,10 @@ export class Transactions {
         public j_ln_no?: number,
         public j_tr_no?: number,
         public j_qty?: number,
-        public j_sum?: number
+        public j_sum?: number,
+        public entNom?: string,
+        public entName?: string,
+        public unName?: string,
     ){}
 
 }

@@ -7,7 +7,7 @@ import { AgentSelectorComponent, BinderSelectorComponent,
         TableEntityComponent, TemplateSelectorComponent } from '../';
 import { MainformService } from '../../../services/main-form.service';
 import { Operation, Binders, Agents, 
-        Templates, Entities } from '../../../model';
+        Templates, Entities, Transactions } from '../../../model';
 
 @Component({
     selector: 'main-form',
@@ -33,6 +33,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     private AgFrom: Agents = {};
     private testAgent: any;
     private curentTemlate: Templates = {};
+    private outTransactions: Transactions[] = [];
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
@@ -52,22 +53,30 @@ export class MainFormComponent implements OnInit, OnChanges {
     }
 
     fillCurentDocData(e: any){
+        this.outBinders.length = 0; //clear array
+        this.outTransactions.length = 0; //clear array
         if (e != undefined) {
-            this.outBinders.length = 0; //clear array
             let obj = e;
             //operation not new
             if (obj.id != 0) {
-                this.mformService.searchOperation(obj.id).subscribe(
+                this.mformService.searchOperation(obj.id, '0').subscribe(
                     (v) => {this.operation = v;
                             this.outDocNo = this.operation[0].doc_no;
                             this.outDocName = this.operation[0].doc_name;
                             this.outDocDate = this.operation[0].doc_date;
                             this.outTemplateId = this.operation[0].tml_id;
                             this.mformService.setCurTemplate(this.operation[0].tml_id);
-                            let o = this.operation[0].binders;
-                            for (var key in o) {
-                                if (o.hasOwnProperty(key)) {
-                                    var element = o[key];
+                            let t = this.operation[0].transactions;
+                            for (var key in t) {
+                                if (t.hasOwnProperty(key)) {
+                                    var tr = t[key];
+                                    this.outTransactions.push(tr);
+                                }
+                            }
+                            let b = this.operation[0].binders;
+                            for (var key in b) {
+                                if (b.hasOwnProperty(key)) {
+                                    var element = b[key];
                                     this.outBinders.push(element);
                                 }
                             }
@@ -88,7 +97,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.outDocDate = obj.docDate
                 this.asc.setAgents({}, 'AgTo');
                 this.asc.setAgents({}, 'AgFrom');
-                this.tec.clearEntities();
+                //this.tec.clearEntities();
                 this.mformService.getCurTemplate().toPromise().then(response => { 
                     if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
                 });
@@ -122,7 +131,9 @@ export class MainFormComponent implements OnInit, OnChanges {
             }, {
                 label: 'Закрыть',
                 icon: 'fa-times',
-                command: () => {this.closeDocEvent.emit('closeDoc'); this.test('any');}
+                command: () => {this.closeDocEvent.emit('closeDoc'); 
+                                //this.tec.clearEntities();
+                            }
             }, {
                 label: 'Печать',
                 icon: 'fa-print',

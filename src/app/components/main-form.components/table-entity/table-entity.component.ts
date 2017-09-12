@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Entities } from '../../../model';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Entities, Transactions } from '../../../model';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
@@ -9,11 +9,14 @@ import { SelectItem } from 'primeng/primeng';
 })
 export class TableEntityComponent implements OnInit{
 
-  entities: Entities[] = [];
-  selectedType: string;
-  types: SelectItem[];
-  myValue: any = '';
-  selectedRowNo: number = -1;
+    @Input('docTransactionsIn') entities: Transactions[];
+
+    //entities: Entities[] = [];
+    //entities: Transactions[] = [];
+    selectedType: string;
+    types: SelectItem[];
+    myValue: any = '';
+    selectedRowNo: number = -1;
 
   constructor() {
       this.types = [];

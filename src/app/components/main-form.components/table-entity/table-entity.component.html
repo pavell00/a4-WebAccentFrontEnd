@@ -7,7 +7,6 @@
     <p-dataTable [value]="entities"  [editable]="true"
             [(selection)]="selectedRow"
             [rowHover]="true"
-            dataKey="fullName"
             (onRowClick)="onRowClick($event)"
             (onEditInit)="onEditInit($event)"
             (onEdit)="onEdit($event)">
@@ -29,10 +28,15 @@
             <p-column header="№">
                 <ng-template let-ri="rowIndex" pTemplate="item">{{ri+1}}</ng-template>
             </p-column> 
-            <p-column field="id" header="ID"></p-column>
+            <p-column field="j_id" header="ID"></p-column>
             <p-column field="entNom" header="Ном. №"></p-column> 
             <p-column field="entName" header="Название объекта учета"></p-column>
-            <p-column field="entQty" header="Кол-во" [editable]="true"></p-column>         
+            <p-column field="j_qty" header="Кол-во" [editable]="true"></p-column>         
     </p-dataTable>
+    <ul>
+        <li *ngFor="let ent of entities ">
+            {{ent.entNom}} - {{ent.entName}} - {{ent.entQty}}
+        </li>
+    </ul>
 </div>
 <search-entity-dlg #dialog (myEvent)="onGetItem($event)"></search-entity-dlg>
