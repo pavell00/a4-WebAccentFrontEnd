@@ -21,6 +21,8 @@
     "@angular/platform-browser": ">=4.0.0-beta <5.0.0",
     "@angular/platform-browser-dynamic": ">=4.0.0-beta <5.0.0",
     "@angular/router": ">=4.0.0-beta <5.0.0",
+    "ag-grid": "^13.1.1",
+    "ag-grid-angular": "^13.1.1",
     "angular2-jwt": "^0.2.0",
     "angular2-logger": "^0.6.0",
     "auth0-js": "^8.8.0",

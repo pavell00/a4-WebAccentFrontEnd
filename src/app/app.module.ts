@@ -4,8 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
+import { Headers, Http, RequestOptions } from '@angular/http';
 
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
 //primeng
 import { CalendarModule, DataTableModule,
         ToolbarModule, SplitButtonModule, DialogModule,
@@ -24,14 +24,16 @@ import { AgentSelectorComponent, BinderSelectorComponent,
         PriceListComponent, SearchEntityComponent,
         TableEntityComponent, TemplateSelectorComponent
         } from './components/main-form.components/';
+//ag-Grid-angular
+import { AgGridModule } from 'ag-grid-angular/main';
 
+//Services
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AppService } from './services/app.service';
 import { MainformService } from './services/main-form.service';
 import { Auth } from './services/auth0.service';
 import { AuthGuard } from './auth.guard';
-
 import { Logger } from 'angular2-logger/app/core/logger';
-import { Headers, Http, RequestOptions } from '@angular/http';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -45,7 +47,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   HttpModule, FormsModule, JsonpModule,
                   CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule,
-                  InputSwitchModule, CheckboxModule, RadioButtonModule],
+                  InputSwitchModule, CheckboxModule, RadioButtonModule,
+                  AgGridModule.withComponents([])],
   declarations: [ 
                   RootComponent, JournalComponent,
                   DocumentComponent, FolderComponent,

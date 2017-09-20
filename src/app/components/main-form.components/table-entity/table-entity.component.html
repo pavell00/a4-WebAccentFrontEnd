@@ -3,7 +3,7 @@
     <input type="text" name="searchEntity" #val pInputText (value)="myValue" myAutofocus
         maxlength=15/>
 </div>
-<div class="scrollingtable">
+<!-- <div class="scrollingtable">
     <p-dataTable [value]="entities"  [editable]="true"
             [(selection)]="selectedRow"
             [rowHover]="true"
@@ -38,5 +38,20 @@
             {{ent.entNom}} - {{ent.entName}} - {{ent.entQty}}
         </li>
     </ul>
-</div>
+</div> -->
+
+    <ag-grid-angular style="width: 900px; height: 250px;"
+        class="ag-fresh"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        (gridReady)="onGridReady($event)"
+        (rowClicked)="onRowClicked($event)"
+        enableSorting
+        enableFilter
+        rowSelection="single"
+        rowHeight="22"
+        [pagination]="true" [paginationPageSize]="5">
+    </ag-grid-angular>
+
 <search-entity-dlg #dialog (myEvent)="onGetItem($event)"></search-entity-dlg>
