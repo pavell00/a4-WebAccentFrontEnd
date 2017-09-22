@@ -1,4 +1,4 @@
-.items {
+/* .items {
     list-style-type: none;
     padding: 0em;
     height: 300px;
@@ -22,14 +22,11 @@
 .dropdownLine {
     display: flex;
 }
-
 .scrollingtable {
-    overflow: auto; /*scroll*/
+    overflow: auto;
     height: 15em;
-/*  position:relative;
-    height:10em;  
-    overflow:auto;*/
+
 }
 .scrollingtable * {
     box-sizing: border-box;
-}
+} */

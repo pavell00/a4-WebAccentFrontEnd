@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Entities, Transactions } from '../../../model';
 import { SelectItem } from 'primeng/primeng';
-import { GridOptions } from "ag-grid/main";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'table-entity',
@@ -11,12 +11,6 @@ import { GridOptions } from "ag-grid/main";
 export class TableEntityComponent implements OnInit{
 
     @Input('docTransactionsIn') entities: Transactions[];
-
-    //ag-Grid
-    gridOptions: GridOptions;
-    columnDefs: any[];
-    rowData: any[] = [];
-    rowSelectData: any[] = [];
 
     selectedType: string;
     types: SelectItem[];
@@ -29,32 +23,17 @@ export class TableEntityComponent implements OnInit{
         this.types.push({label:'Nom №', value:'nom'});
         this.types.push({label:'ID', value:'id'});
         this.selectedType = this.types[0].value;
-
-        this.gridOptions = <GridOptions>{};
-        this.rowData = [
-            {rowNo: 1, entNom: "Toyota", entName: "Celica", entQty: 35000},
-            {rowNo: 2, entNom: "Ford", entName: "Mondeo", entQty: 32000},
-            {rowNo: 3, entNom: "Porsche", entName: "Boxter", entQty: 72000}
-        ];
-        this.columnDefs = [
-            {headerName:"#", width:70,field:"rowNo"},
-            {headerName: "Ном. №", field: "entNom"}
-            /*{headerName: "Наименование", field: "entName", width:350},
-            {headerName: "Количество", field: "entQty", editable:true, width:150},
-            {headerName: "Act",
-            suppressMenu: true,
-            suppressSorting: true,
-            width:50,
-            template:
-            `<i class="fa fa-pencil" style="font-size:15px;color:green" data-action-type="view"></i>
-             <i class="fa fa-trash-o" style="font-size:15px;color:red;margin-left: 4px;"
-                data-action-type="remove"></i>
-            `
-          }*/
-        ];
     }
 
     ngOnInit(){ }
+    private sortByWordLength = (a:any) => {
+        return a.name.length;
+      }
+    
+    public removeItem(item: any) {
+      this.entities = _.filter(this.entities, (elem)=>elem!=item);
+      console.log("Remove: ", item.email);
+      }
 
     clearEntities(){
         let entity = [...this.entities];

@@ -1,0 +1,31 @@
+<!-- <div class="documentDlg">
+        <p-dialog [(visible)]="displayDialog" [contentStyle]="{'height':'90%','padding':'inherit'}"
+            [responsive]="true" showEffect="fade" [modal]="true" [height]="550" [width]="1100">
+            <p-header>Текущий шаблон - {{tmlName}}</p-header>
+                <div class="operationDlg">
+                    <main-form [curentdoc]="document" (closeDocEvent)="close($event)"></main-form>
+                </div>
+        </p-dialog>
+</div> -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal" [style.display] = "visible">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" (click)="onClose()">&times;</span>
+            <span>Текущий шаблон - {{tmlName}}</span>
+        </div>
+        <div class="modal-body">
+            <div class="container" >
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <main-form [curentdoc]="document" (closeDocEvent)="close($event)"></main-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span>Modal Footer</span> <button type="button" (click)="onClose()" label="Close" >Close</button>
+        </div>
+    </div>
+</div>

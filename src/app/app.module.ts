@@ -17,15 +17,15 @@ import { WelcomeComponent, RootComponent, FolderComponent,
         BreadCramberComponent, ProfileComponent, TypeSelectorComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
         CallbackComponent, CalendarComponent,
-        AutoComplitEntityComponent} from './components';
+        AutoComplitEntityComponent, EditDialog2Component} from './components';
 //interface main form
 import { AgentSelectorComponent, BinderSelectorComponent,
         DocNoDateComponent, MainFormComponent,
         PriceListComponent, SearchEntityComponent,
         TableEntityComponent, TemplateSelectorComponent
         } from './components/main-form.components/';
-//ag-Grid-angular
-import { AgGridModule } from 'ag-grid-angular/main';
+
+import {DataTableModule as a2_DataTableModule} from "angular2-datatable";
 
 //Services
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
@@ -47,8 +47,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   HttpModule, FormsModule, JsonpModule,
                   CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule,
-                  InputSwitchModule, CheckboxModule, RadioButtonModule,
-                  AgGridModule.withComponents([])],
+                  InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule
+                  ],
   declarations: [ 
                   RootComponent, JournalComponent,
                   DocumentComponent, FolderComponent,
@@ -60,7 +60,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   AgentSelectorComponent, BinderSelectorComponent,
                   DocNoDateComponent, MainFormComponent,
                   PriceListComponent, SearchEntityComponent,
-                  TableEntityComponent, TemplateSelectorComponent
+                  TableEntityComponent, TemplateSelectorComponent, EditDialog2Component
                 ],
   providers:    [ AppService, MainformService, appRoutingProviders,
                   Auth, AuthGuard, Logger,

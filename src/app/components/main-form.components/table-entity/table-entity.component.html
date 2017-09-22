@@ -3,55 +3,45 @@
     <input type="text" name="searchEntity" #val pInputText (value)="myValue" myAutofocus
         maxlength=15/>
 </div>
-<!-- <div class="scrollingtable">
-    <p-dataTable [value]="entities"  [editable]="true"
-            [(selection)]="selectedRow"
-            [rowHover]="true"
-            (onRowClick)="onRowClick($event)"
-            (onEditInit)="onEditInit($event)"
-            (onEdit)="onEdit($event)">
-            <p-column styleClass="col-button"  [style]="{'width':'50px'}">
-                <ng-template pTemplate="header">
-                    <button type="button" pButton  icon="fa-plus" (click)="addRow()"></button>
-                </ng-template>
-                <ng-template let-ri="rowIndex" let-myRow="rowData" pTemplate="body">
-                    <button type="button" pButton (click)="deleteRow(myRow, ri)"
-                    class="ui-button-danger" icon="fa-trash">
-                    </button>
-                </ng-template>
-            </p-column>
-            <p-column styleClass="col-button"  [style]="{'width':'50px'}" >
-                <ng-template pTemplate="item" let-ri="rowIndex" let-rd="rowData">
-                    <p-radioButton name="groupname" (onClick)="onRowEdit(ri, rd)" ></p-radioButton>
-                </ng-template>
-            </p-column>
-            <p-column header="№">
-                <ng-template let-ri="rowIndex" pTemplate="item">{{ri+1}}</ng-template>
-            </p-column> 
-            <p-column field="j_id" header="ID"></p-column>
-            <p-column field="entNom" header="Ном. №"></p-column> 
-            <p-column field="entName" header="Название объекта учета"></p-column>
-            <p-column field="j_qty" header="Кол-во" [editable]="true"></p-column>         
-    </p-dataTable>
-    <ul>
-        <li *ngFor="let ent of entities ">
-            {{ent.entNom}} - {{ent.entName}} - {{ent.entQty}}
-        </li>
-    </ul>
-</div> -->
 
-    <ag-grid-angular style="width: 900px; height: 250px;"
-        class="ag-fresh"
-        [rowData]="rowData"
-        [columnDefs]="columnDefs"
-        [gridOptions]="gridOptions"
-        (gridReady)="onGridReady($event)"
-        (rowClicked)="onRowClicked($event)"
-        enableSorting
-        enableFilter
-        rowSelection="single"
-        rowHeight="22"
-        [pagination]="true" [paginationPageSize]="5">
-    </ag-grid-angular>
-
+<table class="table table-striped" [mfData]="entities" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 10%"></th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="entNom">Nom</mfDefaultSorter>
+        </th>
+        <th style="width: 40%">
+            <mfDefaultSorter by="entName">Name</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+            <mfDefaultSorter by="age">Age</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="unName">City</mfDefaultSorter>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of mf.data">
+        <td>
+        <button class="btn btn-danger" title="remove" (click)="removeItem(item)">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        </td>
+        <td>{{item.entNom}}</td>
+        <td>{{item.entName}}</td>
+        <td class="text-right">{{item.j_qty}}</td>
+        <td>{{item.unName}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+ 
 <search-entity-dlg #dialog (myEvent)="onGetItem($event)"></search-entity-dlg>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Document, Folder } from '../../model';
 import {AppService} from '../../services/app.service';
@@ -8,7 +8,8 @@ import {Subject} from 'rxjs/Subject';
 @Component({
     moduleId: module.id,
     selector: 'document',
-    templateUrl: 'document.component.html'
+    templateUrl: 'document.component.html',
+    styleUrls: ['document.component.css']
 })
 
 export class DocumentComponent implements OnInit {
@@ -25,11 +26,11 @@ export class DocumentComponent implements OnInit {
     private docs: Document[];
     private error: any;
     private counter: number = 0;
-    private docLazy: Document[];
+    private docLazy: Document[] = [];
 
     constructor(private appService: AppService,
                 private mformService: MainformService) { }
-
+    
     ngOnInit() {
         //this.getAll();
         //this.getAll2();
@@ -39,7 +40,9 @@ export class DocumentComponent implements OnInit {
         //console.log('documents.component-getAll(this.appService.getDocs().subscribe)')
          this.appService.getDocs().subscribe(
             (val) => {this.docs = val;
-                    this.counter = this.docs.length;}) 
+                      this.counter = this.docs.length;
+                      this.loadDocsLazy({'first':0,'rows':'10'});
+                    }) 
 
         this.documentSelect$.subscribe(
             (v) => {this.document = v;}
@@ -86,7 +89,7 @@ export class DocumentComponent implements OnInit {
     }
 
     loadDocsLazy(event: any) {
-        //console.log(event.first, event.rows );
+        //onsole.log(event.first, event.rows );
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page

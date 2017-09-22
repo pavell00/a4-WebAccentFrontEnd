@@ -42,3 +42,4 @@ export {TypeSelectorComponent} from './type-selector.component/type-selector.com
 export {WelcomeComponent} from './welcome.component/welcome.component';
 export {CalendarDlgComponent} from './calendar-dlg.component/calendar-dlg.component';
 export {CallbackComponent} from './callback.component/callback.component';
+export {EditDialog2Component} from './edit-dialog2.component/edit-dialog2.component';

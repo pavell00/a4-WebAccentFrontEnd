@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/distinctuntilchanged';
+import 'rxjs/add/operator/distinctUntilChanged';
 import { environment } from '../../environments/environment';
 
 import {Entities, Agents, PriceLists, Price,
