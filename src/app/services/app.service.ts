@@ -23,8 +23,8 @@ export class AppService {
     private journals = new Subject<Journal[]>();
     private entities = new Subject<Entities[]>();
     //private calendar = new BehaviorSubject('23.03.2017');
-    private calendarStartDt = new BehaviorSubject(new Date().toLocaleDateString());
-    private calendarEndDt = new BehaviorSubject(new Date().toLocaleDateString()); //'23.03.2017'
+    private calendarStartDt = new BehaviorSubject(new Date().toLocaleDateString("ru"));
+    private calendarEndDt = new BehaviorSubject(new Date().toLocaleDateString("ru")); //'23.03.2017'
     private typeSelector = new BehaviorSubject<string>('document_type');
 
     private bcramberSource = new Subject<BreadCramber[]>();

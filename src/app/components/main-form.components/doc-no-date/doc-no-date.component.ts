@@ -15,7 +15,7 @@ export class DocNoDateComponent implements OnInit {
   constructor(private mfService: MainformService) { }
 
   ngOnInit() {
-    this.docDate = this.mfService.getDateToStringFormat();
+    //this.docDate = this.mfService.getDateToStringFormat();
     /*     this.mfService.getOperation().subscribe(
       (v) => {this.docNo = v.doc_no;
               this.docName = v.doc_name;

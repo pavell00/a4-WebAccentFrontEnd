@@ -152,10 +152,11 @@ export class CalendarDlgComponent implements OnInit {
   }
 
   onSelectStartDate(d: Date){
-      this.startDate = d.toLocaleDateString()
+      this.startDate = d.toLocaleDateString("ru");
+      //console.log(d.toLocaleDateString("ru-RU"));
   }
 
   onSelectEndDate(d: Date){
-      this.endDate = d.toLocaleDateString()
+      this.endDate = d.toLocaleDateString("ru");
   }
 }
