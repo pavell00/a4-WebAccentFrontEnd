@@ -3,9 +3,9 @@ import { Folder, BreadCramber } from '../../model';
 import { AppService } from '../../services/app.service';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'folder',
-    templateUrl: 'folder.component.html'
+    templateUrl: './folder.component.html'
 })
 export class FolderComponent implements OnInit {
 

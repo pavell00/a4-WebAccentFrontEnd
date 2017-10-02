@@ -82,14 +82,18 @@ export class MainFormComponent implements OnInit, OnChanges {
                                 }
                             }
                             //select Agent from zero lines first transaction
-                            this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
-                                .then(data => { this.AgTo = data[0];
-                                                this.asc.setAgents(this.AgTo, 'AgTo');})
-                                .catch(error => this._logger.error(error));
-                            this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag2)
-                                .then(data => { this.AgFrom = data[0];
-                                                this.asc.setAgents(this.AgFrom, 'AgFrom');})
-                                .catch(error => this._logger.error(error));
+                            if (this.operation[0].transactions[0].j_ag1 != undefined) {
+                                this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
+                                    .then(data => { this.AgTo = data[0];
+                                                    this.asc.setAgents(this.AgTo, 'AgTo');})
+                                    .catch(error => this._logger.error(error));
+                            }
+                            if (this.operation[0].transactions[0].j_ag2 != undefined) {
+                                this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag2)
+                                    .then(data => { this.AgFrom = data[0];
+                                                    this.asc.setAgents(this.AgFrom, 'AgFrom');})
+                                    .catch(error => this._logger.error(error));
+                            }
                         }
                 )
             } else { // operation is new

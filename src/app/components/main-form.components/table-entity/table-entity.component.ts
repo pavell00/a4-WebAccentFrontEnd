@@ -29,25 +29,14 @@ export class TableEntityComponent implements OnInit{
 
     ngOnInit(){ }
 
-    private sortByWordLength = (a:any) => {
-        return a.name.length;
-      }
+    private sortByWordLength = (a:any) => { return a.name.length; }
     
     public removeItem(item: any) {
-      this.entities = _.filter(this.entities, (elem)=>elem!=item);
-      console.log("Remove: ", item.id);
-      }
-
-    setTransactions(t: Transactions[]){
-        this.entities = t;
+        this.entities = _.filter(this.entities, (elem)=>elem!=item);
+        //console.log("Remove: ", item.id);
     }
 
-    clearEntities(){
-        //let entity = [...this.entities];
-        //entity.length = 0;
-        //this.entities = entity;
-        //this.entities.length = 0;
-    }
+    setTransactions(t: Transactions[]){ this.entities = t; }
 
     onGetItem(p: Entities){
         let entity = [...this.entities];

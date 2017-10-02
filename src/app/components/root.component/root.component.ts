@@ -3,10 +3,10 @@ import {AppService} from '../../services/app.service';
 import {BreadCramber} from '../../model';
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'root-app',
-  templateUrl: 'root.component.html',
-  styleUrls:  ['root.component.css'],
+  templateUrl: './root.component.html',
+  styleUrls:  ['./root.component.css'],
 })
 
 export class RootComponent implements OnInit { 

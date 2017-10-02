@@ -5,8 +5,8 @@ import { AppService } from '../../services/app.service';
 @Component({
   moduleId: module.id,
   selector: 'calendar-dlg',
-  templateUrl: 'calendar-dlg.component.html',
-  styleUrls: ['calendar-dlg.component.css']
+  templateUrl: './calendar-dlg.component.html',
+  styleUrls: ['./calendar-dlg.component.css']
 })
 export class CalendarDlgComponent implements OnInit {
 

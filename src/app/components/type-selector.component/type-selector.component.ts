@@ -3,10 +3,10 @@ import { AppService } from '../../services/app.service';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'type-selector',
-  templateUrl: 'type-selector.component.html',
-  styleUrls: ['type-selector.component.css']
+  templateUrl: './type-selector.component.html',
+  styleUrls: ['./type-selector.component.css']
 })
 export class TypeSelectorComponent implements OnInit {
 

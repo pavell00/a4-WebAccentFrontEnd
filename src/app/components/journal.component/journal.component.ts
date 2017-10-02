@@ -5,7 +5,7 @@ import {AppService} from '../../services/app.service';
 @Component({
     moduleId: module.id,
     selector: 'journal',
-    templateUrl: 'journal.component.html'
+    templateUrl: './journal.component.html'
 })
 export class JournalComponent implements OnInit {
     

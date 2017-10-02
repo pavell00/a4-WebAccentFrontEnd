@@ -6,10 +6,10 @@ import {MainformService} from '../../services/main-form.service';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'document',
-    templateUrl: 'document.component.html',
-    styleUrls: ['document.component.css']
+    templateUrl: './document.component.html',
+    styleUrls: ['./document.component.css']
 })
 
 export class DocumentComponent implements OnInit {

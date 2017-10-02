@@ -3,10 +3,10 @@ import { AppService } from '../../services/app.service';
 import { BreadCramber, Folder } from '../../model';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'breadcramber',
-    templateUrl: 'breadcramber.component.html',
-    styleUrls:  ['breadcramber.component.css'],
+    templateUrl: './breadcramber.component.html',
+    styleUrls:  ['./breadcramber.component.css'],
 })
 
 export class BreadCramberComponent implements OnInit {
