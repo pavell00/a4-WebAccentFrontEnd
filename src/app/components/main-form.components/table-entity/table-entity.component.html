@@ -15,10 +15,10 @@
             <mfDefaultSorter by="entName">Name</mfDefaultSorter>
         </th>
         <th style="width: 10%">
-            <mfDefaultSorter by="age">Age</mfDefaultSorter>
+            <mfDefaultSorter by="age">Кол-во</mfDefaultSorter>
         </th>
         <th style="width: 20%">
-            <mfDefaultSorter by="unName">City</mfDefaultSorter>
+            <mfDefaultSorter by="unName">Ед.изм</mfDefaultSorter>
         </th>
     </tr>
     </thead>
@@ -31,8 +31,8 @@
         </td>
         <td>{{item.entNom}}</td>
         <td>{{item.entName}}</td>
-        <td class="text-right">{{item.j_qty}}</td>
         <td>{{item.unName}}</td>
+        <td class="text-right" contenteditable='true'>{{item.j_qty}}</td>
     </tr>
     </tbody>
     <tfoot>
@@ -43,5 +43,4 @@
     </tr>
     </tfoot>
 </table>
- 
 <search-entity-dlg #dialog (myEvent)="onGetItem($event)"></search-entity-dlg>

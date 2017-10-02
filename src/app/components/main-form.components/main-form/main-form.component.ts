@@ -33,7 +33,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     private AgFrom: Agents = {};
     private testAgent: any;
     private curentTemlate: Templates = {};
-    private outTransactions: Transactions[] = [];
+    private Transactions: Transactions[] = [];
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
@@ -54,7 +54,7 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     fillCurentDocData(e: any){
         this.outBinders.length = 0; //clear array
-        this.outTransactions.length = 0; //clear array
+        this.Transactions.length = 0; //clear array
         if (e != undefined) {
             let obj = e;
             //operation not new
@@ -70,9 +70,10 @@ export class MainFormComponent implements OnInit, OnChanges {
                             for (var key in t) {
                                 if (t.hasOwnProperty(key)) {
                                     var tr = t[key];
-                                    this.outTransactions.push(tr);
+                                    this.Transactions.push(tr);
                                 }
                             }
+                            this.tec.setTransactions(this.Transactions);//fill transactionsl data to dialog of document
                             let b = this.operation[0].binders;
                             for (var key in b) {
                                 if (b.hasOwnProperty(key)) {
@@ -97,7 +98,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.outDocDate = obj.docDate
                 this.asc.setAgents({}, 'AgTo');
                 this.asc.setAgents({}, 'AgFrom');
-                //this.tec.clearEntities();
+                this.tec.setTransactions([]);//clear transactionsl data to dialog of document
                 this.mformService.getCurTemplate().toPromise().then(response => { 
                     if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
                 });
@@ -107,8 +108,8 @@ export class MainFormComponent implements OnInit, OnChanges {
     }
 
     fillCurentfldTmlIdData(tml: any){
-        //console.log(tml);
-/*         if (tml != undefined && tml != 0) {
+        /*console.log(tml);
+         if (tml != undefined && tml != 0) {
             this.mformService.searchTemplate(tml, '1').subscribe(
                 (v) => {this.curentTemlate = v[0]},
                 (error) => this._logger.error(error),
