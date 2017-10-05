@@ -19,7 +19,7 @@ export class MainformService {
     private gethUrlPriceLists: string = this.urlPrefix+'/sp_search_pricelists';
     private searchUrlBinder: string = this.urlPrefix+'/sp_search_binders';
     private searchUrlTemplate: string = this.urlPrefix+'/sp_template';
-    private gethUrlOperation: string = this.urlPrefix+'/sp_search_operations';
+    private gethUrlOperation: string = this.urlPrefix+'/sp_search_operation';
     //private currentTemplate = new BehaviorSubject<Templates>({'id':0,'tmlGuid':'','tmlName':'ww','frmId':'', 'tmlScript':''});
     private currentTemplate = new BehaviorSubject<Templates>({});
     

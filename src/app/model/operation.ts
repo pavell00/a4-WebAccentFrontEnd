@@ -24,6 +24,8 @@ export interface Operation {
     doc_pl2?: number;
     doc_pl3?: number;
     tml_id?: number;
+    fld_id?: number;
+    frm_id?: number;
     binders?: { [key: string]: Binders; };
     transactions?: { [key: string]: Transactions; }
 
