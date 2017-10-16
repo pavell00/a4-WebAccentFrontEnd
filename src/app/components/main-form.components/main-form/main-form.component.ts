@@ -33,7 +33,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     private AgFrom: Agents = {};
     private testAgent: any;
     private curentTemlate: Templates = {};
-    private Transactions: Transactions[] = [];
+    private transactions: Transactions[] = [];
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
@@ -54,7 +54,7 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     fillCurentDocData(e: any){
         this.outBinders.length = 0; //clear array
-        this.Transactions.length = 0; //clear array
+        this.transactions.length = 0; //clear array
         if (e != undefined) {
             let obj = e;
             //operation not new
@@ -70,10 +70,10 @@ export class MainFormComponent implements OnInit, OnChanges {
                             for (var key in t) {
                                 if (t.hasOwnProperty(key)) {
                                     var tr = t[key];
-                                    this.Transactions.push(tr);
+                                    this.transactions.push(tr);
                                 }
                             }
-                            this.tec.setTransactions(this.Transactions);//fill transactionsl data to dialog of document
+                            this.tec.setTransactions(this.transactions);//fill transactionsl data to dialog of document
                             let b = this.operation[0].binders;
                             for (var key in b) {
                                 if (b.hasOwnProperty(key)) {
