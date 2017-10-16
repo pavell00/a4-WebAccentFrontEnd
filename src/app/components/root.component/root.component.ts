@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../services/app.service';
-import {BreadCramber} from '../../model';
+import {BreadCramber, Op} from '../../model';
+import { OperationService } from '../../services/operation.service';
 
 @Component({
   //moduleId: module.id,
@@ -15,9 +16,10 @@ export class RootComponent implements OnInit {
     private endDate: string;
     private checked: boolean = true;
     private error: any;
+    curOp: Op;
 
-
-    constructor(private appService: AppService){ }
+    constructor(private appService: AppService,
+                private operationService : OperationService){ }
 
     ngOnInit(){
        /*this.appService.getCounter().subscribe(
@@ -28,7 +30,9 @@ export class RootComponent implements OnInit {
         )
         this.appService.getCalendarEndDt().subscribe(
             (v) => {this.endDate = v;}
-        )        
-    }        
-    
+        )
+        this.operationService.getCurrentOperation().subscribe(
+            (v) => {this.curOp = v;}
+        )
+    }
 }

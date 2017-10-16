@@ -31,6 +31,7 @@ import {DataTableModule as a2_DataTableModule} from "angular2-datatable";
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AppService } from './services/app.service';
 import { MainformService } from './services/main-form.service';
+import { OperationService } from './services/operation.service';
 import { Auth } from './services/auth0.service';
 import { AuthGuard } from './auth.guard';
 import { Logger } from 'angular2-logger/app/core/logger';
@@ -62,7 +63,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   PriceListComponent, SearchEntityComponent,
                   TableEntityComponent, TemplateSelectorComponent, EditDialog2Component
                 ],
-  providers:    [ AppService, MainformService, appRoutingProviders,
+  providers:    [ AppService, MainformService, appRoutingProviders, OperationService,
                   Auth, AuthGuard, Logger,
                   {
                     provide: AuthHttp,

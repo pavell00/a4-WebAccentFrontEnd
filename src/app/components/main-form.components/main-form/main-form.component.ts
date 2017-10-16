@@ -6,6 +6,7 @@ import { MenuItem } from 'primeng/primeng';
 import { AgentSelectorComponent, BinderSelectorComponent, 
         TableEntityComponent, TemplateSelectorComponent } from '../';
 import { MainformService } from '../../../services/main-form.service';
+import { OperationService } from '../../../services/operation.service';
 import { Operation, Binders, Agents, 
         Templates, Entities, Transactions } from '../../../model';
 
@@ -38,6 +39,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
     constructor(private mformService: MainformService,
+                private operationService: OperationService,
                 private _logger: Logger) { }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -59,7 +61,7 @@ export class MainFormComponent implements OnInit, OnChanges {
             let obj = e;
             //operation not new
             if (obj.id != 0) {
-                this.mformService.searchOperation(obj.id, '0').subscribe(
+                this.operationService.searchOperation(obj.id, '0').subscribe(
                     (v) => {this.operation = v;
                             this.outDocNo = this.operation[0].doc_no;
                             this.outDocName = this.operation[0].doc_name;

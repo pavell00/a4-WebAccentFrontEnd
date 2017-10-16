@@ -85,17 +85,6 @@ export class MainformService {
             .catch(this.handleError);
     }
 
-    searchOperation(term: string, trNo: string): Observable<Operation[]> {
-        let params = new URLSearchParams();
-        params.set('docid', term);
-        params.set('transno', trNo);
-        return this.http
-            .get(this.gethUrlOperation, { search: params })
-            .map(response => response.json())
-            .catch(this.handleError);
-
-    }
-
 /*     setOperation(term: string){
         this.searchOperation(term).subscribe(v => {this.operation.next(v)})
     } */

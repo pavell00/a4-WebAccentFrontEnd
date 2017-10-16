@@ -1,4 +1,4 @@
-import {Binders, Templates, Transactions} from './'
+import {Binders, Transactions} from './'
 
 export interface Operation {
     doc_id?: number;
