@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild,
 import { Logger } from "angular2-logger/core";        
 import { MenuItem } from 'primeng/primeng';
 import { AgentSelectorComponent, BinderSelectorComponent, 
-        TableEntityComponent, TemplateSelectorComponent } from '../';
+        TableEntityComponent, TemplateSelectorComponent, DocNoDateComponent } from '../';
 import { MainformService } from '../../../services/main-form.service';
 import { OperationService } from '../../../services/operation.service';
 import { Operation, Binders, Agents, 
@@ -21,6 +21,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     @ViewChild(TemplateSelectorComponent) private tsc: TemplateSelectorComponent;
     @ViewChild(AgentSelectorComponent) private asc: AgentSelectorComponent;
     @ViewChild(TableEntityComponent) private tec: TableEntityComponent;
+    @ViewChild(DocNoDateComponent) private docnodate: DocNoDateComponent;
     @Input() curentdoc: Document;
 
     private operation: Operation[] = []; // не работет без фиктивного массива ???
@@ -35,6 +36,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     private testAgent: any;
     private curentTemlate: Templates = {};
     private transactions: Transactions[] = [];
+    private isNewOp : boolean = false;
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
@@ -62,7 +64,8 @@ export class MainFormComponent implements OnInit, OnChanges {
             //operation not new
             if (obj.id != 0) {
                 this.operationService.searchOperation(obj.id, '0').subscribe(
-                    (v) => {this.operation = v;
+                    (v) => {this.isNewOp = false;
+                            this.operation = v;
                             this.outDocNo = this.operation[0].doc_no;
                             this.outDocName = this.operation[0].doc_name;
                             this.outDocDate = this.operation[0].doc_date;
@@ -99,9 +102,11 @@ export class MainFormComponent implements OnInit, OnChanges {
                         }
                 )
             } else { // operation is new
-                this.outDocNo = obj.docNo;
-                this.outDocName = obj.docName;
-                this.outDocDate = obj.docDate
+                this.isNewOp = true;
+                //this.outDocNo = "";//obj.docNo;
+                //this.docnodate.clearDocNo();
+                //this.outDocName = obj.docName;
+                //this.outDocDate = this.mformService.getDateToStringFormat();
                 this.asc.setAgents({}, 'AgTo');
                 this.asc.setAgents({}, 'AgFrom');
                 this.tec.setTransactions([]);//clear transactionsl data to dialog of document
@@ -124,7 +129,7 @@ export class MainFormComponent implements OnInit, OnChanges {
         } */
     }
 
-    ngOnInit() {
+    ngOnInit(){
         this.items = [
             {
                 label: 'Новый',
@@ -134,13 +139,14 @@ export class MainFormComponent implements OnInit, OnChanges {
             }, {
                 label: 'Сохранить',
                 icon: 'fa-floppy-o',
-                disabled: true
+                //disabled: true
+                command: () => this.onSave()
             }, {
                 label: 'Закрыть',
                 icon: 'fa-times',
                 command: () => {this.closeDocEvent.emit('closeDoc'); 
-                                //this.tec.clearEntities();
-                            }
+                                this.operationService.clearOp();
+                    }
             }, {
                 label: 'Печать',
                 icon: 'fa-print',
@@ -176,6 +182,12 @@ export class MainFormComponent implements OnInit, OnChanges {
                             command: () => this.bsc.ShowDialogDelBinder()},
                         ]
             }];
+    }
+
+    onSave(){
+        this.operationService.setDocNo(this.docnodate.docNo);
+        this.operationService.setDocDate(this.docnodate.docDate);
+        this.operationService.setDocName(this.docnodate.docName);
     }
 
     test(e: any){

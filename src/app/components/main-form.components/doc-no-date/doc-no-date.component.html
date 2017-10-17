@@ -1,8 +1,9 @@
 <div class="head">
-      <h4 style="margin:0em">{{docName}} № </h4>
-      <input name="docNo" type="text" [(ngModel)]="docNo" #myDocNo
-            pInputText placeholder='Номер документа' size=15/> от 
-      <input name="docDate" type="datetime-local" [(ngModel)]="docDate"/>
+      <span style="margin:0em">{{docName}} № </span>
+
+      <input type="text" [(ngModel)]="docNo"
+            placeholder='Номер документа' size=15/> от 
+
+      <input name="docDate" type="datetime-local" [(ngModel)]="docDate"/>      
       <price-list #prl></price-list>
-</div>
-<button type="button" pButton icon="fa-close" (click)="onClick()" label="No"></button>
+</div>{{isNewOp}} {{docDate}}

@@ -1,9 +1,6 @@
 <div class="mainform">
     <p-menubar [model]="items"></p-menubar>
-    <doc-no-date [docNoIn]="outDocNo" 
-                 [docNameIn]="outDocName"
-                 [docDateIn]="outDocDate">
-    </doc-no-date>
+    <doc-no-date [isNewOp]="isNewOp"></doc-no-date>
     <binder-selector [docBindsIn]="outBinders"></binder-selector>
     <agent-selector></agent-selector>
     <table-entity></table-entity>

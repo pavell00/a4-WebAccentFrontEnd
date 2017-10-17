@@ -108,4 +108,8 @@ export class DocumentComponent implements OnInit {
     isTmlLink(){
         return !this.fldTmlId;
     }
+
+    onShowPopup(){
+        this.selectedRow = null;
+    }
 }

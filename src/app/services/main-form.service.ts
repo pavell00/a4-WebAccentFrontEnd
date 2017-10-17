@@ -104,14 +104,15 @@ export class MainformService {
         let s: string;
         let DayNo: string = d.getDate().toString();
         if (d.getDate() < 10) DayNo = '0' + d.getDate().toString();
-        let MontNo: string = d.getMonth().toString();
-        if (d.getMonth() < 10) MontNo = '0' + d.getMonth().toString();
+        let MonthNo = d.getMonth() + 1;
+        let mNo = String(MonthNo);
+        if (MonthNo < 10) mNo += '0' ;
         let HoursNo: string = d.getHours().toString();
         if (d.getHours() < 10) HoursNo = '0' + d.getHours().toString();
         let MinutesNo: string =  d.getMinutes().toString()+':00';
         if (d.getMinutes() < 10) MinutesNo = '0'+d.getMinutes().toString()+':00';
         s = d.getFullYear().toString();
-        s = s +'-'+MontNo+'-'+DayNo+'T'+HoursNo+':'+MinutesNo;
+        s = s +'-'+mNo+'-'+DayNo+'T'+HoursNo+':'+MinutesNo;
         return s
     }
 
