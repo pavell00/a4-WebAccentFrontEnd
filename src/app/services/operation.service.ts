@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 import { MainformService } from './main-form.service'
 
 import {Entities, Agents, PriceLists, Price,
-    Binders, Templates, Operation, Op} from '../model';
+    Binders, Templates, Operation, Op, Transactions} from '../model';
 
 @Injectable()
 export class OperationService {
@@ -17,7 +17,11 @@ export class OperationService {
     private urlPrefix = environment.urlPrefix;
     private gethUrlOperation: string = this.urlPrefix+'/sp_search_operation';
     private op = new Op();
-    private currentOperation = new BehaviorSubject<Op>({'doc_name':'новый', 'doc_date':this.mformService.getDateToStringFormat()});
+    private currentOperation = new BehaviorSubject<Op>({'doc_name':'новый документ', 
+        'doc_date':this.mformService.getDateToStringFormat(),
+        'doc_no':'0'
+        });
+       //'transactions': {'key':{'j_ag1':0, 'j_ag2':0}}
 
     constructor(private http: Http,
                 private mformService: MainformService) {
@@ -34,6 +38,7 @@ export class OperationService {
         let a = this.http
             .get(this.gethUrlOperation, { search: params })
             .map(response => response.json())
+            //.do( data => console.log(data))
             .catch(this.handleError)
                 a.subscribe(
                     (v) => {this.currentOperation.next(v[0])}
@@ -41,19 +46,33 @@ export class OperationService {
         return a;
     }
 
-    setDocNo(docNo: string){
-        this.op.doc_no = docNo;
-        this.currentOperation.next(this.op);
+    setAgents(agToId : number|null, agFromId : number|null) {
+        let newOp = this.op;
+/*         console.log(typeof this.op.transactions);
+        console.log(typeof newOp.transactions);
+        newOp.transactions[0].j_ag1 = agToId;// = {'j_ag1': agToId, 'j_ag2': agFromId};
+        console.log(newOp.transactions); */
+/*         if (newOp.transactions != undefined) {
+            console.log(newOp.transactions[0].j_ag1);
+            newOp.transactions[0].j_ag1 = agToId;
+            newOp.transactions[0].j_ag2 = agFromId;
+            //this.op = newOp;
+            this.currentOperation.next(newOp);
+        } */
+        //this.currentOperation.next(newOp);
     }
 
-    setDocDate(docDate: string){
-        this.op.doc_date = docDate;
-        this.currentOperation.next(this.op);
-    }
-
-    setDocName(docName: string){
-        this.op.doc_name = docName;
-        this.currentOperation.next(this.op);
+    saveDoc(docNo: string, docDate: string, docName: string){
+        var newOp = this.op;
+        newOp.doc_no = docNo;
+        newOp.doc_date = docDate;
+        newOp.doc_name = docName;
+        console.log(typeof newOp.transactions);
+        //newOp["transactions"][0].j_ag1 = 1845;
+        //newOp.transactions[0].j_ag1 = 1845;
+        //newOp.transactions[0].j_ag2 = 7137;
+        this.currentOperation.next(newOp);
+        console.log(JSON.stringify(newOp));
     }
 
     getCurrentOperation(): Observable<Op>{
@@ -64,6 +83,8 @@ export class OperationService {
         let op = new Op();
         op.doc_name = 'новый';
         op.doc_date = this.mformService.getDateToStringFormat();
+        //op.transactions[0].j_ag1 = null;
+        //op.transactions[0].j_ag2 = null;
         this.currentOperation.next(op);
     }
 

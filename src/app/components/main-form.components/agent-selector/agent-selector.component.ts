@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Agents } from '../../../model';
+import { Agents, Op } from '../../../model';
 import { MainformService } from '../../../services/main-form.service';
+import { OperationService } from '../../../services/operation.service';
 import { Logger } from "angular2-logger/core";
 
 @Component({
@@ -11,8 +12,8 @@ import { Logger } from "angular2-logger/core";
 export class AgentSelectorComponent implements OnInit {
 
   private displayDialog: boolean;
-  private AgTo: Agents;
-  private AgFrom: Agents;
+  private AgTo: Agents = {};
+  private AgFrom: Agents = {};
   private AgToName: string;
   private AgFromName: string;
   private agents: Agents[] = [];
@@ -21,11 +22,32 @@ export class AgentSelectorComponent implements OnInit {
   private index: number = 0;
   private result_length: number;
   private bFlag: boolean = false;
+  private op: Op;
 
   constructor(private mformService: MainformService,
+              private operationService: OperationService,
               private _logger: Logger) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+      this.operationService.getCurrentOperation().subscribe(
+        (v) => {this.op = v;
+                if (this.op.transactions != undefined) {
+                  if (this.op.transactions[0].j_ag1 != undefined) {
+                    this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag1)
+                    .then(data => { this.AgTo = data[0]; this.AgToName = this.AgTo.agName;})
+                    .catch(error => this._logger.error(error));
+                  }
+                } else {this.AgTo = {}; this.AgToName=''}
+                if (this.op.transactions != undefined) {
+                  if (this.op.transactions[0].j_ag2 != undefined) {
+                    this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag2)
+                    .then(data => { this.AgFrom = data[0]; this.AgFromName = this.AgFrom.agName;})
+                    .catch(error => this._logger.error(error));
+                  }
+                } else {this.AgFrom = {}; this.AgFromName='';}
+        }
+      )
+    }
 
     setAgents(Ag: Agents, AgType: string){
       if (AgType === 'AgTo') {
@@ -132,6 +154,7 @@ export class AgentSelectorComponent implements OnInit {
       this.AgFromName = this.selectedAgent.agName;
     }
     this.displayDialog = false
+    this.operationService.setAgents(this.AgTo.id, this.AgFrom.id)
   }
 
   onClickNo(){

@@ -87,7 +87,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                                 }
                             }
                             //select Agent from zero lines first transaction
-                            if (this.operation[0].transactions[0].j_ag1 != undefined) {
+/*                             if (this.operation[0].transactions[0].j_ag1 != undefined) {
                                 this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
                                     .then(data => { this.AgTo = data[0];
                                                     this.asc.setAgents(this.AgTo, 'AgTo');})
@@ -98,7 +98,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                                     .then(data => { this.AgFrom = data[0];
                                                     this.asc.setAgents(this.AgFrom, 'AgFrom');})
                                     .catch(error => this._logger.error(error));
-                            }
+                            } */
                         }
                 )
             } else { // operation is new
@@ -107,8 +107,8 @@ export class MainFormComponent implements OnInit, OnChanges {
                 //this.docnodate.clearDocNo();
                 //this.outDocName = obj.docName;
                 //this.outDocDate = this.mformService.getDateToStringFormat();
-                this.asc.setAgents({}, 'AgTo');
-                this.asc.setAgents({}, 'AgFrom');
+                //this.asc.setAgents({}, 'AgTo');
+                //this.asc.setAgents({}, 'AgFrom');
                 this.tec.setTransactions([]);//clear transactionsl data to dialog of document
                 this.mformService.getCurTemplate().toPromise().then(response => { 
                     if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
@@ -185,9 +185,8 @@ export class MainFormComponent implements OnInit, OnChanges {
     }
 
     onSave(){
-        this.operationService.setDocNo(this.docnodate.docNo);
-        this.operationService.setDocDate(this.docnodate.docDate);
-        this.operationService.setDocName(this.docnodate.docName);
+        this.operationService.saveDoc(this.docnodate.docNo, 
+            this.docnodate.docDate, this.docnodate.docName);
     }
 
     test(e: any){

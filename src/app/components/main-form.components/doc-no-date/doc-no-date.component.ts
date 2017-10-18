@@ -13,7 +13,7 @@ export class DocNoDateComponent implements OnInit {
   //@Input('docNameIn') docName: string;
   //@Input('docDateIn') docDate: string;
   docNo: string;
-  docName: string
+  docName: string;
   docDate: string;
 
   @Input() isNewOp: string;
