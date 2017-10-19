@@ -17,15 +17,11 @@ export class OperationService {
     private urlPrefix = environment.urlPrefix;
     private gethUrlOperation: string = this.urlPrefix+'/sp_search_operation';
     private op = new Op();
-/*     private currentOperation = new BehaviorSubject<Op>({'doc_name':'новый документ', 
-        'doc_date':this.mformService.getDateToStringFormat(),
-        'doc_no':'0'
-        }); */
-       //'transactions': {'key':{'j_ag1':0, 'j_ag2':0}}
     private currentOperation = new BehaviorSubject<Op>({})
 
     constructor(private http: Http,
                 private mformService: MainformService) {
+
         this.op.doc_date = this.mformService.getDateToStringFormat();
         this.op.doc_name = 'новый документ*';
         this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];

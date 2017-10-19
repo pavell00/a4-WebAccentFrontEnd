@@ -36,8 +36,6 @@ export class EditDialog2Component implements OnInit {
       }
   
       onOpenDlg(e: number){
-          ///let tml = this.mfService.getCurTemplate();
-          //this.tmlName = tml.tmlName;
           if (e === 1) { // open exist document
               this.docIsNew = false;
               //this.displayDialog = true;
@@ -49,9 +47,6 @@ export class EditDialog2Component implements OnInit {
               //this.displayDialog = true;
               this.visible='block';
           }
-          //this.tmlId = this.appService.getCurrentFolder().tmlId;
-          //this.tmlName = this.mfService.getCurTemplate()
-          //console.log('onOpenDlg() ' + JSON.stringify(this.mfService.getCurTemplate()));
       }
   
       onClose(){this.visible='none'}

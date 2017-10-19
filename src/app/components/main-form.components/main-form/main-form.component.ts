@@ -66,9 +66,9 @@ export class MainFormComponent implements OnInit, OnChanges {
                 this.operationService.searchOperation(obj.id, '0').subscribe(
                     (v) => {this.isNewOp = false;
                             this.operation = v;
-                            this.outDocNo = this.operation[0].doc_no;
-                            this.outDocName = this.operation[0].doc_name;
-                            this.outDocDate = this.operation[0].doc_date;
+                            //this.outDocNo = this.operation[0].doc_no;
+                            //this.outDocName = this.operation[0].doc_name;
+                            //this.outDocDate = this.operation[0].doc_date;
                             this.outTemplateId = this.operation[0].tml_id;
                             this.mformService.setCurTemplate(this.operation[0].tml_id);
                             let t = this.operation[0].transactions;
@@ -79,13 +79,13 @@ export class MainFormComponent implements OnInit, OnChanges {
                                 }
                             }
                             this.tec.setTransactions(this.transactions);//fill transactionsl data to dialog of document
-                            let b = this.operation[0].binders;
+/*                             let b = this.operation[0].binders;
                             for (var key in b) {
                                 if (b.hasOwnProperty(key)) {
                                     var element = b[key];
                                     this.outBinders.push(element);
                                 }
-                            }
+                            } */
                             //select Agent from zero lines first transaction
 /*                             if (this.operation[0].transactions[0].j_ag1 != undefined) {
                                 this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
