@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Agents, Op } from '../../../model';
+import { Agents, Op, Transactions } from '../../../model';
 import { MainformService } from '../../../services/main-form.service';
 import { OperationService } from '../../../services/operation.service';
 import { Logger } from "angular2-logger/core";
@@ -31,19 +31,19 @@ export class AgentSelectorComponent implements OnInit {
     ngOnInit() {
       this.operationService.getCurrentOperation().subscribe(
         (v) => {this.op = v;
-                if (this.op.transactions != undefined) {
-                  if (this.op.transactions[0].j_ag1 != undefined) {
+                if (this.op.transactions[0].j_ag1 != 0) {
+                  //if (this.op.transactions[0].j_ag1 != undefined) {
                     this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag1)
                     .then(data => { this.AgTo = data[0]; this.AgToName = this.AgTo.agName;})
                     .catch(error => this._logger.error(error));
-                  }
+                  //}
                 } else {this.AgTo = {}; this.AgToName=''}
-                if (this.op.transactions != undefined) {
-                  if (this.op.transactions[0].j_ag2 != undefined) {
+                if (this.op.transactions[0].j_ag2 != 0) {
+                  //if (this.op.transactions[0].j_ag2 != undefined) {
                     this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag2)
                     .then(data => { this.AgFrom = data[0]; this.AgFromName = this.AgFrom.agName;})
                     .catch(error => this._logger.error(error));
-                  }
+                  //}
                 } else {this.AgFrom = {}; this.AgFromName='';}
         }
       )
@@ -148,13 +148,14 @@ export class AgentSelectorComponent implements OnInit {
     if (this.currentTrgAgName === 'searchAgentTo'){
       this.AgTo = this.selectedAgent;
       this.AgToName = this.selectedAgent.agName;
+      this.operationService.setAgents(this.AgTo.id, 'searchAgentTo');
     }
     if (this.currentTrgAgName === 'searchAgentFrom'){
       this.AgFrom = this.selectedAgent;
       this.AgFromName = this.selectedAgent.agName;
+      this.operationService.setAgents(this.AgFrom.id, 'searchAgentFrom')
     }
     this.displayDialog = false
-    this.operationService.setAgents(this.AgTo.id, this.AgFrom.id)
   }
 
   onClickNo(){

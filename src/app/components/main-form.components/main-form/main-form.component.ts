@@ -7,7 +7,7 @@ import { AgentSelectorComponent, BinderSelectorComponent,
         TableEntityComponent, TemplateSelectorComponent, DocNoDateComponent } from '../';
 import { MainformService } from '../../../services/main-form.service';
 import { OperationService } from '../../../services/operation.service';
-import { Operation, Binders, Agents, 
+import { Operation, Binders, Agents, Op,
         Templates, Entities, Transactions } from '../../../model';
 
 @Component({
@@ -24,7 +24,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     @ViewChild(DocNoDateComponent) private docnodate: DocNoDateComponent;
     @Input() curentdoc: Document;
 
-    private operation: Operation[] = []; // не работет без фиктивного массива ???
+    private operation: Op[] = []; // не работет без фиктивного массива ???
     private items: MenuItem[];
     private outDocNo: string;
     private outDocName: string;

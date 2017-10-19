@@ -4,12 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+//import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
-import { MainformService } from './main-form.service'
+import { MainformService } from './main-form.service';
 
-import {Entities, Agents, PriceLists, Price,
-    Binders, Templates, Operation, Op, Transactions} from '../model';
+import { Entities, Agents, PriceLists, Price,
+    Binders, Templates, Op, Transactions } from '../model';
 
 @Injectable()
 export class OperationService {
@@ -17,18 +17,19 @@ export class OperationService {
     private urlPrefix = environment.urlPrefix;
     private gethUrlOperation: string = this.urlPrefix+'/sp_search_operation';
     private op = new Op();
-    private currentOperation = new BehaviorSubject<Op>({'doc_name':'новый документ', 
+/*     private currentOperation = new BehaviorSubject<Op>({'doc_name':'новый документ', 
         'doc_date':this.mformService.getDateToStringFormat(),
         'doc_no':'0'
-        });
+        }); */
        //'transactions': {'key':{'j_ag1':0, 'j_ag2':0}}
+    private currentOperation = new BehaviorSubject<Op>({})
 
     constructor(private http: Http,
                 private mformService: MainformService) {
-/*         this.op.doc_date = this.mformService.getDateToStringFormat();
-        this.op.doc_name = 'не сохранен'
+        this.op.doc_date = this.mformService.getDateToStringFormat();
+        this.op.doc_name = 'новый документ*';
+        this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
         this.currentOperation.next(this.op);
-        console.log(this.op); */
     }
 
     searchOperation(term: string, trNo: string): Observable<Op[]> {
@@ -46,33 +47,24 @@ export class OperationService {
         return a;
     }
 
-    setAgents(agToId : number|null, agFromId : number|null) {
-        let newOp = this.op;
-/*         console.log(typeof this.op.transactions);
-        console.log(typeof newOp.transactions);
-        newOp.transactions[0].j_ag1 = agToId;// = {'j_ag1': agToId, 'j_ag2': agFromId};
-        console.log(newOp.transactions); */
-/*         if (newOp.transactions != undefined) {
-            console.log(newOp.transactions[0].j_ag1);
-            newOp.transactions[0].j_ag1 = agToId;
-            newOp.transactions[0].j_ag2 = agFromId;
-            //this.op = newOp;
-            this.currentOperation.next(newOp);
-        } */
-        //this.currentOperation.next(newOp);
+    setAgents(agId : number|null, term: string) {
+/*         let tr = new Transactions;
+        tr.j_ag1 = agToId;
+        tr.j_ag2 = agFromId;
+        this.op.transactions.push(tr); */
+        if (term === 'searchAgentTo'){
+            this.op.transactions[0].j_ag1 = agId;
+        } else {
+            this.op.transactions[0].j_ag2 = agId;
+        }
+        this.currentOperation.next(this.op);
     }
 
     saveDoc(docNo: string, docDate: string, docName: string){
-        var newOp = this.op;
-        newOp.doc_no = docNo;
-        newOp.doc_date = docDate;
-        newOp.doc_name = docName;
-        console.log(typeof newOp.transactions);
-        //newOp["transactions"][0].j_ag1 = 1845;
-        //newOp.transactions[0].j_ag1 = 1845;
-        //newOp.transactions[0].j_ag2 = 7137;
-        this.currentOperation.next(newOp);
-        console.log(JSON.stringify(newOp));
+        this.op.doc_no = docNo;
+        this.op.doc_date = docDate;
+        this.op.doc_name = docName;
+        this.currentOperation.next(this.op);
     }
 
     getCurrentOperation(): Observable<Op>{
@@ -80,12 +72,11 @@ export class OperationService {
     }
 
     clearOp(){
-        let op = new Op();
-        op.doc_name = 'новый';
-        op.doc_date = this.mformService.getDateToStringFormat();
-        //op.transactions[0].j_ag1 = null;
-        //op.transactions[0].j_ag2 = null;
-        this.currentOperation.next(op);
+        this.op.doc_date = this.mformService.getDateToStringFormat();
+        this.op.doc_name = 'новый документ*';
+        this.op.doc_no = null;
+        this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
+        this.currentOperation.next(this.op);
     }
 
     private handleError(error: any) {

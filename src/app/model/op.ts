@@ -27,7 +27,7 @@ export class Op{
         public tml_id?: number,
         public fld_id?: number,
         public frm_id?: number,
-        public binders?: { [key: string]: Binders },
-        public transactions?: { [key: string]: Transactions}
+        public binders?: Binders[],
+        public transactions?: Transactions[]
     ){}
 }
