@@ -29,6 +29,7 @@ export class OperationService {
         this.op.doc_date = this.mformService.getDateToStringFormat();
         this.op.doc_name = 'новый документ*';
         this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
+        this.op.binders = [];
         this.currentOperation.next(this.op);
     }
 
@@ -48,7 +49,7 @@ export class OperationService {
     }
 
     setAgents(agId : number|null, term: string) {
-/*         let tr = new Transactions;
+/*      let tr = new Transactions;
         tr.j_ag1 = agToId;
         tr.j_ag2 = agFromId;
         this.op.transactions.push(tr); */
@@ -60,11 +61,15 @@ export class OperationService {
         this.currentOperation.next(this.op);
     }
 
-    saveDoc(docNo: string, docDate: string, docName: string){
-        this.op.doc_no = docNo;
-        this.op.doc_date = docDate;
-        this.op.doc_name = docName;
+    setDocNoDate(docNo: string, docDate: string, docName: string){
+        let o: Op;
+        o = this.op;
+        o.doc_no = docNo;
+        o.doc_date = docDate;
+        o.doc_name = docName;
+        this.op = o;
         this.currentOperation.next(this.op);
+        console.log(this.op);
     }
 
     getCurrentOperation(): Observable<Op>{
@@ -76,6 +81,7 @@ export class OperationService {
         this.op.doc_name = 'новый документ*';
         this.op.doc_no = null;
         this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
+        this.op.binders = [];
         this.currentOperation.next(this.op);
     }
 

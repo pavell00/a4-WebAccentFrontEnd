@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Binders } from '../../../model';
 import { MainformService } from '../../../services/main-form.service';
+import { OperationService } from '../../../services/operation.service';
 import { Logger } from "angular2-logger/core";
 
 @Component({
@@ -10,7 +11,8 @@ import { Logger } from "angular2-logger/core";
 })
 export class BinderSelectorComponent implements OnInit {
 
-  @Input('docBindsIn') linkBinders: Binders[];
+  //@Input('docBindsIn') linkBinders: Binders[];
+  linkBinders: Binders[] = [];
   private displayDialogAddBinders: boolean;
   private displayDialogDelBinders: boolean;
   /* private linkBinders: string[] =
@@ -25,9 +27,14 @@ export class BinderSelectorComponent implements OnInit {
   private bFlag: boolean = false;
 
   constructor(private mformService: MainformService,
+    private operationService: OperationService,
     private _logger: Logger) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.operationService.getCurrentOperation().subscribe(
+      (v) => {this.linkBinders = (v.binders)}
+    )
+  }
 
   onInputSearchTermBinder(e: any) {
     if (e.key === 'Enter') {
@@ -66,7 +73,12 @@ export class BinderSelectorComponent implements OnInit {
   }
 
   onClickOk() {
-    this.linkBinders.push(this.selectedBinder);
+
+    if (this.linkBinders === undefined) {
+      this.linkBinders = [this.selectedBinder];
+      } else {
+      this.linkBinders.push(this.selectedBinder);
+    }
     this.BinderName = '';
     this.displayDialogAddBinders = false
   }
