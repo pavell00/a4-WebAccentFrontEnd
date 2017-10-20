@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Templates } from '../../../model/template';
 import { MainformService } from '../../../services/main-form.service';
+import { OperationService } from '../../../services/operation.service';
 import { Logger } from "angular2-logger/core";
 
 @Component({
@@ -18,6 +19,7 @@ export class TemplateSelectorComponent implements OnInit {
   private index: number = 0;
 
   constructor(private mformService: MainformService,
+              private operationService: OperationService,
               private _logger: Logger) { }
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class TemplateSelectorComponent implements OnInit {
     this.displayDialog = false;
     this.docTemplateId = this.selectedTemplate.id;
     this.mformService.setCurTemplate(this.selectedTemplate.id);
+    this.operationService.setOpTemplate(this.selectedTemplate)
   }
 
   onSelect(a: Templates, i: number){

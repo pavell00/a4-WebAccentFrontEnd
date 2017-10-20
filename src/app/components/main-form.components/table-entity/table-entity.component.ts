@@ -61,68 +61,6 @@ export class TableEntityComponent implements OnInit{
         }
     }
 
-    onRowEdit(ri: number, rd: any){
-        //console.log(ri, rd);
-        this.selectedRowNo = ri;
-        let entity = this.entities[ri];
-        switch (this.selectedType) {
-        case 'ent_nom':
-            this.myValue = entity.entNom
-            break;
-        case 'ent_name':
-            this.myValue = entity.entName
-            break;
-        default:
-            this.myValue = entity.entName
-            break;
-        }
-    }
-
-    deleteRow(e: any, ri:any){
-        //console.log(ri);
-        //let index = this.entities.indexOf(ri);
-        //console.log(this.entities.length);
-        this.entities = this.entities.filter((val, i) => i!=ri);
-        //this.entities.splice(index, 1);
-        //console.log(this.entities.length);
-    }
-
-    addRow(){
-        let entity = [...this.entities];
-        let b = new Entities();
-        /* b.firstName = "Tommy";
-            b.lastName = "lie";
-            b.age = 50;*/
-        entity.push(b);
-        this.entities = entity;
-    }
-
-    onRowClick(e: any){
-        //console.log(e);
-        //console.log(this.selectedRow);
-    }
-
-    onEditInit(e: any){
-        //console.log(e.data);
-        //console.log(e.column);
-    }
-
-    onEdit(e: any) {
-        //console.log(e.originalEvent);
-        //console.log(e.data);
-        //console.log(e.index);
-    }
-
-    onEditComplete(e: any){
-        /*console.log(e.column);
-        console.log(e.data;
-        console.log(e.index);*/
-    }
-
-    onClick(ri: number){
-        console.log('ri= '+ri);
-    }
-
     onGridReady(params) {
         params.api.sizeColumnsToFit();
     }

@@ -21,10 +21,15 @@ export class OperationService {
 
     constructor(private http: Http,
                 private mformService: MainformService) {
-
+        this.mformService.getCurTemplate().subscribe(
+            (v) => { if (v != undefined) {
+                    this.op.tml_id = v.id;
+                    this.op.doc_name=v.tmlName;
+                }
+            })
         this.op.doc_date = this.mformService.getDateToStringFormat();
-        this.op.doc_name = 'новый документ*';
-        this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
+        //this.op.doc_name = 'новый документ*';
+        if (this.op.doc_id === undefined) this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
         this.op.binders = [];
         this.currentOperation.next(this.op);
     }
@@ -45,10 +50,6 @@ export class OperationService {
     }
 
     setAgents(agId : number|null, term: string) {
-/*      let tr = new Transactions;
-        tr.j_ag1 = agToId;
-        tr.j_ag2 = agFromId;
-        this.op.transactions.push(tr); */
         if (term === 'searchAgentTo'){
             this.op.transactions[0].j_ag1 = agId;
         } else {
@@ -65,7 +66,7 @@ export class OperationService {
         o.doc_name = docName;
         this.op = o;
         this.currentOperation.next(this.op);
-        console.log(this.op);
+        console.log(JSON.stringify(this.op));
     }
 
     getCurrentOperation(): Observable<Op>{
@@ -78,6 +79,13 @@ export class OperationService {
         this.op.doc_no = null;
         this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
         this.op.binders = [];
+        this.op.tml_id = null;
+        this.currentOperation.next(this.op);
+    }
+
+    setOpTemplate(t: Templates){
+        this.op.tml_id = t.id;
+        this.op.doc_name = t.tmlName;
         this.currentOperation.next(this.op);
     }
 

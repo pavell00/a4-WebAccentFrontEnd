@@ -19,7 +19,7 @@ export class SearchEntityComponent implements OnInit {
   private date;
   private bFlag: boolean = false;
 
-  @Output() myEvent: EventEmitter<Entities> = new EventEmitter();
+  @Output() addEntityEvent: EventEmitter<Entities> = new EventEmitter();
   
   constructor(private mformService: MainformService) { }
 
@@ -58,7 +58,7 @@ export class SearchEntityComponent implements OnInit {
         break;
       case 'Enter':
         if (this.bFlag === true) { //костыль от самосрабатывания окна поиска ?
-          this.ClickOk();
+          this.clickOk();
           this.close();
           this.bFlag = false;
         }
@@ -68,9 +68,9 @@ export class SearchEntityComponent implements OnInit {
     }
   }
 
-  ClickOk(){
+  clickOk(){
     if(this.selectedEntities !== undefined){
-      this.myEvent.emit(this.selectedEntities);
+      this.addEntityEvent.emit(this.selectedEntities);
     }
   }
 

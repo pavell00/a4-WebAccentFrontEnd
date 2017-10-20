@@ -26,15 +26,10 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     private operation: Op[] = []; // не работет без фиктивного массива ???
     private items: MenuItem[];
-    private outDocNo: string;
-    private outDocName: string;
-    private outDocDate: string;
-    private outBinders: Binders[] = [];
+    //private outBinders: Binders[] = [];
     private outTemplateId: number;
     private AgTo: Agents = {};
     private AgFrom: Agents = {};
-    private testAgent: any;
-    private curentTemlate: Templates = {};
     private transactions: Transactions[] = [];
     private isNewOp : boolean = false;
 
@@ -57,7 +52,7 @@ export class MainFormComponent implements OnInit, OnChanges {
     }
 
     fillCurentDocData(e: any){
-        this.outBinders.length = 0; //clear array
+        //this.outBinders.length = 0; //clear array
         this.transactions.length = 0; //clear array
         if (e != undefined) {
             let obj = e;
@@ -69,8 +64,8 @@ export class MainFormComponent implements OnInit, OnChanges {
                             //this.outDocNo = this.operation[0].doc_no;
                             //this.outDocName = this.operation[0].doc_name;
                             //this.outDocDate = this.operation[0].doc_date;
-                            this.outTemplateId = this.operation[0].tml_id;
-                            this.mformService.setCurTemplate(this.operation[0].tml_id);
+                            //this.outTemplateId = this.operation[0].tml_id;
+                            //this.mformService.setCurTemplate(this.operation[0].tml_id);
                             let t = this.operation[0].transactions;
                             for (var key in t) {
                                 if (t.hasOwnProperty(key)) {
@@ -110,9 +105,9 @@ export class MainFormComponent implements OnInit, OnChanges {
                 //this.asc.setAgents({}, 'AgTo');
                 //this.asc.setAgents({}, 'AgFrom');
                 this.tec.setTransactions([]);//clear transactionsl data to dialog of document
-                this.mformService.getCurTemplate().toPromise().then(response => { 
+/*                 this.mformService.getCurTemplate().toPromise().then(response => { 
                     if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
-                });
+                }); */
 
             }
         }
@@ -131,6 +126,7 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     ngOnInit(){
         this.items = [
+
             {
                 label: 'Новый',
                 icon: 'fa-file-o',
@@ -182,6 +178,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                             command: () => this.bsc.ShowDialogDelBinder()},
                         ]
             }];
+    
     }
 
     setDocNoDate(){
