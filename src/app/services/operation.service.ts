@@ -50,12 +50,12 @@ export class OperationService {
     }
 
     setAgents(agId : number|null, term: string) {
-        if (term === 'searchAgentTo'){
+         if (term === 'searchAgentTo'){
             this.op.transactions[0].j_ag1 = agId;
         } else {
             this.op.transactions[0].j_ag2 = agId;
         }
-        this.currentOperation.next(this.op);
+        //this.currentOperation.next(this.op);  ---пропадает doc_no ?
     }
 
     setDocNoDate(docNo: string, docDate: string, docName: string){
@@ -66,7 +66,7 @@ export class OperationService {
         o.doc_name = docName;
         this.op = o;
         this.currentOperation.next(this.op);
-        console.log(JSON.stringify(this.op));
+        //console.log(JSON.stringify(this.op));
     }
 
     getCurrentOperation(): Observable<Op>{
@@ -89,6 +89,11 @@ export class OperationService {
         this.currentOperation.next(this.op);
     }
 
+    setTrans(tr: Transactions[]){
+        this.op.transactions = tr;
+        this.currentOperation.next(this.op);
+        console.log(JSON.stringify(this.op));
+    }
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

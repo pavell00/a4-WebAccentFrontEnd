@@ -181,13 +181,10 @@ export class MainFormComponent implements OnInit, OnChanges {
     
     }
 
-    setDocNoDate(){
+    onSave(){
         this.operationService.setDocNoDate(this.docnodate.docNo, 
             this.docnodate.docDate, this.docnodate.docName);
-    }
-
-    onSave(){
-        this.setDocNoDate();
+        this.operationService.setTrans(this.tec.entities);
     }
 
     test(e: any){

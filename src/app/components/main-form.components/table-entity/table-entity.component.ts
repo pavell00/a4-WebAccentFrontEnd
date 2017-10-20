@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Entities, Transactions } from '../../../model';
+import { OperationService } from '../../../services/operation.service';
 import { SelectItem } from 'primeng/primeng';
 import * as _ from 'lodash';
 
@@ -19,7 +20,7 @@ export class TableEntityComponent implements OnInit{
     myValue: any = '';
     selectedRowNo: number = -1;
 
-    constructor() {
+    constructor(private operationService: OperationService) {
         this.types = [];
         this.types.push({label:'Название ОУ', value:'name'});
         this.types.push({label:'Nom №', value:'nom'});
@@ -27,7 +28,11 @@ export class TableEntityComponent implements OnInit{
         this.selectedType = this.types[1].value;
     }
 
-    ngOnInit(){ }
+    ngOnInit(){
+        this.operationService.getCurrentOperation().subscribe(
+            (v) => {this.entities = v.transactions;}
+        )
+    }
 
     private sortByWordLength = (a:any) => { return a.name.length; }
     
@@ -36,7 +41,7 @@ export class TableEntityComponent implements OnInit{
         //console.log("Remove: ", item.id);
     }
 
-    setTransactions(t: Transactions[]){ this.entities = t; }
+    setTransactions(t: Transactions[]){ /* this.entities = t; */ }
 
     onGetItem(p: Entities){
         let entity = [...this.entities];
