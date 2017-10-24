@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MainformService } from '../../../services/main-form.service';
+import { OperationService } from '../../../services/operation.service';
 import { Entities } from '../../../model';
 
 @Component({
@@ -21,7 +22,8 @@ export class SearchEntityComponent implements OnInit {
 
   @Output() addEntityEvent: EventEmitter<Entities> = new EventEmitter();
   
-  constructor(private mformService: MainformService) { }
+  constructor(private mformService: MainformService,
+              private operationService: OperationService) { }
 
   ngOnInit() { this.date = new Date(); }
 
@@ -71,6 +73,7 @@ export class SearchEntityComponent implements OnInit {
   clickOk(){
     if(this.selectedEntities !== undefined){
       this.addEntityEvent.emit(this.selectedEntities);
+      this.operationService.setTrans2(this.selectedEntities);
     }
   }
 

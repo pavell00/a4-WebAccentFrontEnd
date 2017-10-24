@@ -17,6 +17,9 @@ export class OperationService {
     private urlPrefix = environment.urlPrefix;
     private gethUrlOperation: string = this.urlPrefix+'/sp_search_operation';
     private op = new Op();
+    private trans : Transactions[] = [];
+    private agToId: number = 0;
+    private agFromId: number = 0;
     private currentOperation = new BehaviorSubject<Op>({})
 
     constructor(private http: Http,
@@ -52,8 +55,10 @@ export class OperationService {
     setAgents(agId : number|null, term: string) {
          if (term === 'searchAgentTo'){
             this.op.transactions[0].j_ag1 = agId;
+            this.agToId = agId;
         } else {
             this.op.transactions[0].j_ag2 = agId;
+            this.agFromId = agId;
         }
         //this.currentOperation.next(this.op);  ---пропадает doc_no ?
     }
@@ -86,13 +91,39 @@ export class OperationService {
     setOpTemplate(t: Templates){
         this.op.tml_id = t.id;
         this.op.doc_name = t.tmlName;
-        this.currentOperation.next(this.op);
+        //this.currentOperation.next(this.op);
     }
 
-    setTrans(tr: Transactions[]){
-        this.op.transactions = tr;
+    setTrans(){
+        let index: number;
+        if (this.op.doc_id === undefined) {
+            index = 0;
+        } else {
+            //index = tr.length;
+        }
+        //console.log(tr);
+        this.op.transactions.length = 0;
+        this.op.transactions.push(...this.trans);
+        //console.log('setTrans ' +JSON.stringify(this.op.transactions));
         this.currentOperation.next(this.op);
-        console.log(JSON.stringify(this.op));
+        this.trans.length = 0;
+        //console.log(JSON.stringify(this.op));
+    }
+
+    setTrans2(e: Entities){
+        let trs = [...this.trans];
+        let tr: Transactions = {};
+        tr.j_ag1 = this.agToId;
+        tr.j_ag2 = this.agFromId;
+        tr.j_done = 0;
+        tr.j_date = this.op.doc_date;
+        tr.j_ent = e.id;
+        tr.mc_id = 1;
+        tr.entName = e.entName;
+        tr.entNom = e.entNom
+        trs.push(tr);
+        this.trans = trs;
+        //console.log('setTrans2 ' +JSON.stringify(this.trans));
     }
     private handleError(error: any) {
         console.error('An error occurred', error);

@@ -41,7 +41,7 @@ export class TableEntityComponent implements OnInit{
         //console.log("Remove: ", item.id);
     }
 
-    setTransactions(t: Transactions[]){ /* this.entities = t; */ }
+//    setTransactions(t: Transactions[]){ this.entities = t; }
 
     onGetItem(p: Entities){
         let entity = [...this.entities];

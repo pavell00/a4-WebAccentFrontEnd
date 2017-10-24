@@ -73,7 +73,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                                     this.transactions.push(tr);
                                 }
                             }
-                            this.tec.setTransactions(this.transactions);//fill transactionsl data to dialog of document
+                            //this.tec.setTransactions(this.transactions);//fill transactionsl data to dialog of document
 /*                             let b = this.operation[0].binders;
                             for (var key in b) {
                                 if (b.hasOwnProperty(key)) {
@@ -104,7 +104,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                 //this.outDocDate = this.mformService.getDateToStringFormat();
                 //this.asc.setAgents({}, 'AgTo');
                 //this.asc.setAgents({}, 'AgFrom');
-                this.tec.setTransactions([]);//clear transactionsl data to dialog of document
+                //this.tec.setTransactions([]);//clear transactionsl data to dialog of document
 /*                 this.mformService.getCurTemplate().toPromise().then(response => { 
                     if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
                 }); */
@@ -126,7 +126,6 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     ngOnInit(){
         this.items = [
-
             {
                 label: 'Новый',
                 icon: 'fa-file-o',
@@ -184,7 +183,8 @@ export class MainFormComponent implements OnInit, OnChanges {
     onSave(){
         this.operationService.setDocNoDate(this.docnodate.docNo, 
             this.docnodate.docDate, this.docnodate.docName);
-        this.operationService.setTrans(this.tec.entities);
+        console.log('this.tec.entities '+JSON.stringify(this.tec.entities));
+        this.operationService.setTrans();
     }
 
     test(e: any){
