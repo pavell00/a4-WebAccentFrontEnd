@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Entities, Transactions } from '../../../model';
+import { Entities, Transactions, Op } from '../../../model';
 import { OperationService } from '../../../services/operation.service';
 import { SelectItem } from 'primeng/primeng';
 import * as _ from 'lodash';
@@ -11,14 +11,11 @@ import * as _ from 'lodash';
 })
 export class TableEntityComponent implements OnInit{
 
-    //@Input('docTransactionsIn') entities: Transactions[] = [];
-    //@Input() entities: Transactions[];
-
-    entities: Transactions[]=[];
-    selectedType: string;
-    types: SelectItem[];
-    myValue: any = '';
-    selectedRowNo: number = -1;
+    private op: Op;
+    private trans: Transactions[]=[];
+    private selectedType: string;
+    private types: SelectItem[];
+    private myValue: any = '';
 
     constructor(private operationService: OperationService) {
         this.types = [];
@@ -30,39 +27,70 @@ export class TableEntityComponent implements OnInit{
 
     ngOnInit(){
         this.operationService.getCurrentOperation().subscribe(
-            (v) => {this.entities = v.transactions;}
+            (v) => {this.trans = v.transactions;
+                    this.op = v;}
         )
     }
 
     private sortByWordLength = (a:any) => { return a.name.length; }
     
     public removeItem(item: any) {
-        this.entities = _.filter(this.entities, (elem)=>elem!=item);
-        //console.log("Remove: ", item.id);
+        this.trans = _.filter(this.trans, (elem)=>elem!=item);
+        let rowNo: number = 0;
+        this.trans.forEach(element => {
+            element.j_ln_no = rowNo;
+            rowNo += 1;
+        });
+        //console.log(JSON.stringify(this.trans));
+    }
+    
+    onKeyPress(e:any, t:Transactions, type: string) {
+        console.log('cell row '+ t.j_ln_no, 'cell value '+e.target.innerHTML);
+        switch (type) {
+            case 'qty':
+                //this.trans[t.j_ln_no].j_qty = e.target.innerHTML;
+                if (t.j_price != undefined) {this.trans[t.j_ln_no].j_sum = t.j_qty * t.j_price;}
+                break;
+            case 'prc':
+                //this.trans[t.j_ln_no].j_price = e.target.innerHTML;
+                //console.log('prc');
+                if (this.trans[t.j_ln_no].j_qty != undefined) {this.trans[t.j_ln_no].j_sum = this.trans[t.j_ln_no].j_qty * this.trans[t.j_ln_no].j_price;}
+                break;
+            case 'sum':
+                //this.trans[t.j_ln_no].j_sum = e.target.innerHTML;
+                if (t.j_sum != undefined) {this.trans[t.j_ln_no].j_price = t.j_sum / t.j_qty;}
+                break;                
+            default:
+                break;
+        }
+
+        //console.log(e.target.vlue);
     }
 
-//    setTransactions(t: Transactions[]){ this.entities = t; }
-
     onGetItem(p: Entities){
-        let entity = [...this.entities];
-        if (this.selectedRowNo == -1) {
-            entity.push(p);
-
-        } else {
-            entity[this.selectedRowNo] = p;
-            this.selectedRowNo = -1;
-        }
-        this.entities = entity;
+        let trs = [...this.trans];
+        let tr: Transactions = {};
+        tr.entName = p.entName;
+        tr.entNom = p.entNom;
+        tr.j_ent = p.id
+        tr.j_qty = p.entQty;
+        tr.j_ln_no = trs.length;
+        tr.j_tr_no = 0;
+        tr.j_date = this.op.doc_date;
+        tr.j_done = 0;
+        trs.push(tr);
+        this.trans = trs;
+        console.log(JSON.stringify(this.trans));
         switch (this.selectedType) {
-                case 'ent_nom':
-                    this.myValue = p.entNom
-                    break;
-                case 'ent_name':
-                    this.myValue = p.entName
-                    break;
-                default:
-                    this.myValue = p.entName
-                    break;
+            case 'ent_nom':
+                this.myValue = p.entNom
+                break;
+            case 'ent_name':
+                this.myValue = p.entName
+                break;
+            default:
+                this.myValue = p.entName
+                break;
         }
     }
 

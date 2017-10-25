@@ -4,14 +4,15 @@
         maxlength=15/>
 </div>
 
-<table class="table table-striped" [mfData]="entities" #mf="mfDataTable" [mfRowsOnPage]="5">
+<table id="tblTrnsList" class="table table-striped" [mfData]="trans" #mf="mfDataTable" [mfRowsOnPage]="5">
     <thead>
     <tr>
         <th style="width: 5%"></th>
+        <th style="width: 5%">#</th>
         <th style="width: 10%"  class="text-center">
             <mfDefaultSorter by="entNom">Ном.№</mfDefaultSorter>
         </th>
-        <th style="width: 70%"  class="text-center">
+        <th style="width: 65%"  class="text-center">
             <mfDefaultSorter by="entName">Наименование ОУ</mfDefaultSorter>
         </th>
         <th style="width: 5%">
@@ -34,11 +35,12 @@
             <span class="glyphicon glyphicon-remove"></span>
         </button>-->
         </td>
+        <td class="text-center">{{item.j_ln_no + 1}}</td>
         <td class="text-center">{{item.entNom}}</td>
         <td class="text-left">{{item.entName}}, {{item.unName}}</td>
-        <td class="text-right" contenteditable='true'>{{item.j_qty}}</td>
-        <td class="text-right" contenteditable='true'>{{item.j_price}}</td>
-        <td class="text-right" contenteditable='true'>{{item.j_sum}}</td>
+        <td class="text-right" contenteditable='true' (keyup)="onKeyPress($event, item, 'qty')">{{item.j_qty}}</td>
+        <td class="text-right" contenteditable='true' (keyup)="onKeyPress($event, item, 'prc')">{{item.j_price}}</td>
+        <td class="text-right" contenteditable='true' (keyup)="onKeyPress($event, item, 'sum')">{{item.j_sum}}</td>
     </tr>
     </tbody>
     <tfoot>

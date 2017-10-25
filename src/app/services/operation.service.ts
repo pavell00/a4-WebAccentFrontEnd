@@ -32,7 +32,7 @@ export class OperationService {
             })
         this.op.doc_date = this.mformService.getDateToStringFormat();
         //this.op.doc_name = 'новый документ*';
-        if (this.op.doc_id === undefined) this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
+        if (this.op.doc_id === undefined) this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
         this.op.binders = [];
         this.currentOperation.next(this.op);
     }
@@ -82,7 +82,7 @@ export class OperationService {
         this.op.doc_date = this.mformService.getDateToStringFormat();
         this.op.doc_name = 'новый документ*';
         this.op.doc_no = null;
-        this.op.transactions = [{'j_ag1':0, 'j_ag2':0}];
+        this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
         this.op.binders = [];
         this.op.tml_id = null;
         this.currentOperation.next(this.op);

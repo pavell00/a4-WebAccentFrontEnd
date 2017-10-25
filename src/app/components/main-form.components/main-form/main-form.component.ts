@@ -181,9 +181,13 @@ export class MainFormComponent implements OnInit, OnChanges {
     }
 
     onSave(){
+/*         var cells = Array.prototype.slice.call(document.getElementById("tblTrnsList").getElementsByTagName("td"));
+        for(var i in cells){
+            console.log("My contents is \"" + cells[i].innerHTML + "\"");
+        } */
         this.operationService.setDocNoDate(this.docnodate.docNo, 
             this.docnodate.docDate, this.docnodate.docName);
-        console.log('this.tec.entities '+JSON.stringify(this.tec.entities));
+        //console.log('this.tec.entities '+JSON.stringify(this.tec.entities));
         this.operationService.setTrans();
     }
 
