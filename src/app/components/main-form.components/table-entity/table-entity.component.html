@@ -4,7 +4,7 @@
         maxlength=15/>
 </div>
 
-<table id="tblTrnsList" class="table table-striped" [mfData]="trans" #mf="mfDataTable" [mfRowsOnPage]="5">
+<table id="tblTransaction" class="table table-striped" [mfData]="trans" #mf="mfDataTable" [mfRowsOnPage]="5">
     <thead>
     <tr>
         <th style="width: 5%"></th>
@@ -38,9 +38,9 @@
         <td class="text-center">{{item.j_ln_no + 1}}</td>
         <td class="text-center">{{item.entNom}}</td>
         <td class="text-left">{{item.entName}}, {{item.unName}}</td>
-        <td class="text-right" contenteditable='true' (keyup)="onKeyPress($event, item, 'qty')">{{item.j_qty}}</td>
-        <td class="text-right" contenteditable='true' (keyup)="onKeyPress($event, item, 'prc')">{{item.j_price}}</td>
-        <td class="text-right" contenteditable='true' (keyup)="onKeyPress($event, item, 'sum')">{{item.j_sum}}</td>
+        <td class="text-right qps" contenteditable='true' (keyup)="onKeyPress($event, item, 'qty')">{{item.j_qty}}</td>
+        <td class="text-right qps" contenteditable='true' (keyup)="onKeyPress($event, item, 'prc')">{{item.j_price}}</td>
+        <td class="text-right qps" contenteditable='true' (keyup)="onKeyPress($event, item, 'sum')">{{item.j_sum}}</td>
     </tr>
     </tbody>
     <tfoot>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Entities, Transactions, Op } from '../../../model';
 import { OperationService } from '../../../services/operation.service';
 import { SelectItem } from 'primeng/primeng';
@@ -16,6 +16,7 @@ export class TableEntityComponent implements OnInit{
     private selectedType: string;
     private types: SelectItem[];
     private myValue: any = '';
+
 
     constructor(private operationService: OperationService) {
         this.types = [];
@@ -41,12 +42,13 @@ export class TableEntityComponent implements OnInit{
             element.j_ln_no = rowNo;
             rowNo += 1;
         });
+        this.operationService.setTrans3(this.trans);
         //console.log(JSON.stringify(this.trans));
     }
     
     onKeyPress(e:any, t:Transactions, type: string) {
-        console.log('cell row '+ t.j_ln_no, 'cell value '+e.target.innerHTML);
-        switch (type) {
+//        console.log('cell row '+ t.j_ln_no, 'cell value '+e.target.innerHTML);
+/*         switch (type) {
             case 'qty':
                 //this.trans[t.j_ln_no].j_qty = e.target.innerHTML;
                 if (t.j_price != undefined) {this.trans[t.j_ln_no].j_sum = t.j_qty * t.j_price;}
@@ -62,9 +64,13 @@ export class TableEntityComponent implements OnInit{
                 break;                
             default:
                 break;
-        }
-
+        } */
         //console.log(e.target.vlue);
+    }
+
+    getTrans(){
+        console.log('getTrans ' +JSON.stringify(this.trans));
+        return this.trans;
     }
 
     onGetItem(p: Entities){
@@ -80,7 +86,8 @@ export class TableEntityComponent implements OnInit{
         tr.j_done = 0;
         trs.push(tr);
         this.trans = trs;
-        console.log(JSON.stringify(this.trans));
+        this.operationService.setTrans3(this.trans);
+        //console.log('onGetItem ' +JSON.stringify(this.trans));
         switch (this.selectedType) {
             case 'ent_nom':
                 this.myValue = p.entNom

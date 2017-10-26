@@ -85,6 +85,7 @@ export class OperationService {
         this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
         this.op.binders = [];
         this.op.tml_id = null;
+        this.trans.length = 0;
         this.currentOperation.next(this.op);
     }
 
@@ -94,20 +95,61 @@ export class OperationService {
         //this.currentOperation.next(this.op);
     }
 
-    setTrans(){
-        let index: number;
-        if (this.op.doc_id === undefined) {
-            index = 0;
-        } else {
-            //index = tr.length;
-        }
-        //console.log(tr);
+    setTrans3(trs: Transactions[]){
+        this.trans = trs;
+        //console.log(JSON.stringify(trs));
+        //console.log('setTrans3 ' +JSON.stringify(this.trans));
+    }
+
+    fillQtyPrice(){
+        var cells = Array.prototype.slice.call(document.getElementById("tblTransaction").getElementsByClassName("qps"));
+        //for(var i in cells){ console.log("My contents is qty=\""+cells[i].innerHTML+"\""); }
+        let j: number = 0;
+        this.trans.forEach(element => {
+            //console.log(cells[j].innerHTML, cells[j+1].innerHTML, cells[j+2].innerHTML);
+            element.j_qty = cells[j].innerHTML;
+            element.j_price = cells[j+1].innerHTML;
+            element.j_sum = cells[j+2].innerHTML;
+            element.j_ag1 = this.agToId;
+            element.j_ag2 = this.agFromId;
+            j += 3; 
+        });
+        //console.log('fillQtyPrice ' +JSON.stringify(this.trans));
+        this.op.transactions.length = 0;
+        this.op.transactions = this.trans;
+        console.log(JSON.stringify(this.op));
+        this.currentOperation.next(this.op);
+        // restore values in table grid qty, price, sum after save doc - some bag???
+        j = 0;
+        this.trans.forEach(element => {
+            //console.log(cells[j].innerHTML, cells[j+1].innerHTML, cells[j+2].innerHTML);
+            cells[j].innerHTML = element.j_qty;
+            cells[j+1].innerHTML = element.j_price;
+            cells[j+2].innerHTML = element.j_sum;
+            j += 3;
+        }); 
+    }
+
+    setTrans(trs: Transactions[]){
+        var cells = Array.prototype.slice.call(document.getElementById("tblTransaction").getElementsByClassName("qps"));
+        let j: number = 0;
+        /* for(var i in cells){
+            console.log("My contents is qty=\""+cells[i].innerHTML+"\"");
+        } */
+        console.log(JSON.stringify(trs));
+        trs.forEach(element => {
+            console.log(cells[j].innerHTML, cells[j+1].innerHTML, cells[j+2].innerHTML);
+            element.j_qty = cells[j].innerHTML ? undefined : 0;
+            element.j_price = cells[j+1].innerHTML ? undefined : 0;
+            element.j_sum = cells[j+2].innerHTML ? undefined : 0;
+        });
+        this.trans = trs;
+        //console.log(JSON.stringify(trs));
         this.op.transactions.length = 0;
         this.op.transactions.push(...this.trans);
-        //console.log('setTrans ' +JSON.stringify(this.op.transactions));
+        console.log('setTrans ' +JSON.stringify(this.op.transactions));
+        console.log(JSON.stringify(this.op));
         this.currentOperation.next(this.op);
-        this.trans.length = 0;
-        //console.log(JSON.stringify(this.op));
     }
 
     setTrans2(e: Entities){
@@ -125,6 +167,7 @@ export class OperationService {
         this.trans = trs;
         //console.log('setTrans2 ' +JSON.stringify(this.trans));
     }
+
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

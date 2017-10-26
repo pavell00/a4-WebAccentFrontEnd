@@ -31,8 +31,8 @@ export class RootComponent implements OnInit {
         this.appService.getCalendarEndDt().subscribe(
             (v) => {this.endDate = v;}
         )
-        this.operationService.getCurrentOperation().subscribe(
+/*         this.operationService.getCurrentOperation().subscribe(
             (v) => {this.curOp = v;}
-        )
+        ) */
     }
 }
