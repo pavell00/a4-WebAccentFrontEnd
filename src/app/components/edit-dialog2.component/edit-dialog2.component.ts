@@ -23,7 +23,7 @@ export class EditDialog2Component implements OnInit {
 
     constructor(private appService: AppService,
         private mfService: MainformService,
-        private operationService: OperationService,) { }
+        private operationService: OperationService) { }
 
     ngOnInit() {
         this.mfService.getCurTemplate().subscribe(

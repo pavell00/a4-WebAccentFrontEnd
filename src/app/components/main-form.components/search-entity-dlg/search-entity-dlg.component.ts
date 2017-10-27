@@ -73,7 +73,7 @@ export class SearchEntityComponent implements OnInit {
   clickOk(){
     if(this.selectedEntities !== undefined){
       this.addEntityEvent.emit(this.selectedEntities);
-      this.operationService.setTrans2(this.selectedEntities);
+      //this.operationService.setTrans2(this.selectedEntities);
     }
   }
 

@@ -15,14 +15,10 @@
     <p-column field="docSum" header="Сумма" [sortable]="true"></p-column>
     <p-footer>
         <div class="ui-helper-clearfix" style="width:100%">
-            <button type="button" pButton style="float:left" 
-                (click)="onShowPopup()" label="Show" class="ui-button-info"></button>            
             <button type="button" pButton icon="fa-plus" style="float:left" 
-                (click)="dialog.onOpenDlg(0)" label="Add" class="ui-button-info" [disabled]="isTmlLink()"></button>
-            <button type="button" pButton icon="fa-trash" style="float:left" 
-                (click)="onDeleteDoc($event)" label="Delete" class="ui-button-danger"></button>
+                (click)="dialog.onOpenDlg(0);createEmtyDoc();" label="Add" class="ui-button-info" [disabled]="isTmlLink()"></button>
             <button type="button" pButton icon="fa-trash" style="float:right" 
-                (click)="onDCC($event)" label="ViewDCC" class="ui-button-info"></button>
+                (click)="onDeleteDoc($event)" label="Delete" class="ui-button-danger"></button>
         </div>
     </p-footer>
 </p-dataTable>

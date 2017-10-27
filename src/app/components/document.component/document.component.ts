@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { Document, Folder } from '../../model';
 import {AppService} from '../../services/app.service';
 import {MainformService} from '../../services/main-form.service';
+import { OperationService } from '../../services/operation.service';
+
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -29,7 +30,8 @@ export class DocumentComponent implements OnInit {
     private docLazy: Document[] = [];
 
     constructor(private appService: AppService,
-                private mformService: MainformService) { }
+                private mformService: MainformService,
+                private operationService: OperationService) { }
     
     ngOnInit() {
         //this.getAll();
@@ -84,10 +86,6 @@ export class DocumentComponent implements OnInit {
         return rowData.docDone == 2 ? 'green-row-class' : 'red-row-class';
     }
 
-    onDCC(event: any){
-        console.log('onDCC()');
-    }
-
     loadDocsLazy(event: any) {
         //onsole.log(event.first, event.rows );
         //in a real application, make a remote request to load data using state metadata from event
@@ -109,7 +107,9 @@ export class DocumentComponent implements OnInit {
         return !this.fldTmlId;
     }
 
-    onShowPopup(){
+    createEmtyDoc(){
+        this.document = null;
+        this.operationService.clearOp();
         this.selectedRow = null;
     }
 }

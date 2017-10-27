@@ -148,44 +148,6 @@ export class OperationService {
         return a;
     }
 
-    setTrans(trs: Transactions[]){
-        var cells = Array.prototype.slice.call(document.getElementById("tblTransaction").getElementsByClassName("qps"));
-        let j: number = 0;
-        /* for(var i in cells){
-            console.log("My contents is qty=\""+cells[i].innerHTML+"\"");
-        } */
-        console.log(JSON.stringify(trs));
-        trs.forEach(element => {
-            console.log(cells[j].innerHTML, cells[j+1].innerHTML, cells[j+2].innerHTML);
-            element.j_qty = cells[j].innerHTML ? undefined : 0;
-            element.j_price = cells[j+1].innerHTML ? undefined : 0;
-            element.j_sum = cells[j+2].innerHTML ? undefined : 0;
-        });
-        this.trans = trs;
-        //console.log(JSON.stringify(trs));
-        this.op.transactions.length = 0;
-        this.op.transactions.push(...this.trans);
-        console.log('setTrans ' +JSON.stringify(this.op.transactions));
-        console.log(JSON.stringify(this.op));
-        this.currentOperation.next(this.op);
-    }
-
-    setTrans2(e: Entities){
-        let trs = [...this.trans];
-        let tr: Transactions = {};
-        tr.j_ag1 = this.agToId;
-        tr.j_ag2 = this.agFromId;
-        tr.j_done = 0;
-        tr.j_date = this.op.doc_date;
-        tr.j_ent = e.id;
-        tr.mc_id = 1;
-        tr.entName = e.entName;
-        tr.entNom = e.entNom
-        trs.push(tr);
-        this.trans = trs;
-        //console.log('setTrans2 ' +JSON.stringify(this.trans));
-    }
-
     private handleError(error: any){
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
