@@ -189,6 +189,7 @@ export class MainFormComponent implements OnInit, OnChanges {
             this.docnodate.docDate, this.docnodate.docName);
         //console.log('this.tec.getTrans() '+JSON.stringify(this.tec.getTrans()));
         this.operationService.fillQtyPrice();
+        this.operationService.saveDoc();
     }
 
     test(e: any){

@@ -11,6 +11,7 @@ export class Op{
         public doc_tag?: string,
         public doc_memo?: string,
         public doc_link?: number,
+        public mc_id?: number,
         public st_id?: number,
         public doc_ps1?: string,
         public doc_ps2?: string,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response, URLSearchParams, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,8 +14,13 @@ import { Entities, Agents, PriceLists, Price,
 @Injectable()
 export class OperationService {
 
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private options = new RequestOptions({ headers: this.headers });
+
     private urlPrefix = environment.urlPrefix;
-    private gethUrlOperation: string = this.urlPrefix+'/sp_search_operation';
+    private operationUrl: string = this.urlPrefix+'/sp_search_operation';
+    private addOperationUrl = this.urlPrefix+'/sp_add_operation';
+
     private op = new Op();
     private trans : Transactions[] = [];
     private agToId: number = 0;
@@ -28,6 +33,8 @@ export class OperationService {
             (v) => { if (v != undefined) {
                     this.op.tml_id = v.id;
                     this.op.doc_name=v.tmlName;
+                    this.op.frm_id = v.frmId;
+                    this.op.fld_id = v.fldId;
                 }
             })
         this.op.doc_date = this.mformService.getDateToStringFormat();
@@ -42,7 +49,7 @@ export class OperationService {
         params.set('docid', term);
         params.set('transno', trNo);
         let a = this.http
-            .get(this.gethUrlOperation, { search: params })
+            .get(this.operationUrl, { search: params })
             .map(response => response.json())
             //.do( data => console.log(data))
             .catch(this.handleError)
@@ -64,12 +71,13 @@ export class OperationService {
     }
 
     setDocNoDate(docNo: string, docDate: string, docName: string){
-        let o: Op;
-        o = this.op;
-        o.doc_no = docNo;
-        o.doc_date = docDate;
-        o.doc_name = docName;
-        this.op = o;
+        this.op.doc_no = docNo;
+        this.op.doc_date = docDate;
+        //this.op.doc_name = docName;
+        //this.op.fld_id = 257;
+        //this.op.frm_id = 7;
+        this.op.doc_done = '1';
+        this.op.mc_id = 1;
         this.currentOperation.next(this.op);
         //console.log(JSON.stringify(this.op));
     }
@@ -112,12 +120,13 @@ export class OperationService {
             element.j_sum = cells[j+2].innerHTML;
             element.j_ag1 = this.agToId;
             element.j_ag2 = this.agFromId;
+            element.mc_id = 1;
             j += 3; 
         });
         //console.log('fillQtyPrice ' +JSON.stringify(this.trans));
         this.op.transactions.length = 0;
         this.op.transactions = this.trans;
-        console.log(JSON.stringify(this.op));
+        //console.log(JSON.stringify(this.op));
         this.currentOperation.next(this.op);
         // restore values in table grid qty, price, sum after save doc - some bag???
         j = 0;
@@ -128,6 +137,15 @@ export class OperationService {
             cells[j+2].innerHTML = element.j_sum;
             j += 3;
         }); 
+    }
+
+    saveDoc(){
+        console.log('['+JSON.stringify(this.op)+']');
+        let a = this.http.post(this.addOperationUrl, '['+JSON.stringify(this.op)+']', this.options)
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError)
+        return a;
     }
 
     setTrans(trs: Transactions[]){
@@ -168,7 +186,7 @@ export class OperationService {
         //console.log('setTrans2 ' +JSON.stringify(this.trans));
     }
 
-    private handleError(error: any) {
+    private handleError(error: any){
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
