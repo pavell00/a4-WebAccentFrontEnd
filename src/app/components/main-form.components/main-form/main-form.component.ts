@@ -58,6 +58,7 @@ export class MainFormComponent implements OnInit, OnChanges {
             let obj = e;
             //operation not new
             if (obj.id != 0) {
+                this.items[1].disabled = true;
                 this.operationService.searchOperation(obj.id, '0').subscribe(
                     (v) => {this.isNewOp = false;
                             this.operation = v;
@@ -97,6 +98,7 @@ export class MainFormComponent implements OnInit, OnChanges {
                         }
                 )
             } else { // operation is new
+                this.items[1].disabled = false;
                 this.isNewOp = true;
                 //this.outDocNo = "";//obj.docNo;
                 //this.docnodate.clearDocNo();
@@ -134,7 +136,7 @@ export class MainFormComponent implements OnInit, OnChanges {
             }, {
                 label: 'Сохранить',
                 icon: 'fa-floppy-o',
-                //disabled: true
+                //disabled: true,
                 command: () => this.onSave()
             }, {
                 label: 'Закрыть',

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Document, Folder } from '../../model';
 import {AppService} from '../../services/app.service';
 import {MainformService} from '../../services/main-form.service';
@@ -31,8 +31,9 @@ export class DocumentComponent implements OnInit {
     private counter: number = 0;
     private docLazy: Document[] = [];
     private items: MenuItem[];
+    public isRequesting: boolean;
 
-    constructor(private appService: AppService,
+     constructor(private appService: AppService,
                 private mformService: MainformService,
                 private operationService: OperationService) { }
     
@@ -71,10 +72,13 @@ export class DocumentComponent implements OnInit {
     onDeleteDoc(event: any){
         //this.docs.splice(this.findSelectedDocIndex(), 1);
         //console.log(JSON.stringify(this.selectedRow))
+        this.isRequesting = true;
         if (this.selectedRow != undefined) {
             this.appService.deleteDoc(String(this.selectedRow.id)).subscribe(
                 v => {this.getAll();
-                      return true}
+                      return true},
+                () => this.stopRefreshing(),
+                () => this.stopRefreshing()
             )
         }
     }
@@ -121,5 +125,22 @@ export class DocumentComponent implements OnInit {
 
     copyClipboard(id: number){
         Clipboard.copy(id.toString());
+    }
+
+    changeSort(event) {
+        console.log(event);
+    /*  if (!event.order) {
+          this.sortF = 'docNo';
+        } else {
+          this.sortF = event.field;
+        } */
+    }
+
+    private stopRefreshing() {
+        this.isRequesting = false;
+    }
+
+    onSpinner() {
+        this.isRequesting = !this.isRequesting;
     }
 }

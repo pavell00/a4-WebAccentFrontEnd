@@ -9,7 +9,7 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 //primeng
 import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
         ToolbarModule, SplitButtonModule, DialogModule,
-        InputSwitchModule, DropdownModule, CheckboxModule, 
+        InputSwitchModule, DropdownModule, CheckboxModule,
         RadioButtonModule, MenubarModule, AutoCompleteModule } from 'primeng/primeng';
 //interface main window
 import { WelcomeComponent, RootComponent, FolderComponent,
@@ -35,6 +35,7 @@ import { OperationService } from './services/operation.service';
 import { Auth } from './services/auth0.service';
 import { AuthGuard } from './auth.guard';
 import { Logger } from 'angular2-logger/app/core/logger';
+import { SpinnerComponent } from './components/spinner.component/spinner.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -61,7 +62,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   AgentSelectorComponent, BinderSelectorComponent,
                   DocNoDateComponent, MainFormComponent,
                   PriceListComponent, SearchEntityComponent,
-                  TableEntityComponent, TemplateSelectorComponent, EditDialog2Component
+                  TableEntityComponent, TemplateSelectorComponent, EditDialog2Component, SpinnerComponent
                 ],
   providers:    [ AppService, MainformService, appRoutingProviders, OperationService,
                   Auth, AuthGuard, Logger,

@@ -53,7 +53,7 @@ export class AppService {
     private options = new RequestOptions({ headers: this.headers });
 
     constructor(private http: Http, private jsonp: Jsonp) { }
-    
+
     setCurrentFolder(f: Folder){this.currentFolderSource.next(f);}
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
     //getDocs() : Observable<Document[]> {return this.docs;}
@@ -67,7 +67,7 @@ export class AppService {
         )
         return this.docs;
     } 
-    
+
   //getDocs(){ return this.docs;}
 
     getFolders(): Observable<Folder[]> {return this.folders.asObservable();}
@@ -85,7 +85,7 @@ export class AppService {
     getCalendarEndDt(): Observable<string> { return this.calendarEndDt.asObservable(); }
 
     setBCramberObserver(b: BreadCramber[]){this.bcramberSource.next(b);}
-    
+
     //setTypeSelector(c: string){this.currentTypeFolderSource.next(c);}
     //getTypeSelector(){return this.ct;}
     getTypeSelector(): Observable<string> {return this.typeSelector.asObservable();}

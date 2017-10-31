@@ -8,18 +8,20 @@
              [totalRecords]="counter" (onLazyLoad)="loadDocsLazy($event)"
              [responsive]="true"
              [rowStyleClass]="rowStyle"
-             [contextMenu]="cm">
+             [contextMenu]="cm"
+             (onSort)="changeSort($event)"
+             >
     <p-header>Содержимое папки {{counter}} документа(ов)</p-header>
     <p-column field="docDate" header="Дата" [sortable]="true"></p-column>
-    <p-column field="docName" header="Наименование" [sortable]="true"></p-column>
-    <p-column field="docNo" header="№" [sortable]="true"></p-column>
+    <p-column field="docName" header="Наименование" ></p-column>
+    <p-column field="docNo" header="№" ></p-column>
     <p-column field="docSum" header="Сумма" [sortable]="true"></p-column>
     <p-footer>
         <div class="ui-helper-clearfix" style="width:100%">
             <button type="button" pButton icon="fa-plus" style="float:left" 
                 (click)="dialog.onOpenDlg(0);createEmtyDoc();" label="Add" class="ui-button-info" [disabled]="isTmlLink()"></button>
             <button type="button" pButton icon="fa-trash" style="float:right" 
-                (click)="onDeleteDoc($event)" label="Delete" class="ui-button-danger"></button>
+                (click)="onDeleteDoc($event)" label="Delete" class="ui-button-danger"><spinner [isRunning]="isRequesting"></spinner></button>
         </div>
     </p-footer>
 </p-dataTable>
