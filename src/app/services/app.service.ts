@@ -45,6 +45,7 @@ export class AppService {
     private urlPrefix = environment.urlPrefix;
     private foldersUrl = this.urlPrefix+'/sp_folders';
     private docmentsUrl = this.urlPrefix+'/sp_documents';
+    private docDeleteUrl = this.urlPrefix+'/sp_del_operation';
     private journalsUrl = this.urlPrefix+'/sp_journals';
     private entitiesUrl = this.urlPrefix+'/sp_entities';
     
@@ -128,12 +129,10 @@ export class AppService {
         this.searchDocs4();
     }
 
-    delDoc(id: string): Observable<Document[]>{
-        /*this.docs.forEach(element => {
-            console.log(element)
-        });*/
-        //console.log(`${this.docmentsUrl}/${id}`);
-        return this.http.delete(`${this.docmentsUrl}/${id}`, this.options)
+    deleteDoc(id: string): Observable<any>{
+        let params = new URLSearchParams();
+        params.set('docid', id);
+        return this.http.delete(this.docDeleteUrl, { search: params })
             .map(response => response.json())
             .catch(this.handleError)
     }

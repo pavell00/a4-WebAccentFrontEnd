@@ -72,7 +72,7 @@ export class DocumentComponent implements OnInit {
         //this.docs.splice(this.findSelectedDocIndex(), 1);
         //console.log(JSON.stringify(this.selectedRow))
         if (this.selectedRow != undefined) {
-            this.appService.delDoc(String(this.selectedRow.id)).subscribe(
+            this.appService.deleteDoc(String(this.selectedRow.id)).subscribe(
                 v => {this.getAll();
                       return true}
             )
