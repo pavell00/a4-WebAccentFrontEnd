@@ -13,6 +13,7 @@ export class FolderComponent implements OnInit {
     private folders: Folder[];
     private error: any;
     private bcrambFolders: BreadCramber[] = [];
+    public isRequesting: boolean;
 
     @Output() EventFolderClick: EventEmitter<Folder> = new EventEmitter();
 
@@ -22,11 +23,14 @@ export class FolderComponent implements OnInit {
 
     getAll(typeSelector: string){
         //Initilize start folder ???
+        this.isRequesting = true;
         this.appService.setCurrentFolder(new Folder(0, "", false, 0, typeSelector, 0));
         /*this.appService.searchFolderObserver("0").subscribe((val) => {this.folders = val});*/
         this.appService.searchFolder();
         this.appService.getFolders()
-            .subscribe((val) => {this.folders = val});
+            .subscribe(
+                (val) => {this.folders = val; this.stopRefreshing()}
+            );
         //this.appService.getCurfld().subscribe((val) => {this.error = val});
         /*this.appService.searchDocs2().subscribe(
             (v) => {this.documentsOfFolder = v}
@@ -66,5 +70,9 @@ export class FolderComponent implements OnInit {
 
     ngOnDestroy(){
         
+    }
+
+    private stopRefreshing() {
+        this.isRequesting = false;
     }
 }
