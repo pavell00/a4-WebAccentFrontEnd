@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 //import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 import { MainformService } from './main-form.service';
+import { AppService } from './app.service';
 
 import { Entities, Agents, PriceLists, Price,
     Binders, Templates, Op, Transactions } from '../model';
@@ -28,20 +29,23 @@ export class OperationService {
     private currentOperation = new BehaviorSubject<Op>({})
 
     constructor(private http: Http,
-                private mformService: MainformService) {
+                private mformService: MainformService,
+                private appService: AppService) {
         this.mformService.getCurTemplate().subscribe(
             (v) => { if (v != undefined) {
                     this.op.tml_id = v.id;
                     this.op.doc_name=v.tmlName;
                     this.op.frm_id = v.frmId;
                     this.op.fld_id = v.fldId;
+
+                    this.op.doc_date = this.mformService.getDateToStringFormat();
+                    //this.op.doc_name = 'новый документ*';
+                    if (this.op.doc_id === undefined) this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
+                    this.op.binders = [];
+                    //console.log(JSON.stringify(this.op));
+                    this.currentOperation.next(this.op);
                 }
             })
-        this.op.doc_date = this.mformService.getDateToStringFormat();
-        //this.op.doc_name = 'новый документ*';
-        if (this.op.doc_id === undefined) this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
-        this.op.binders = [];
-        this.currentOperation.next(this.op);
     }
 
     searchOperation(term: string, trNo: string): Observable<Op[]> {
@@ -58,7 +62,7 @@ export class OperationService {
                 )
         return a;
     }
-
+    //.finally(()=> console.log("finally"))
     setAgents(agId : number|null, term: string) {
          if (term === 'searchAgentTo'){
             this.op.transactions[0].j_ag1 = agId;
@@ -88,11 +92,11 @@ export class OperationService {
 
     clearOp(){
         this.op.doc_date = this.mformService.getDateToStringFormat();
-        this.op.doc_name = 'новый документ*';
+        //this.op.doc_name = 'новый документ*';
         this.op.doc_no = null;
         this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
         this.op.binders = [];
-        this.op.tml_id = null;
+        //this.op.tml_id = null;
         this.trans.length = 0;
         this.currentOperation.next(this.op);
     }
@@ -141,11 +145,12 @@ export class OperationService {
 
     saveDoc(){
         console.log('['+JSON.stringify(this.op)+']');
-        let a = this.http.post(this.addOperationUrl, '['+JSON.stringify(this.op)+']', this.options)
+        return this.http.post(this.addOperationUrl, '['+JSON.stringify(this.op)+']', this.options)
+            .do(response => console.log(response.json()) )
             .toPromise()
             .then(response => response.json())
+            .then(() => this.appService.getDocs() )
             .catch(this.handleError)
-        return a;
     }
 
     private handleError(error: any){

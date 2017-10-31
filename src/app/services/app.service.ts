@@ -57,7 +57,7 @@ export class AppService {
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
     //getDocs() : Observable<Document[]> {return this.docs;}
 
-    setDocs(){this.searchDocs2().subscribe(v => {this.docs.next(v)})}
+    setDocs(d: Document[]){ this.docs.next(d); }
     getDocs() : Observable<Document[]> {
         this.searchDocs2()
             .distinctUntilChanged()

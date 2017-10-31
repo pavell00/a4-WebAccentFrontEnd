@@ -7,7 +7,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 //primeng
-import { CalendarModule, DataTableModule,
+import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
         ToolbarModule, SplitButtonModule, DialogModule,
         InputSwitchModule, DropdownModule, CheckboxModule, 
         RadioButtonModule, MenubarModule, AutoCompleteModule } from 'primeng/primeng';
@@ -46,8 +46,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   imports:      [ BrowserModule, routing,
                   BrowserAnimationsModule,
                   HttpModule, FormsModule, JsonpModule,
-                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule,
-                  ToolbarModule, SplitButtonModule, DialogModule, DropdownModule,
+                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule,
+                  ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule
                   ],
   declarations: [ 

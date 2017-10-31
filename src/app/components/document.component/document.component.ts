@@ -4,6 +4,8 @@ import {AppService} from '../../services/app.service';
 import {MainformService} from '../../services/main-form.service';
 import { OperationService } from '../../services/operation.service';
 
+import { Clipboard } from 'ts-clipboard';
+import {MenuItem} from 'primeng/primeng';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -28,6 +30,7 @@ export class DocumentComponent implements OnInit {
     private error: any;
     private counter: number = 0;
     private docLazy: Document[] = [];
+    private items: MenuItem[];
 
     constructor(private appService: AppService,
                 private mformService: MainformService,
@@ -36,6 +39,9 @@ export class DocumentComponent implements OnInit {
     ngOnInit() {
         //this.getAll();
         //this.getAll2();
+        this.items = [
+            {label: 'Copy ID to clipboard', icon: 'fa-clone', command: (event) => this.copyClipboard(this.selectedRow.id)}
+        ];
     }
 
     getAll(){
@@ -76,7 +82,7 @@ export class DocumentComponent implements OnInit {
     onGetDocs(f: Folder){
         //console.log(this.documents.documentsOfFooler);
         //this.docs = this.documents.documentsOfFooler;
-        //console.log(a);
+        //console.log(f.tmlId);
         if (f.tmlId != undefined) this.mformService.setCurTemplate(f.tmlId);
         this.fldTmlId = f.tmlId;
         this.getAll();
@@ -111,5 +117,9 @@ export class DocumentComponent implements OnInit {
         this.document = null;
         this.operationService.clearOp();
         this.selectedRow = null;
+    }
+
+    copyClipboard(id: number){
+        Clipboard.copy(id.toString());
     }
 }

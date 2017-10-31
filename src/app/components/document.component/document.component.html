@@ -7,8 +7,9 @@
              [paginator]="true" rows="10" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20,50]"
              [totalRecords]="counter" (onLazyLoad)="loadDocsLazy($event)"
              [responsive]="true"
-             [rowStyleClass]="rowStyle">
-    <p-header>Содержимое папки ({{counter}} документ,-а,-ов)</p-header>
+             [rowStyleClass]="rowStyle"
+             [contextMenu]="cm">
+    <p-header>Содержимое папки {{counter}} документа(ов)</p-header>
     <p-column field="docDate" header="Дата" [sortable]="true"></p-column>
     <p-column field="docName" header="Наименование" [sortable]="true"></p-column>
     <p-column field="docNo" header="№" [sortable]="true"></p-column>
@@ -24,6 +25,7 @@
 </p-dataTable>
 
 <editDialog2 #dialog [document]="document" (addDocEvent)="onGetDocs($event)"></editDialog2>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
 <!-- The Modal -->
 <!-- <div id="myModal" class="modal" [style.display] = "visible">
     <div class="modal-content">

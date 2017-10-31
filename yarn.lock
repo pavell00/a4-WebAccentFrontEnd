@@ -5016,6 +5016,10 @@ trim@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
+ts-clipboard@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/ts-clipboard/-/ts-clipboard-1.0.15.tgz#5e30908609e7e63dcd200f825054b54b07f39b32"
+
 ts-node@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-2.0.0.tgz#16e4fecc949088238b4cbf1c39c9582526b66f74"
