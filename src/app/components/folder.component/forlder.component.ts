@@ -68,8 +68,8 @@ export class FolderComponent implements OnInit {
         this.getAll(e);
     }
 
-    ngOnDestroy(){
-        
+    onSpinner() {
+        this.isRequesting = !this.isRequesting;
     }
 
     private stopRefreshing() {

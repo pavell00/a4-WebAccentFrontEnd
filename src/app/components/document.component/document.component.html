@@ -20,8 +20,11 @@
         <div class="ui-helper-clearfix" style="width:100%">
             <button type="button" pButton icon="fa-plus" style="float:left" 
                 (click)="dialog.onOpenDlg(0);createEmtyDoc();" label="Add" class="ui-button-info" [disabled]="isTmlLink()"></button>
-            <button type="button" pButton icon="fa-trash" style="float:right" 
-                (click)="onDeleteDoc($event)" label="Delete" class="ui-button-danger"><spinner [isRunning]="isRequesting"></spinner></button>
+            <button [hidden]="isRequesting" type="button" pButton icon="fa-trash" style="float:right" 
+                (click)="onDeleteDoc($event)" label="Delete" class="ui-button-danger"></button>
+<!--             <button type="button" pButton icon="fa-minus" style="float:left" 
+                (click)="onSpinner()" label="Delete" class="ui-button-danger"></button> -->
+            <spinner [isRunning]="isRequesting" style="float:right"></spinner>
         </div>
     </p-footer>
 </p-dataTable>
