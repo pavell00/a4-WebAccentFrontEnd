@@ -14,9 +14,9 @@ export class OperationShortView {
     priceName: string = '';
     folderName: string = '';
     lastChange: string = '';
-    links: Op[];
-    binders: Binders[];
-    trnasList: TransactionShortView[];
+    links: Op[] = [];
+    binders: Binders[] = [];
+    trnasList: TransactionShortView[] = [];
 
     constructor(docName: string, docDate: string,
                 docDone: number, docSum: number,
@@ -41,6 +41,5 @@ export class OperationShortView {
         this.links = links;
         this.binders = binders;
         this.trnasList = trnasList;
-        this.id = id;
     }
 }

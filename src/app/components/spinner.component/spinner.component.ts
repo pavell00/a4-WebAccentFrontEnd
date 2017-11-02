@@ -7,41 +7,41 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
 
-  private currentTimeout: any;
-  private isDelayedRunning: boolean = false;
+    private currentTimeout: any;
+    private isDelayedRunning: boolean = false;
 
-  @Input()
-  public delay: number = 300;
+    @Input()
+    public delay: number = 300;
 
-  @Input()
-  public set isRunning(value: boolean) {
-      if (!value) {
-          this.cancelTimeout();
-          this.isDelayedRunning = false;
-          return;
-      }
+    @Input()
+    public set isRunning(value: boolean) {
+        if (!value) {
+            this.cancelTimeout();
+            this.isDelayedRunning = false;
+            return;
+        }
 
-      if (this.currentTimeout) {
-          return;
-      }
+        if (this.currentTimeout) {
+            return;
+        }
 
-      this.currentTimeout = setTimeout(() => {
-          this.isDelayedRunning = value;
-          this.cancelTimeout();
-      }, this.delay);
-  }
+        this.currentTimeout = setTimeout(() => {
+            this.isDelayedRunning = value;
+            this.cancelTimeout();
+        }, this.delay);
+    }
 
-  private cancelTimeout(): void {
-      clearTimeout(this.currentTimeout);
-      this.currentTimeout = undefined;
-  }
+    private cancelTimeout(): void {
+        clearTimeout(this.currentTimeout);
+        this.currentTimeout = undefined;
+    }
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  ngOnDestroy(): any {
-    this.cancelTimeout();
-  }
+    ngOnDestroy(): any {
+        this.cancelTimeout();
+    }
 }

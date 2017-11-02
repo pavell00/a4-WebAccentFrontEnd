@@ -13,7 +13,7 @@ import {Subject} from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 //import {} from 'rxjs';
 
-import {Folder, Document, Journal, Entities, BreadCramber} from '../model'
+import {Folder, Document, Journal, Entities, BreadCramber, OperationShortView} from '../model'
 
 @Injectable()
 export class AppService {
@@ -22,6 +22,7 @@ export class AppService {
     private folders = new Subject<Folder[]>();
     private journals = new Subject<Journal[]>();
     private entities = new Subject<Entities[]>();
+    private opInfo = new Subject<OperationShortView>();
     //private calendar = new BehaviorSubject('23.03.2017');
     private calendarStartDt = new BehaviorSubject(new Date().toLocaleDateString("ru"));
     private calendarEndDt = new BehaviorSubject(new Date().toLocaleDateString("ru")); //'23.03.2017'
@@ -48,6 +49,7 @@ export class AppService {
     private docDeleteUrl = this.urlPrefix+'/sp_del_operation';
     private journalsUrl = this.urlPrefix+'/sp_journals';
     private entitiesUrl = this.urlPrefix+'/sp_entities';
+    private translistInfoUrl = this.urlPrefix+'/sp_translist';
     
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
@@ -68,6 +70,7 @@ export class AppService {
         return this.docs;
     } 
 
+    getOperationIfo(): Observable<OperationShortView> { return this.opInfo.asObservable(); }
   //getDocs(){ return this.docs;}
 
     getFolders(): Observable<Folder[]> {return this.folders.asObservable();}
@@ -229,6 +232,20 @@ export class AppService {
                     (err) => (this.handleError)
                 )
         return a;
+    }
+
+    searchOperationInfo (term: string) {
+        let params = new URLSearchParams();
+        params.set('docid', term);
+        let a = this.http
+            .get(this.translistInfoUrl, { search: params })
+            .map(response => <OperationShortView> response.json())
+            //.do(data => console.log(data))
+                a.subscribe(
+                    (v) => {this.opInfo.next(v)},
+                    (err) => (this.handleError),
+                    () => {}
+                )
     }
 
     searchEntity(term: string) {

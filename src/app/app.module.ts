@@ -10,14 +10,16 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
         ToolbarModule, SplitButtonModule, DialogModule,
         InputSwitchModule, DropdownModule, CheckboxModule,
-        RadioButtonModule, MenubarModule, AutoCompleteModule } from 'primeng/primeng';
+        RadioButtonModule, MenubarModule, AutoCompleteModule,
+        PanelModule } from 'primeng/primeng';
 //interface main window
 import { WelcomeComponent, RootComponent, FolderComponent,
         DocumentComponent, JournalComponent, EditDialogComponent,
         BreadCramberComponent, ProfileComponent, TypeSelectorComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
         CallbackComponent, CalendarComponent,
-        AutoComplitEntityComponent, EditDialog2Component} from './components';
+        AutoComplitEntityComponent, EditDialog2Component,
+        SpinnerComponent, OperationInfoComponent} from './components';
 //interface main form
 import { AgentSelectorComponent, BinderSelectorComponent,
         DocNoDateComponent, MainFormComponent,
@@ -35,7 +37,6 @@ import { OperationService } from './services/operation.service';
 import { Auth } from './services/auth0.service';
 import { AuthGuard } from './auth.guard';
 import { Logger } from 'angular2-logger/app/core/logger';
-import { SpinnerComponent } from './components/spinner.component/spinner.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -49,7 +50,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   HttpModule, FormsModule, JsonpModule,
                   CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
-                  InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule
+                  InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
+                  PanelModule
                   ],
   declarations: [ 
                   RootComponent, JournalComponent,
@@ -62,7 +64,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   AgentSelectorComponent, BinderSelectorComponent,
                   DocNoDateComponent, MainFormComponent,
                   PriceListComponent, SearchEntityComponent,
-                  TableEntityComponent, TemplateSelectorComponent, EditDialog2Component, SpinnerComponent
+                  TableEntityComponent, TemplateSelectorComponent, EditDialog2Component, 
+                  SpinnerComponent, OperationInfoComponent
                 ],
   providers:    [ AppService, MainformService, appRoutingProviders, OperationService,
                   Auth, AuthGuard, Logger,

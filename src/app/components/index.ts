@@ -43,3 +43,5 @@ export {WelcomeComponent} from './welcome.component/welcome.component';
 export {CalendarDlgComponent} from './calendar-dlg.component/calendar-dlg.component';
 export {CallbackComponent} from './callback.component/callback.component';
 export {EditDialog2Component} from './edit-dialog2.component/edit-dialog2.component';
+export { SpinnerComponent } from './spinner.component/spinner.component';
+export { OperationInfoComponent } from './operation-info/operation-info.component';

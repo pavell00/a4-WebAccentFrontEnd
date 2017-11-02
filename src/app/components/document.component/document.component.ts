@@ -66,7 +66,8 @@ export class DocumentComponent implements OnInit {
     onRowSelect(event: any){
       //this.selectedDocument = event.data;
       this.documentSource.next(this.selectedRow);
-      this.appService.searchJournal(String(this.selectedRow.id))
+      //this.appService.searchJournal(String(this.selectedRow.id));
+      this.appService.searchOperationInfo(String(this.selectedRow.id));
     }
 
     onDeleteDoc(event: any){
