@@ -22,7 +22,7 @@ export class AppService {
     private folders = new Subject<Folder[]>();
     private journals = new Subject<Journal[]>();
     private entities = new Subject<Entities[]>();
-    private opInfo = new Subject<OperationShortView>();
+    private opInfo = new Subject<OperationShortView[]>();
     //private calendar = new BehaviorSubject('23.03.2017');
     private calendarStartDt = new BehaviorSubject(new Date().toLocaleDateString("ru"));
     private calendarEndDt = new BehaviorSubject(new Date().toLocaleDateString("ru")); //'23.03.2017'
@@ -70,7 +70,7 @@ export class AppService {
         return this.docs;
     } 
 
-    getOperationIfo(): Observable<OperationShortView> { return this.opInfo.asObservable(); }
+    getOperationIfo() { return this.opInfo; }
   //getDocs(){ return this.docs;}
 
     getFolders(): Observable<Folder[]> {return this.folders.asObservable();}
@@ -239,7 +239,7 @@ export class AppService {
         params.set('docid', term);
         let a = this.http
             .get(this.translistInfoUrl, { search: params })
-            .map(response => <OperationShortView> response.json())
+            .map(response => <OperationShortView[]> response.json())
             //.do(data => console.log(data))
                 a.subscribe(
                     (v) => {this.opInfo.next(v)},
