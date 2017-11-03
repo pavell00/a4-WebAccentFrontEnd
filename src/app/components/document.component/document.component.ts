@@ -47,11 +47,17 @@ export class DocumentComponent implements OnInit {
 
     getAll(){
         //console.log('documents.component-getAll(this.appService.getDocs().subscribe)')
-         this.appService.getDocs().subscribe(
+        this.isRequesting = true;
+        //this.appService.getDocs().subscribe(
+        this.appService.searchDocs2().subscribe(
             (val) => {this.docs = val;
                       this.counter = this.docs.length;
-                      this.loadDocsLazy({'first':0,'rows':'10'});
-                    }) 
+                      this.loadDocsLazy({'first':0,'rows':'20'});
+                      //this.stopRefreshing();
+                    },
+                    () => this.stopRefreshing(),
+                    () => this.stopRefreshing()
+                )
 
         this.documentSelect$.subscribe(
             (v) => {this.document = v;}

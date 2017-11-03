@@ -181,7 +181,7 @@ export class AppService {
         return this.http
             .get(this.docmentsUrl, { search: params })
             .map(response => <Document[]> response.json())
-            //.map(response => this.docs.next(response))
+            .do(response => this.docs.next(response))
             .catch(this.handleError);
     }
 
