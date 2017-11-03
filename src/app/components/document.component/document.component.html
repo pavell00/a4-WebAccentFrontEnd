@@ -10,12 +10,14 @@
              [rowStyleClass]="rowStyle"
              [contextMenu]="cm"
              (onSort)="changeSort($event)"
+             [style]="{'white-space':'nowrap'}"
+             resizableColumns="true"
              >
     <p-header>Содержимое папки {{counter}} документа(ов)</p-header>
-    <p-column field="docDate" header="Дата" [sortable]="true"></p-column>
-    <p-column field="docName" header="Наименование" ></p-column>
-    <p-column field="docNo" header="№" ></p-column>
-    <p-column field="docSum" header="Сумма" [sortable]="true"></p-column>
+    <p-column field="docDate" header="Дата" [sortable]="true" [style]="{'width': '80px'}"></p-column>
+    <p-column field="docName" header="Наименование" [style]="{'width': '200px'}"></p-column>
+    <p-column field="docNo" header="№" [style]="{'width': '50px'}"></p-column>
+    <p-column field="docSum" header="Сумма" [sortable]="true" [style]="{'width': '60px'}"></p-column>
     <p-footer>
         <div class="ui-helper-clearfix" style="width:100%">
             <button type="button" pButton icon="fa-plus" style="float:left" 
