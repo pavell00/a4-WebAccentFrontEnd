@@ -1,4 +1,4 @@
-<p-panel header="Просмотр информации о дукументе" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
+<p-panel header="Просмотр информации о документе" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
     <div>
         <div *ngFor="let op of operationInfo">
             <span> Название: "{{op?.docName}}"</span><br>
@@ -28,11 +28,11 @@
           <thead>
               <tr>
                   <th style="width: 5%" class="text-center">#</th>
-                  <th style="width: 5%" class="text-left">Дт</th>
-                  <th style="width: 5%" class="text-left">Кт</th>
-                  <th style="width: 35%" class="text-left">Кому</th>
-                  <th style="width: 35%" class="text-left">Кто</th>
-                  <th style="width: 15%" class="text-right">Сумма</th>
+                  <th style="width: 5%" class="text-center">Дт</th>
+                  <th style="width: 5%" class="text-center">Кт</th>
+                  <th style="width: 35%" class="text-center">Кому</th>
+                  <th style="width: 35%" class="text-center">Кто</th>
+                  <th style="width: 15%" class="text-center">Сумма</th>
               </tr>
           </thead>
           <tbody>

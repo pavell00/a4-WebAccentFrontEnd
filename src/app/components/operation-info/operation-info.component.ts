@@ -25,7 +25,7 @@ export class OperationInfoComponent implements OnInit {
                 this.links = val[0].links;
                 this.translist = val[0].trnasList;
                 this.isExists = true;
-                console.log(JSON.stringify(val));
+                //console.log(JSON.stringify(val));
             })
     }
 
