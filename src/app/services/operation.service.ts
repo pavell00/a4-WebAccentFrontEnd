@@ -149,7 +149,7 @@ export class OperationService {
             .do(response => console.log(response.json()) )
             .toPromise()
             .then(response => response.json())
-            .then(() => this.appService.getDocs() )
+            .then(() => this.appService.searchDocs4() )
             .catch(this.handleError)
     }
 

@@ -9,6 +9,8 @@ import { Auth } from '../../services/auth0.service';
 })
 export class WelcomeComponent implements OnInit {
 
+  public isRequesting: boolean;
+
   constructor(private auth: Auth) {
     // Comment out this method call if using
     // hash-based routing

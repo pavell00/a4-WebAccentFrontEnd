@@ -31,6 +31,8 @@ export class AppService {
     private bcramberSource = new Subject<BreadCramber[]>();
     bcramberChange$ = this.bcramberSource.asObservable();
 
+    private spinnerStatus = new Subject<boolean>();
+
     /*private countSource = new BehaviorSubject<number>(0);
     getCounter(): Observable<number>{return this.countSource.asObservable();}
     setCounter(n:number){this.countSource.next(n);}*/
@@ -56,17 +58,21 @@ export class AppService {
 
     constructor(private http: Http, private jsonp: Jsonp) { }
 
+    getSpinnerStatus(): Observable<boolean> {
+        return this.spinnerStatus;
+    }
+
     setCurrentFolder(f: Folder){this.currentFolderSource.next(f);}
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
     //getDocs() : Observable<Document[]> {return this.docs;}
 
     setDocs(d: Document[]){ this.docs.next(d); }
     getDocs() : Observable<Document[]> {
-        this.searchDocs2()
+/*         this.searchDocs2()
             .distinctUntilChanged()
             .subscribe(
             v => {this.docs.next(v);}
-        )
+        ) */
         return this.docs;
     } 
 
@@ -82,6 +88,7 @@ export class AppService {
         //this.calendar.next(endDt);
         this.calendarStartDt.next(startDt);
         this.calendarEndDt.next(endDt);
+        //this.searchDocs2();
     }
 
     getCalendarSartDt(): Observable<string> { return this.calendarStartDt.asObservable(); }
@@ -135,13 +142,17 @@ export class AppService {
     deleteDoc(id: string): Observable<any>{
         let params = new URLSearchParams();
         params.set('docid', id);
+        this.spinnerStatus.next(true);
         return this.http.delete(this.docDeleteUrl, { search: params })
             .map(response => response.json())
+            .do(data => this.spinnerStatus.next(false))
             .catch(this.handleError)
     }
 
     searchFolder () {
-        //console.log(this.f.typeFolder);
+        //resolve error in spiner status - ExpressionChangedAfterItHasBeenCheckedError
+        Promise.resolve(null).then(() => this.spinnerStatus.next(true));
+
         let params = new URLSearchParams();
         params.set('rootid', String(this.f.id));
         params.set('typefolder', this.f.typeFolder);
@@ -149,6 +160,7 @@ export class AppService {
             //.get(this.foldersUrl+'?rootId='+String(this.f.id)+'&typeFolder=document_type')
             .get(this.foldersUrl, { search: params })
             .map(response => <Folder[]> response.json())
+            .do(data => this.spinnerStatus.next(false))
             .distinctUntilChanged()
                 a.subscribe(
                     (val) => {this.folders.next(val)},
@@ -182,6 +194,7 @@ export class AppService {
             .get(this.docmentsUrl, { search: params })
             .map(response => <Document[]> response.json())
             .do(response => this.docs.next(response))
+            .do(response => console.log(JSON.stringify(response)))
             .catch(this.handleError);
     }
 
@@ -212,7 +225,7 @@ export class AppService {
             .distinctUntilChanged()
                 a.subscribe(
                     (val) => {this.docs.next(val);//without filtering
-                            //console.log(JSON.stringify(val))
+                            //console.log('searchDocs4 '+ JSON.stringify(val))
                     },
                     (err) => (this.handleError),
                     () => true

@@ -17,6 +17,7 @@ export class RootComponent implements OnInit {
     private checked: boolean = true;
     private error: any;
     curOp: Op;
+    private isRequesting: boolean;
 
     constructor(private appService: AppService,
                 private operationService : OperationService){ }
@@ -31,8 +32,8 @@ export class RootComponent implements OnInit {
         this.appService.getCalendarEndDt().subscribe(
             (v) => {this.endDate = v;}
         )
-/*         this.operationService.getCurrentOperation().subscribe(
-            (v) => {this.curOp = v;}
-        ) */
+        this.appService.getSpinnerStatus().subscribe(
+            (v) => {this.isRequesting = v;}
+        )
     }
 }

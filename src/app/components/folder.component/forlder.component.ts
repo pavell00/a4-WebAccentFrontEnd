@@ -13,7 +13,6 @@ export class FolderComponent implements OnInit {
     private folders: Folder[];
     private error: any;
     private bcrambFolders: BreadCramber[] = [];
-    public isRequesting: boolean;
 
     @Output() EventFolderClick: EventEmitter<Folder> = new EventEmitter();
 
@@ -23,13 +22,12 @@ export class FolderComponent implements OnInit {
 
     getAll(typeSelector: string){
         //Initilize start folder ???
-        this.isRequesting = true;
         this.appService.setCurrentFolder(new Folder(0, "", false, 0, typeSelector, 0));
         /*this.appService.searchFolderObserver("0").subscribe((val) => {this.folders = val});*/
         this.appService.searchFolder();
         this.appService.getFolders()
             .subscribe(
-                (val) => {this.folders = val; this.stopRefreshing()}
+                (val) => {this.folders = val}
             );
         //this.appService.getCurfld().subscribe((val) => {this.error = val});
         /*this.appService.searchDocs2().subscribe(
@@ -47,7 +45,7 @@ export class FolderComponent implements OnInit {
           (v) => {this.documentsOfFolder = v}
       )*/
       this.EventFolderClick.emit(this.selectedFolder);
-      //this.appService.searchDocs4();
+      this.appService.searchDocs4();
     }
 
     onDblClick(folder: Folder){
@@ -66,13 +64,5 @@ export class FolderComponent implements OnInit {
     onChangeTypeSelector(e: string){
         //console.log(e);
         this.getAll(e);
-    }
-
-    onSpinner() {
-        this.isRequesting = !this.isRequesting;
-    }
-
-    private stopRefreshing() {
-        this.isRequesting = false;
     }
 }

@@ -1,4 +1,4 @@
-<ul class="items" [hidden]="isRequesting">
+<ul class="items">
     <li *ngFor="let folder of folders" (click)="onSelectFolder(folder)" 
         [class.selected]="folder === selectedFolder" (dblclick)="onDblClick(folder)">
         <span *ngIf="folder.isChildren" [ngClass]="'isChild'"> {{folder.name}}</span>
@@ -6,7 +6,7 @@
 
     </li>
 </ul>
-<spinner [isRunning]="isRequesting"></spinner>
+<!-- <spinner [isRunning]="isRequesting"></spinner> -->
 <!-- <button (click)="onSpinner()"></button> -->
 <!--<div>
     <button type="button" (click)="backFolder()">Back</button>    

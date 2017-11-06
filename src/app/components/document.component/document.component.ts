@@ -9,7 +9,6 @@ import {MenuItem} from 'primeng/primeng';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
-    //moduleId: module.id,
     selector: 'document',
     templateUrl: './document.component.html',
     styleUrls: ['./document.component.css']
@@ -31,32 +30,35 @@ export class DocumentComponent implements OnInit {
     private counter: number = 0;
     private docLazy: Document[] = [];
     private items: MenuItem[];
-    public isRequesting: boolean;
+    private isRequesting: boolean;
 
      constructor(private appService: AppService,
                 private mformService: MainformService,
                 private operationService: OperationService) { }
     
     ngOnInit() {
-        //this.getAll();
-        //this.getAll2();
         this.items = [
             {label: 'Copy ID to clipboard', icon: 'fa-clone', command: (event) => this.copyClipboard(this.selectedRow.id)}
         ];
+
+        //this.isRequesting = true;
+        this.appService.getDocs().subscribe(
+            (val) => {this.docs = val;
+                        this.counter = this.docs.length;
+                        this.loadDocsLazy({'first':0,'rows':'20'});
+                     }
+            )
     }
 
     getAll(){
         //console.log('documents.component-getAll(this.appService.getDocs().subscribe)')
-        this.isRequesting = true;
-        //this.appService.getDocs().subscribe(
-        this.appService.searchDocs2().subscribe(
+        this.appService.getDocs().subscribe(
+        //this.appService.searchDocs2().subscribe(
             (val) => {this.docs = val;
                       this.counter = this.docs.length;
                       this.loadDocsLazy({'first':0,'rows':'20'});
                       //this.stopRefreshing();
-                    },
-                    () => this.stopRefreshing(),
-                    () => this.stopRefreshing()
+                    }
                 )
 
         this.documentSelect$.subscribe(
@@ -71,7 +73,8 @@ export class DocumentComponent implements OnInit {
 
     onRowSelect(event: any){
       //this.selectedDocument = event.data;
-      this.documentSource.next(this.selectedRow);
+      //this.documentSource.next(this.selectedRow);
+      this.document = this.selectedRow;
       //this.appService.searchJournal(String(this.selectedRow.id));
       this.appService.searchOperationInfo(String(this.selectedRow.id));
     }
@@ -79,24 +82,21 @@ export class DocumentComponent implements OnInit {
     onDeleteDoc(event: any){
         //this.docs.splice(this.findSelectedDocIndex(), 1);
         //console.log(JSON.stringify(this.selectedRow))
-        this.isRequesting = true;
         if (this.selectedRow != undefined) {
             this.appService.deleteDoc(String(this.selectedRow.id)).subscribe(
-                v => {this.getAll();
-                      return true},
-                () => this.stopRefreshing(),
-                () => this.stopRefreshing()
+                v => {this.appService.searchDocs4();
+                      return true}
             )
         }
     }
 
-    onGetDocs(f: Folder){
+     public onGetDocs(f: Folder){
         //console.log(this.documents.documentsOfFooler);
         //this.docs = this.documents.documentsOfFooler;
         //console.log(f.tmlId);
         if (f.tmlId != undefined) this.mformService.setCurTemplate(f.tmlId);
         this.fldTmlId = f.tmlId;
-        this.getAll();
+        //this.getAll();
     }
 
     rowStyle(rowData: any, rowIndex: number): string {
@@ -143,11 +143,7 @@ export class DocumentComponent implements OnInit {
         } */
     }
 
-    private stopRefreshing() {
-        this.isRequesting = false;
-    }
-
-    onSpinner() {
+/*     onSpinner() {
         this.isRequesting = !this.isRequesting;
-    }
+    } */
 }
