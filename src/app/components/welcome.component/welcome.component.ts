@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Auth } from '../../services/auth0.service';
 
 @Component({
-  //moduleId: module.id,
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+    //moduleId: module.id,
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
 
-  public isRequesting: boolean;
+    public isRequesting: boolean;
 
-  constructor(private auth: Auth) {
-    // Comment out this method call if using
-    // hash-based routing
-    auth.handleAuthentication();
-  }
+    constructor(private auth: Auth) {
+      // Comment out this method call if using
+      // hash-based routing
+      auth.handleAuthentication();
+    }
 
-  ngOnInit() { }
+    ngOnInit() { }
 
 }

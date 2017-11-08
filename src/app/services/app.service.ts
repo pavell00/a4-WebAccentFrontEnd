@@ -1,6 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Headers, Http, Response, 
-         URLSearchParams, RequestOptions, Jsonp } from '@angular/http';
+import {Injectable, OnInit} from '@angular/core';
+import {Headers, Http, Response, 
+         URLSearchParams, RequestOptions, Jsonp} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -10,10 +10,13 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 //import {} from 'rxjs';
+//import {Auth} from './auth0.service';
 
-import {Folder, Document, Journal, Entities, BreadCramber, OperationShortView} from '../model'
+import {Folder, Document, Journal, Entities, 
+    BreadCramber, OperationShortView, Session} from '../model'
+import { Auth } from './auth0.service';
 
 @Injectable()
 export class AppService {
@@ -23,7 +26,6 @@ export class AppService {
     private journals = new Subject<Journal[]>();
     private entities = new Subject<Entities[]>();
     private opInfo = new Subject<OperationShortView[]>();
-    //private calendar = new BehaviorSubject('23.03.2017');
     private calendarStartDt = new BehaviorSubject(new Date().toLocaleDateString("ru"));
     private calendarEndDt = new BehaviorSubject(new Date().toLocaleDateString("ru")); //'23.03.2017'
     private typeSelector = new BehaviorSubject<string>('document_type');
@@ -36,7 +38,7 @@ export class AppService {
     /*private countSource = new BehaviorSubject<number>(0);
     getCounter(): Observable<number>{return this.countSource.asObservable();}
     setCounter(n:number){this.countSource.next(n);}*/
-
+    profile: any;
     private f: Folder;
     private currentFolderSource = new Subject<Folder>();
     currentFolderChange$ = this.currentFolderSource.asObservable().
@@ -56,7 +58,17 @@ export class AppService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
-    constructor(private http: Http, private jsonp: Jsonp) { }
+    constructor(private http: Http, private jsonp: Jsonp, private auth: Auth) {
+/*         if (localStorage.getItem('user_profile')) {
+            if (this.auth.userProfile) {
+                this.profile = this.auth.userProfile;
+            } else {
+                this.auth.getProfile((err, profile) => {
+                this.profile = profile;
+                });
+            }
+        } */
+    }
 
     getSpinnerStatus(): Observable<boolean> {
         return this.spinnerStatus;
@@ -68,7 +80,7 @@ export class AppService {
 
     setDocs(d: Document[]){ this.docs.next(d); }
     getDocs() : Observable<Document[]> {
-/*         this.searchDocs2()
+        /*  this.searchDocs2()
             .distinctUntilChanged()
             .subscribe(
             v => {this.docs.next(v);}
