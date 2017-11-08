@@ -1,5 +1,5 @@
 <div class="homedashboard">
-  <div class="alert alert-success" *ngIf="auth.isAuthenticated()"> You are logged in as user: {{user_profile?.nickname}}</div>
+  <div class="alert alert-success" *ngIf="auth.isAuthenticated()"> You are logged in as user: {{user_profile?.nickName}}</div>
   <div class="alert alert-danger" *ngIf="!auth.isAuthenticated()"> you are not logged</div>
   <div>environmentName: {{environmentName}}</div> {{user_profile|json}}
 </div>

@@ -38,7 +38,7 @@ export class AppService {
     /*private countSource = new BehaviorSubject<number>(0);
     getCounter(): Observable<number>{return this.countSource.asObservable();}
     setCounter(n:number){this.countSource.next(n);}*/
-    profile: any;
+    private profile: Session;
     private f: Folder;
     private currentFolderSource = new Subject<Folder>();
     currentFolderChange$ = this.currentFolderSource.asObservable().
@@ -58,16 +58,16 @@ export class AppService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
-    constructor(private http: Http, private jsonp: Jsonp, private auth: Auth) {
-/*         if (localStorage.getItem('user_profile')) {
-            if (this.auth.userProfile) {
-                this.profile = this.auth.userProfile;
-            } else {
-                this.auth.getProfile((err, profile) => {
-                this.profile = profile;
-                });
-            }
-        } */
+    constructor(private http: Http, private jsonp: Jsonp) { }
+
+     getProfile() {
+        if (localStorage.getItem('user_profile')) {
+            let ses = new Session();
+            let store = JSON.parse(localStorage.getItem('user_profile'));
+            ses.nickName = store.nickName;
+            this.profile = ses;
+        }
+        return this.profile;
     }
 
     getSpinnerStatus(): Observable<boolean> {

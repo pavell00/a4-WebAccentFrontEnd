@@ -4,16 +4,13 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 import Auth0Lock from 'auth0-lock';
-
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import { Session } from '../model/index';
+import { AppService } from './app.service';
 
 @Injectable()
 export class Auth {
 
     userProfile: any;
-    profileSource = new Subject<any>();
-
     requestedScopes: string = 'openid profile read:messages write:messages';
 
     lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, { 
@@ -38,7 +35,7 @@ export class Auth {
         scope: this.requestedScopes
     });
 
-    constructor(public router: Router) {}
+    constructor(public router: Router, private appService: AppService) {}
 
     public login(): void{
         this.lock.show();
@@ -88,13 +85,13 @@ export class Auth {
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
         localStorage.setItem('scopes', JSON.stringify(scopes));
-        
         // fill data to user_profile localStorage
         this.auth0.client.userInfo(authResult.accessToken, (err:any, profile:any) => {
             if (profile) {
-                let prof = JSON.stringify(profile);
-                localStorage.setItem('user_profile', prof)
-                this.profileSource.next(localStorage.getItem('user_profile'));
+                let ses = new Session();
+                ses.nickName = profile.nickname;
+                localStorage.setItem('user_profile', JSON.stringify(ses));
+                //this.appService.setProfile();
             }
         });
     }
