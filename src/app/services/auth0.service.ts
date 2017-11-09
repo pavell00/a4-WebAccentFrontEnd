@@ -7,11 +7,20 @@ import Auth0Lock from 'auth0-lock';
 import { Session } from '../model/index';
 import { AppService } from './app.service';
 
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
+import {Headers, Http, Response, 
+    URLSearchParams, RequestOptions} from '@angular/http';
+import {environment} from '../../environments/environment';
+
 @Injectable()
 export class Auth {
 
     userProfile: any;
     requestedScopes: string = 'openid profile read:messages write:messages';
+    private urlPrefix = environment.urlPrefix;
+    private sessionUrl = this.urlPrefix+'/sp_session';
 
     lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, { 
         oidcConformant: true,
@@ -35,7 +44,7 @@ export class Auth {
         scope: this.requestedScopes
     });
 
-    constructor(public router: Router, private appService: AppService) {}
+    constructor(public router: Router, private appService: AppService, private http: Http) {}
 
     public login(): void{
         this.lock.show();
@@ -90,10 +99,20 @@ export class Auth {
             if (profile) {
                 let ses = new Session();
                 ses.nickName = profile.nickname;
-                localStorage.setItem('user_profile', JSON.stringify(ses));
-                //this.appService.setProfile();
+                this.fill(ses.nickName).subscribe(v => true);
             }
         });
+    }
+
+    private fill(a: any): Observable<any> {
+        let params = new URLSearchParams();
+        params.set('nickname', '_' + a);
+        return this.http
+            .get(this.sessionUrl, { search: params })
+            .map(response => <Session> response.json())
+            //.do(response => console.log(JSON.stringify(response)))
+            .do(response => localStorage.setItem('user_profile', JSON.stringify(response)))
+            .do(response => this.appService.setProfile2(response))
     }
 
     public isAuthenticated(): boolean {

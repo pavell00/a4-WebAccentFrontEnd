@@ -16,7 +16,6 @@ import {environment} from '../../environments/environment';
 
 import {Folder, Document, Journal, Entities, 
     BreadCramber, OperationShortView, Session} from '../model'
-import { Auth } from './auth0.service';
 
 @Injectable()
 export class AppService {
@@ -39,6 +38,7 @@ export class AppService {
     getCounter(): Observable<number>{return this.countSource.asObservable();}
     setCounter(n:number){this.countSource.next(n);}*/
     private profile: Session;
+    private profile2: Session;
     private f: Folder;
     private currentFolderSource = new Subject<Folder>();
     currentFolderChange$ = this.currentFolderSource.asObservable().
@@ -54,31 +54,43 @@ export class AppService {
     private journalsUrl = this.urlPrefix+'/sp_journals';
     private entitiesUrl = this.urlPrefix+'/sp_entities';
     private translistInfoUrl = this.urlPrefix+'/sp_translist';
+    private sessionUrl = this.urlPrefix+'/sp_session';
     
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
     constructor(private http: Http, private jsonp: Jsonp) { }
 
-     getProfile() {
+    setProfile2(a: any) {this.profile2 = a;}
+    getProfile2(): Session {return this.profile2;}
+
+    getProfile(): Observable<Session> {
+        let ses = new Session();
         if (localStorage.getItem('user_profile')) {
-            let ses = new Session();
             let store = JSON.parse(localStorage.getItem('user_profile'));
             ses.nickName = store.nickName;
             this.profile = ses;
+        } else {
+            ses.nickName = 'ivanova';
         }
-        return this.profile;
+        let params = new URLSearchParams();
+        params.set('nickname', '_' + ses.nickName);
+        console.log('_' + ses.nickName, localStorage.getItem('user_profile'));
+        return this.http
+            .get(this.sessionUrl, { search: params })
+            .map(response => <Session> response.json())
+            .do(response => console.log(JSON.stringify(response)))
     }
 
     getSpinnerStatus(): Observable<boolean> {
         return this.spinnerStatus;
     }
 
-    setCurrentFolder(f: Folder){this.currentFolderSource.next(f);}
+    setCurrentFolder(f: Folder) {this.currentFolderSource.next(f);}
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
     //getDocs() : Observable<Document[]> {return this.docs;}
 
-    setDocs(d: Document[]){ this.docs.next(d); }
+    setDocs(d: Document[]) { this.docs.next(d); }
     getDocs() : Observable<Document[]> {
         /*  this.searchDocs2()
             .distinctUntilChanged()
@@ -89,14 +101,14 @@ export class AppService {
     } 
 
     getOperationIfo() { return this.opInfo; }
-  //getDocs(){ return this.docs;}
+    //getDocs(){ return this.docs;}
 
     getFolders(): Observable<Folder[]> {return this.folders.asObservable();}
 
-    getJournals(){return this.journals;}
+    getJournals() {return this.journals;}
 
     //getCalendar() : Observable<any> {return this.calendar.asObservable();}
-    setCalendar(startDt: string, endDt: string){
+    setCalendar(startDt: string, endDt: string) {
         //this.calendar.next(endDt);
         this.calendarStartDt.next(startDt);
         this.calendarEndDt.next(endDt);
@@ -106,7 +118,7 @@ export class AppService {
     getCalendarSartDt(): Observable<string> { return this.calendarStartDt.asObservable(); }
     getCalendarEndDt(): Observable<string> { return this.calendarEndDt.asObservable(); }
 
-    setBCramberObserver(b: BreadCramber[]){this.bcramberSource.next(b);}
+    setBCramberObserver(b: BreadCramber[]) {this.bcramberSource.next(b);}
 
     //setTypeSelector(c: string){this.currentTypeFolderSource.next(c);}
     //getTypeSelector(){return this.ct;}
@@ -116,7 +128,7 @@ export class AppService {
     //setBCramber(s: BreadCramber){this.bcramberSource.push(s);}
     //getBCramber(){return this.bcramberSource;}
 
-    saveDocPromise(d: Document){
+    saveDocPromise(d: Document) {
         this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
             .toPromise()
             .then(response => response.json())
@@ -125,21 +137,21 @@ export class AppService {
         this.getDocs();
     }
 
-    saveDoc(d: Document): Observable<Document[]>{
+    saveDoc(d: Document): Observable<Document[]> {
         //console.log(JSON.stringify(d));
         let a = this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
             .map(response => response.json())
         return a;
     }
 
-    updateDocPromise(d: Document){
+    updateDocPromise(d: Document) {
         this.http.put(`${this.docmentsUrl}/${d['id']}`, JSON.stringify(d), this.options)
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError)
     }
 
-    deleteDocPromise(id: string){
+    deleteDocPromise(id: string) {
         /*this.docs.forEach(element => {
             console.log(element)
         });*/
@@ -151,7 +163,7 @@ export class AppService {
         this.searchDocs4();
     }
 
-    deleteDoc(id: string): Observable<any>{
+    deleteDoc(id: string): Observable<any> {
         let params = new URLSearchParams();
         params.set('docid', id);
         this.spinnerStatus.next(true);
@@ -326,7 +338,8 @@ export class AppService {
             .catch(this.handleError);
         }
 
-    searchDocs (term: string, currentDate: string) {
+    
+        searchDocs (term: string, currentDate: string) {
         let params = new URLSearchParams();
         params.set('fldId', term);
         let a = this.http
