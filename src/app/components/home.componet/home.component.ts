@@ -30,13 +30,6 @@ export class HomeComponent implements OnInit, AfterContentChecked {
             (v) => {this.user_profile = v;}
         ); */
         //console.log(this.appService.getProfile2());
-/*         if (this.appService.getProfile2() != undefined) {
-        let a: Session = this.appService.getProfile2();
-        this.user_profile.dBroleId = a.dBroleId?undefined:0;
-        this.user_profile.dBroleName = a.dBroleName?undefined:'';
-        this.user_profile.dBuserId = a.dBuserId?undefined:0;
-        this.user_profile.dBuserName = a.dBuserName?undefined:'';
-        } */
         //console.log(JSON.parse(localStorage.getItem('user_profile')));
     }
 
@@ -46,7 +39,10 @@ export class HomeComponent implements OnInit, AfterContentChecked {
             (v) => {this.user_profile = v;}
         ); */
         //console.log(JSON.stringify(this.appService.getProfile2()));
-        let a = JSON.stringify(this.appService.getProfile2());//localStorage.getItem('user_profile');
+        //если  утентификация пройдена то возьмем данные профиля из localStorage
+        let a: string;
+        if (this.auth.isAuthenticated()) { a = localStorage.getItem('user_profile'); }
+        //a = JSON.stringify(this.appService.getProfile2());//localStorage.getItem('user_profile');
         if (a) {
             let b = a.substr(1, a.length-2);//remove [ ] brackets from JSON string
             let jsonObj: any = JSON.parse(b); // string to generic object first

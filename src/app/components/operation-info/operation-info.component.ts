@@ -10,7 +10,7 @@ import {AppService} from '../../services/app.service';
 
 export class OperationInfoComponent implements OnInit {
 
-    private operationInfo: OperationShortView[];
+    private operationInfo: OperationShortView;
     private binders: Binders[];
     private links: Op[];
     private translist: TransactionShortView[];
@@ -20,12 +20,14 @@ export class OperationInfoComponent implements OnInit {
 
     ngOnInit() {
         this.appService.getOperationIfo().subscribe(
-            (val) => {this.operationInfo = val;
-                this.binders = val[0].binders;
-                this.links = val[0].links;
-                this.translist = val[0].trnasList;
+            (val) => {let a: string = JSON.stringify(val); 
+                let b: string = a.substr(1, a.length-2);
+                let jsonObj: any = JSON.parse(b); // string to generic object first
+                this.operationInfo = <OperationShortView> jsonObj;
+                this.binders = this.operationInfo.binders;
+                this.links = this.operationInfo.links;
+                this.translist = this.operationInfo.trnasList;
                 this.isExists = true;
-                //console.log(JSON.stringify(val));
             })
     }
 

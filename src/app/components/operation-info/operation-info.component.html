@@ -1,54 +1,48 @@
 <p-panel header="Просмотр информации о документе" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-    <div>
-        <div *ngFor="let op of operationInfo">
-            <span> Название: "{{op?.docName}}"</span><br>
-            <span> Номер: "{{op?.docNo}}"</span><br>
-            <span> Дата: "{{op?.docDate}}"</span><br>
-            <span> Кому: "{{op?.docAgToName}}"</span><br>
-            <span> Кто: "{{op?.docAgFromName}}"</span><br>
-            <span> Сумма: "{{op?.docSum}}"</span><br>
-            <span> Прайс-лист: "{{op?.priceListName}}", Цена: "{{op?.priceName}}"</span><br>
-            <span> Шаблон: "{{op?.tmlName}}"</span><br>
-            <span> В папке: "{{op?.folderName}}"</span><br>
-            <span> Последнее изменение: "{{op?.lastChange}}"</span><br>
-            <span> Подшивки: 
-                <div *ngFor="let bind of binders">
-                    <span> - "{{bind.bindName}}"</span>
-              </div>
-            </span>
-            <span> Связи: 
-                <div *ngFor="let link of links">
-                    <span> - "{{link.docName}}" от {{link.docDate}} сумма {{link.docSum}}</span>
-              </div>
-            </span><br>
-        </div>
-  </div>
-  <div [hidden]="!isExists">
-      <table border="1">
-          <thead>
-              <tr>
-                  <th style="width: 5%" class="text-center">#</th>
-                  <th style="width: 5%" class="text-center">Дт</th>
-                  <th style="width: 5%" class="text-center">Кт</th>
-                  <th style="width: 35%" class="text-center">Кому</th>
-                  <th style="width: 35%" class="text-center">Кто</th>
-                  <th style="width: 15%" class="text-center">Сумма</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let trs of translist">
-                  <td class="text-center">{{trs.tr_no + 1}}</td>
-                  <td class="text-left">{{trs.dbCode}}</td>
-                  <td class="text-left">{{trs.crCode}}</td>
-                  <td class="text-left">{{trs.ag1Name}}</td>
-                  <td class="text-left">{{trs.ag2Name}}</td>
-                  <td class="text-right">{{trs.tr_sum}}</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-    <!-- <span>{{operationInfo.docName }}</span>
-    <span>{{operationInfo.docDate}}</span>
-    <span>{{operationInfo.docNo}}</span>
-    <span>{{operationInfo.docDone}}</span> -->
+    <div [hidden]="!isExists">
+        <span> Название: "{{operationInfo?.docName}}"</span><br>
+        <span> Номер: "{{operationInfo?.docNo}}"</span><br>
+        <span> Дата: "{{operationInfo?.docDate}}"</span><br>
+        <span> Кому: "{{operationInfo?.docAgToName}}"</span><br>
+        <span> Кто: "{{operationInfo?.docAgFromName}}"</span><br>
+        <span> Сумма: "{{operationInfo?.docSum}}"</span><br>
+        <span> Прайс-лист: "{{operationInfo?.priceListName}}", Цена: "{{operationInfo?.priceName}}"</span><br>
+        <span> Шаблон: "{{operationInfo?.tmlName}}"</span><br>
+        <span> В папке: "{{operationInfo?.folderName}}"</span><br>
+        <span> Последнее изменение: "{{operationInfo?.lastChange}}"</span><br>
+        <span> Подшивки: 
+            <div *ngFor="let bind of binders">
+                <span> - "{{bind.bindName}}"</span>
+            </div>
+        </span>
+        <span> Связи: 
+            <div *ngFor="let link of links">
+                <span> - "{{link.docName}}" от {{link.docDate}} сумма {{link.docSum}}</span>
+            </div>
+        </span><br>
+    </div>
+    <div [hidden]="!isExists">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th style="width: 5%" class="text-center">#</th>
+                    <th style="width: 5%" class="text-center">Дт</th>
+                    <th style="width: 5%" class="text-center">Кт</th>
+                    <th style="width: 35%" class="text-center">Кому</th>
+                    <th style="width: 35%" class="text-center">Кто</th>
+                    <th style="width: 15%" class="text-center">Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trs of translist">
+                    <td class="text-center">{{trs.tr_no + 1}}</td>
+                    <td class="text-center">{{trs.dbCode}}</td>
+                    <td class="text-center">{{trs.crCode}}</td>
+                    <td class="text-left">{{trs.ag1Name}}</td>
+                    <td class="text-left">{{trs.ag2Name}}</td>
+                    <td class="text-right">{{trs.tr_sum}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </p-panel>
