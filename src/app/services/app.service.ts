@@ -39,7 +39,6 @@ export class AppService {
     getCounter(): Observable<number>{return this.countSource.asObservable();}
     setCounter(n:number){this.countSource.next(n);}*/
     private profile: Session;
-    private profile2: Session;
     private f: Folder;
     private currentFolderSource = new Subject<Folder>();
     currentFolderChange$ = this.currentFolderSource.asObservable().
@@ -62,8 +61,24 @@ export class AppService {
 
     constructor(private http: Http, private jsonp: Jsonp) { }
 
-    setProfile2(a: any) {this.profile2 = a;}
-    getProfile2(): Session {return this.profile2;}
+    setProfile2(e: any) {
+        let a: string = JSON.stringify(e);
+        let b = a.substr(1, a.length-2);//remove [ ] brackets from JSON string
+        let jsonObj: any = JSON.parse(b); // string to generic object first
+        this.profile = <Session> jsonObj;
+    }
+    getProfile2(): Session {
+        //console.log(this.profile);
+        if (this.profile == undefined) {
+            let a = localStorage.getItem('user_profile');
+            let b = a.substr(1, a.length-2);//remove [ ] brackets from JSON string
+            let jsonObj: any = JSON.parse(b); // string to generic object first
+            this.profile = <Session> jsonObj;
+            return this.profile; 
+        } else {
+            return this.profile
+        }
+    }
 
     getProfile(): Observable<Session> {
         let ses = new Session();
@@ -167,6 +182,7 @@ export class AppService {
     deleteDoc(id: string): Observable<any> {
         let params = new URLSearchParams();
         params.set('docid', id);
+        params.set('roleid', String(this.getProfile2().dBroleId));
         this.spinnerStatus.next(true);
         return this.http.delete(this.docDeleteUrl, { search: params })
             .map(response => response.json())
@@ -177,10 +193,12 @@ export class AppService {
     searchFolder () {
         //resolve error in spiner status - ExpressionChangedAfterItHasBeenCheckedError
         Promise.resolve(null).then(() => this.spinnerStatus.next(true));
-
+        
+        //console.log(this.getProfile2().dBroleName);
         let params = new URLSearchParams();
         params.set('rootid', String(this.f.id));
         params.set('typefolder', this.f.typeFolder);
+        params.set('roleid', String(this.getProfile2().dBroleId));
         let a = this.http
             //.get(this.foldersUrl+'?rootId='+String(this.f.id)+'&typeFolder=document_type')
             .get(this.foldersUrl, { search: params })
@@ -215,6 +233,7 @@ export class AppService {
         params.set('startdate', currentStartDate);
         params.set('enddate', currentEndDate);
         params.set('typedir', t);
+        params.set('roleid', String(this.getProfile2().dBroleId));
         return this.http
             .get(this.docmentsUrl, { search: params })
             .map(response => <Document[]> response.json())
@@ -244,6 +263,7 @@ export class AppService {
         params.set('startdate', currentStartDate);
         params.set('enddate', currentEndDate);
         params.set('typedir', t);
+        params.set('roleid', String(this.getProfile2().dBroleId));
         let a = this.http
             .get(this.docmentsUrl, { search: params })
             .map(response => <Document[]> response.json())
@@ -275,6 +295,7 @@ export class AppService {
     searchOperationInfo (term: string) {
         let params = new URLSearchParams();
         params.set('docid', term);
+        params.set('roleid', String(this.getProfile2().dBroleId));
         let a = this.http
             .get(this.translistInfoUrl, { search: params })
             .map(response => <string> response.json())
@@ -340,20 +361,20 @@ export class AppService {
         }
 
     
-        searchDocs (term: string, currentDate: string) {
+    searchDocs (term: string, currentDate: string) {
         let params = new URLSearchParams();
         params.set('fldId', term);
         let a = this.http
-                .get(this.docmentsUrl, { search: params })
-                .map(response => <Document[]> response.json().data)
-                    a.subscribe(
-                    (val) => {//this.docs.next(val);//without filtering
-                                this.docs.next(
-                                val.filter(val => val.docDate == currentDate) //with filtering
-                                );
-                    },
-                    (err) => (this.handleError)
-                    )
+            .get(this.docmentsUrl, { search: params })
+            .map(response => <Document[]> response.json().data)
+                a.subscribe(
+                (val) => {//this.docs.next(val);//without filtering
+                            this.docs.next(
+                            val.filter(val => val.docDate == currentDate) //with filtering
+                            );
+                },
+                (err) => (this.handleError)
+                )
         return a;
     }
 
