@@ -98,15 +98,13 @@ export class AppService {
             .do(response => console.log(JSON.stringify(response)))
     }
 
-    getSpinnerStatus(): Observable<boolean> {
-        return this.spinnerStatus;
-    }
+    getSpinnerStatus(): Observable<boolean> {return this.spinnerStatus;}
 
     setCurrentFolder(f: Folder) {this.currentFolderSource.next(f);}
     getCurrentFolder(){return this.f;}//this.currentFolderSource;}
     //getDocs() : Observable<Document[]> {return this.docs;}
 
-    setDocs(d: Document[]) { this.docs.next(d); }
+    setDocs(d: Document[]) {this.docs.next(d);}
     getDocs() : Observable<Document[]> {
         /*  this.searchDocs2()
             .distinctUntilChanged()
@@ -116,7 +114,7 @@ export class AppService {
         return this.docs;
     } 
 
-    getOperationIfo() { return this.opInfoString; }
+    getOperationIfo() {return this.opInfoString;}
     //getDocs(){ return this.docs;}
 
     getFolders(): Observable<Folder[]> {return this.folders.asObservable();}
@@ -131,53 +129,18 @@ export class AppService {
         //this.searchDocs2();
     }
 
-    getCalendarSartDt(): Observable<string> { return this.calendarStartDt.asObservable(); }
-    getCalendarEndDt(): Observable<string> { return this.calendarEndDt.asObservable(); }
+    getCalendarSartDt(): Observable<string> {return this.calendarStartDt.asObservable();}
+    getCalendarEndDt(): Observable<string> {return this.calendarEndDt.asObservable();}
 
     setBCramberObserver(b: BreadCramber[]) {this.bcramberSource.next(b);}
 
     //setTypeSelector(c: string){this.currentTypeFolderSource.next(c);}
     //getTypeSelector(){return this.ct;}
     getTypeSelector(): Observable<string> {return this.typeSelector.asObservable();}
-    setTypeSelector(s: string){this.typeSelector.next(s);}
+    setTypeSelector(s: string) {this.typeSelector.next(s);}
 
     //setBCramber(s: BreadCramber){this.bcramberSource.push(s);}
     //getBCramber(){return this.bcramberSource;}
-
-    saveDocPromise(d: Document) {
-        this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
-            .toPromise()
-            .then(response => response.json())
-            .catch(this.handleError)
-        this.searchDocs4();
-        this.getDocs();
-    }
-
-    saveDoc(d: Document): Observable<Document[]> {
-        //console.log(JSON.stringify(d));
-        let a = this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
-            .map(response => response.json())
-        return a;
-    }
-
-    updateDocPromise(d: Document) {
-        this.http.put(`${this.docmentsUrl}/${d['id']}`, JSON.stringify(d), this.options)
-            .toPromise()
-            .then(response => response.json())
-            .catch(this.handleError)
-    }
-
-    deleteDocPromise(id: string) {
-        /*this.docs.forEach(element => {
-            console.log(element)
-        });*/
-        console.log(`${this.docmentsUrl}/${id}`);
-        this.http.delete(`${this.docmentsUrl}/${id}`, this.options)
-            .toPromise()
-            .then(response => response.json())
-            .catch(this.handleError)
-        this.searchDocs4();
-    }
 
     deleteDoc(id: string): Observable<any> {
         let params = new URLSearchParams();
@@ -278,20 +241,6 @@ export class AppService {
         return a;
     }
 
-    searchJournal (term: string) {
-        let params = new URLSearchParams();
-        params.set('docid', term);
-        let a = this.http
-            .get(this.journalsUrl, { search: params })
-            .map(response => <Journal[]> response.json())
-            .distinctUntilChanged()
-                a.subscribe(
-                    (val) => {this.journals.next(val);},//without filtering
-                    (err) => (this.handleError)
-                )
-        return a;
-    }
-
     searchOperationInfo (term: string) {
         let params = new URLSearchParams();
         params.set('docid', term);
@@ -305,6 +254,61 @@ export class AppService {
                     (err) => (this.handleError),
                     () => {}
                 )
+    }
+
+    private handleError(error: any) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
+
+    //------------------------ EXample --------------
+    searchJournal (term: string) {
+        let params = new URLSearchParams();
+        params.set('docid', term);
+        let a = this.http
+            .get(this.journalsUrl, { search: params })
+            .map(response => <Journal[]> response.json())
+            .distinctUntilChanged()
+                a.subscribe(
+                    (val) => {this.journals.next(val);},//without filtering
+                    (err) => (this.handleError)
+                )
+        return a;
+    }
+    
+    saveDocPromise(d: Document) {
+        this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError)
+        this.searchDocs4();
+        this.getDocs();
+    }
+
+    saveDoc(d: Document): Observable<Document[]> {
+        //console.log(JSON.stringify(d));
+        let a = this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
+            .map(response => response.json())
+        return a;
+    }
+
+    updateDocPromise(d: Document) {
+        this.http.put(`${this.docmentsUrl}/${d['id']}`, JSON.stringify(d), this.options)
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError)
+    }
+
+    deleteDocPromise(id: string) {
+        /*this.docs.forEach(element => {
+            console.log(element)
+        });*/
+        console.log(`${this.docmentsUrl}/${id}`);
+        this.http.delete(`${this.docmentsUrl}/${id}`, this.options)
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError)
+        this.searchDocs4();
     }
 
     searchEntity(term: string) {
@@ -332,12 +336,6 @@ export class AppService {
         //return body.data || { };
     }
 
-    private handleError(error: any) {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
-    }
-
-    //------------------------ EXample --------------
     searchFolderObserver (f: string):Observable<Folder[]> {
         //console.log(this.currentFolder);
         let params = new URLSearchParams();
