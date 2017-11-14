@@ -1,9 +1,8 @@
 <ul class="items">
     <li *ngFor="let folder of folders" (click)="onSelectFolder(folder)" 
-        [class.selected]="folder === selectedFolder" (dblclick)="onDblClick(folder)">
+        [class.selected]="folder === selectedFolder" (dblclick)="onDblClick(folder)" >
         <span *ngIf="folder.isChildren" [ngClass]="'isChild'"> {{folder.name}}</span>
         <span *ngIf="!folder.isChildren" [ngClass]="'noChild'"> {{folder.name}}</span>
-
     </li>
 </ul>
 <!-- <spinner [isRunning]="isRequesting"></spinner> -->

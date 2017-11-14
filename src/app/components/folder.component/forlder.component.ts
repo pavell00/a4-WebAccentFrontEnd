@@ -5,12 +5,13 @@ import { AppService } from '../../services/app.service';
 @Component({
     //moduleId: module.id,
     selector: 'folder',
-    templateUrl: './folder.component.html'
+    templateUrl: './folder.component.html',
+    styleUrls: ['./folder.component.css']
 })
 export class FolderComponent implements OnInit {
 
     private selectedFolder: Folder;
-    private folders: Folder[];
+    private folders: Folder[] = [];
     private error: any;
     private bcrambFolders: BreadCramber[] = [];
 
@@ -36,7 +37,6 @@ export class FolderComponent implements OnInit {
     }
 
     onSelectFolder(folder: Folder){
-      //console.log(JSON.stringify(folder));
       this.selectedFolder = folder;
       //this.appService.searchDocs(String(folder.id), String(this.dateValue.toLocaleDateString()))
       this.appService.setCurrentFolder(folder);

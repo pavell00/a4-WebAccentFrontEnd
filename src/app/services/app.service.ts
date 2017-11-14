@@ -169,7 +169,11 @@ export class AppService {
             .do(data => this.spinnerStatus.next(false))
             .distinctUntilChanged()
                 a.subscribe(
-                    (val) => {this.folders.next(val)},
+                    (val) => {//this.folders.next(val)
+                        let a: string = JSON.stringify(val); 
+                        let jsonObj: Folder[] = JSON.parse(a); // string to generic object first
+                        this.folders.next(jsonObj);
+                    },
                     (err) => (this.handleError)
                 )
         //return a;
@@ -205,13 +209,14 @@ export class AppService {
             .catch(this.handleError);
     }
 
-    searchDocs4(): Observable<Document[]> {
-        //console.log("curent folder "+ this.f.id);
+    searchDocs4() {
+        //resolve error in spiner status - ExpressionChangedAfterItHasBeenCheckedError
+        //Promise.resolve(null).then(() => this.spinnerStatus.next(true));
+        this.spinnerStatus.next(true);
+
         let term = String(this.f.id);
-        //let curDate = this.calendar.getValue();
         let curStartDate = this.calendarStartDt.getValue();
         let curEndDate = this.calendarEndDt.getValue();
-        //console.log(curStartDate, curEndDate);
         let currentStartDate = curStartDate.substring(6,10)+'-'+curStartDate.substring(3,5)+'-'+curStartDate.substring(0,2);
         let currentEndDate = curEndDate.substring(6,10)+'-'+curEndDate.substring(3,5)+'-'+curEndDate.substring(0,2);
         let t: string;
@@ -219,7 +224,7 @@ export class AppService {
             (v) => {t = v},
             (err) => (this.handleError),
             () => true
-        );     
+        );
         //console.log('searchDocs4 ' +currentStartDate, currentEndDate);
         let params = new URLSearchParams();
         params.set('rootid', term);
@@ -227,18 +232,20 @@ export class AppService {
         params.set('enddate', currentEndDate);
         params.set('typedir', t);
         params.set('roleid', String(this.getProfile2().dBroleId));
+        this.docs.next([]); //clear Array docs
+
         let a = this.http
             .get(this.docmentsUrl, { search: params })
             .map(response => <Document[]> response.json())
+            //.do(data => this.spinnerStatus.next(false))
             .distinctUntilChanged()
                 a.subscribe(
-                    (val) => {this.docs.next(val);//without filtering
-                            //console.log('searchDocs4 '+ JSON.stringify(val))
-                    },
+                    (val) => this.docs.next(val),
                     (err) => (this.handleError),
                     () => true
                 );
-        return a;
+        this.spinnerStatus.next(false);
+        //return a;
     }
 
     searchOperationInfo (term: string) {
@@ -275,7 +282,7 @@ export class AppService {
                 )
         return a;
     }
-    
+
     saveDocPromise(d: Document) {
         this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
             .toPromise()
