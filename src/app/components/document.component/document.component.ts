@@ -128,6 +128,7 @@ export class DocumentComponent implements OnInit {
         this.document = null;
         this.operationService.clearOp();
         this.selectedRow = null;
+//        if (this.fldTmlId != undefined) this.mformService.setCurTemplate(this.fldTmlId);
     }
 
     copyClipboard(id: number){

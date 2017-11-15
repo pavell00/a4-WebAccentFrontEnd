@@ -123,7 +123,7 @@ export class MainformService {
 
     setCurTemplate(e: number){
         this.searchTemplate(String(e), '1').subscribe(
-            (res) => this.currentTemplate.next(res[0])
+            (res) => {this.currentTemplate.next(res[0])}
         )
     }
 

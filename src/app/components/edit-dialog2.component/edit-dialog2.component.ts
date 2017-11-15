@@ -41,6 +41,8 @@ export class EditDialog2Component implements OnInit {
         if (e === 1) { // open exist document
             this.docIsNew = false;
             //this.displayDialog = true;
+            console.log(this.document.tmlId);
+            //this.mfService.setCurTemplate(this.document.tmlId); //set current template from exist documents
             this.visible = 'block';
         } else { // open new document
             this.docIsNew = true;

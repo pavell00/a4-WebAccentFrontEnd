@@ -1,11 +1,11 @@
 export class Document{
-    fldId: number;
+    fldId?: number;
     id?: number;
-    docName: string;
-    docDate: string;
-    docDone: number = 0;
-    docSum: number = 0;
-    docNo: string = '';
+    docName?: string;
+    docDate?: string;
+    docDone?: number = 0;
+    docSum?: number = 0;
+    docNo?: string = '';
     tmlId?: number;
 
     constructor(fldId: number, docName: string, docDate: string,

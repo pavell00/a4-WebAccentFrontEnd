@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Headers, Http, Response, 
-         URLSearchParams, RequestOptions, Jsonp} from '@angular/http';
+         URLSearchParams, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -11,8 +11,6 @@ import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 import {environment} from '../../environments/environment';
-//import {} from 'rxjs';
-//import {Auth} from './auth0.service';
 
 import {Folder, Document, Journal, Entities, 
     BreadCramber, OperationShortView, Session} from '../model'
@@ -32,7 +30,6 @@ export class AppService {
 
     private bcramberSource = new Subject<BreadCramber[]>();
     bcramberChange$ = this.bcramberSource.asObservable();
-
     private spinnerStatus = new Subject<boolean>();
 
     /*private countSource = new BehaviorSubject<number>(0);
@@ -55,11 +52,11 @@ export class AppService {
     private entitiesUrl = this.urlPrefix+'/sp_entities';
     private translistInfoUrl = this.urlPrefix+'/sp_translist';
     private sessionUrl = this.urlPrefix+'/sp_session';
-    
+
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
 
-    constructor(private http: Http, private jsonp: Jsonp) { }
+    constructor(private http: Http) { }
 
     setProfile2(e: any) {
         let a: string = JSON.stringify(e);
@@ -101,7 +98,7 @@ export class AppService {
     getSpinnerStatus(): Observable<boolean> {return this.spinnerStatus;}
 
     setCurrentFolder(f: Folder) {this.currentFolderSource.next(f);}
-    getCurrentFolder(){return this.f;}//this.currentFolderSource;}
+    getCurrentFolder() {return this.f;}//this.currentFolderSource;}
     //getDocs() : Observable<Document[]> {return this.docs;}
 
     setDocs(d: Document[]) {this.docs.next(d);}
@@ -179,40 +176,10 @@ export class AppService {
         //return a;
     }
 
-    searchDocs2() : Observable<Document[]> {
-        //this.docs.next(null);
-        let term = String(this.f.id);
-        //let curDate = this.calendar.getValue();//this.calendar;
-        let curStartDate = this.calendarStartDt.getValue();
-        let curEndDate = this.calendarEndDt.getValue();
-        let currentStartDate = curStartDate.substring(6,10)+'-'+curStartDate.substring(3,5)+'-'+curStartDate.substring(0,2);
-        let currentEndDate = curEndDate.substring(6,10)+'-'+curEndDate.substring(3,5)+'-'+curEndDate.substring(0,2);
-        let t: string;
-        this.getTypeSelector().subscribe(
-            (v) => {t = v},
-            (err) => (this.handleError),
-            () => true
-        );
-        /* console.log('searchDocs2 : term = ' + term + '; currentStartDate = '
-                + currentStartDate+'; currentEndDate = '+currentEndDate+ ';  type_selector= '+ t);*/
-        let params = new URLSearchParams();
-        params.set('rootid', term);
-        params.set('startdate', currentStartDate);
-        params.set('enddate', currentEndDate);
-        params.set('typedir', t);
-        params.set('roleid', String(this.getProfile2().dBroleId));
-        return this.http
-            .get(this.docmentsUrl, { search: params })
-            .map(response => <Document[]> response.json())
-            .do(response => this.docs.next(response))
-            .do(response => console.log(JSON.stringify(response)))
-            .catch(this.handleError);
-    }
-
     searchDocs4() {
         //resolve error in spiner status - ExpressionChangedAfterItHasBeenCheckedError
-        //Promise.resolve(null).then(() => this.spinnerStatus.next(true));
-        this.spinnerStatus.next(true);
+        Promise.resolve(null).then(() => this.spinnerStatus.next(true));
+        //this.spinnerStatus.next(true);
 
         let term = String(this.f.id);
         let curStartDate = this.calendarStartDt.getValue();
@@ -232,12 +199,13 @@ export class AppService {
         params.set('enddate', currentEndDate);
         params.set('typedir', t);
         params.set('roleid', String(this.getProfile2().dBroleId));
-        this.docs.next([]); //clear Array docs
+        //this.docs.next([]); //clear Array docs
 
         let a = this.http
             .get(this.docmentsUrl, { search: params })
             .map(response => <Document[]> response.json())
-            //.do(data => this.spinnerStatus.next(false))
+            .do(data => this.spinnerStatus.next(false))
+            //.do(data => console.log(data))
             .distinctUntilChanged()
                 a.subscribe(
                     (val) => this.docs.next(val),
@@ -269,6 +237,36 @@ export class AppService {
     }
 
     //------------------------ EXample --------------
+    searchDocs2() : Observable<Document[]> {
+        //this.docs.next(null);
+        let term = String(this.f.id);
+        //let curDate = this.calendar.getValue();//this.calendar;
+        let curStartDate = this.calendarStartDt.getValue();
+        let curEndDate = this.calendarEndDt.getValue();
+        let currentStartDate = curStartDate.substring(6,10)+'-'+curStartDate.substring(3,5)+'-'+curStartDate.substring(0,2);
+        let currentEndDate = curEndDate.substring(6,10)+'-'+curEndDate.substring(3,5)+'-'+curEndDate.substring(0,2);
+        let t: string;
+        this.getTypeSelector().subscribe(
+            (v) => {t = v},
+            (err) => (this.handleError),
+            () => true
+        );
+        /* console.log('searchDocs2 : term = ' + term + '; currentStartDate = '
+                + currentStartDate+'; currentEndDate = '+currentEndDate+ ';  type_selector= '+ t);*/
+        let params = new URLSearchParams();
+        params.set('rootid', term);
+        params.set('startdate', currentStartDate);
+        params.set('enddate', currentEndDate);
+        params.set('typedir', t);
+        params.set('roleid', String(this.getProfile2().dBroleId));
+        return this.http
+            .get(this.docmentsUrl, { search: params })
+            .map(response => <Document[]> response.json())
+            .do(response => this.docs.next(response))
+            .do(response => console.log(JSON.stringify(response)))
+            .catch(this.handleError);
+    }
+
     searchJournal (term: string) {
         let params = new URLSearchParams();
         params.set('docid', term);
@@ -352,21 +350,22 @@ export class AppService {
             .map(response => <Folder[]> response.json().data)
     }
 
-    saveFolderPromise(f: Folder){
+    saveFolderPromise(f: Folder) {
         this.http.post(this.foldersUrl, JSON.stringify(f), this.options)
             .toPromise()
             .then(response => response.json().data)
             .catch(this.handleError)
     }
 
-    saveDocObs(d: Document): Observable<Document>{
+    saveDocObs(d: Document): Observable<Document> {
         return this.http.post(this.docmentsUrl, JSON.stringify(d), this.options)
             .map(this.extractData)
             .catch(this.handleError);
         }
 
     
-    searchDocs (term: string, currentDate: string) {
+    
+        searchDocs (term: string, currentDate: string) {
         let params = new URLSearchParams();
         params.set('fldId', term);
         let a = this.http
