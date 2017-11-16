@@ -31,7 +31,9 @@ export class OperationService {
     constructor(private http: Http,
                 private mformService: MainformService,
                 private appService: AppService) {
-        this.mformService.getCurTemplate().subscribe(
+                    this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
+                    this.currentOperation.next(this.op);
+/*         this.mformService.getCurTemplate().subscribe(
             (v) => { if (v != undefined) {
                     this.op.tml_id = v.id;
                     this.op.doc_name=v.tmlName;
@@ -39,13 +41,16 @@ export class OperationService {
                     this.op.fld_id = v.fldId;
 
                     this.op.doc_date = this.mformService.getDateToStringFormat();
+                    //console.log(this.op.doc_id, this.currentOperation.getValue());
                     //this.op.doc_name = 'новый документ*';
-                    if (this.op.doc_id === undefined) this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
-                    this.op.binders = [];
+                    if (this.op.doc_id === undefined) {
+                        this.op.transactions = [{'j_ag1':0, 'j_ag2':0, 'j_ln_no':0}];
+                        this.op.binders = [];
+                    }
                     //console.log(JSON.stringify(this.op));
                     this.currentOperation.next(this.op);
                 }
-            })
+            }) */
     }
 
     searchOperation(term: string, trNo: string): Observable<Op[]> {
@@ -58,7 +63,9 @@ export class OperationService {
             //.do( data => console.log(data))
             .catch(this.handleError)
                 a.subscribe(
-                    (v) => {this.currentOperation.next(v[0])}
+                    (v) => {//this.mformService.setCurTemplate(v[0].tml_id);
+                            //console.log(v[0]);
+                            this.currentOperation.next(v[0]);}
                 )
         return a;
     }

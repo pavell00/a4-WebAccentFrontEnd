@@ -130,5 +130,4 @@ export class MainformService {
     getCurTemplate(): Observable<Templates> {
         return this.currentTemplate.asObservable();
     }
-
 }

@@ -35,7 +35,7 @@ export class MainFormComponent implements OnInit, OnChanges {
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 
-    constructor(private mformService: MainformService,
+    constructor(private mfService: MainformService,
                 private operationService: OperationService,
                 private _logger: Logger) { }
 
@@ -59,14 +59,15 @@ export class MainFormComponent implements OnInit, OnChanges {
             //operation not new
             if (obj.id != 0) {
                 this.items[1].disabled = true;
+                this.mfService.setCurTemplate(obj.tmlId);
                 this.operationService.searchOperation(obj.id, '0').subscribe(
                     (v) => {this.isNewOp = false;
-                            this.operation = v;
-                            //this.outDocNo = this.operation[0].doc_no;
-                            //this.outDocName = this.operation[0].doc_name;
-                            //this.outDocDate = this.operation[0].doc_date;
-                            //this.outTemplateId = this.operation[0].tml_id;
-                            //this.mformService.setCurTemplate(this.operation[0].tml_id);
+/*                             this.operation = v;
+                            this.outDocNo = this.operation[0].doc_no;
+                            this.outDocName = this.operation[0].doc_name;
+                            this.outDocDate = this.operation[0].doc_date;
+                            this.outTemplateId = this.operation[0].tml_id;
+                            this.mformService.setCurTemplate(this.operation[0].tml_id);
                             let t = this.operation[0].transactions;
                             for (var key in t) {
                                 if (t.hasOwnProperty(key)) {
@@ -74,16 +75,16 @@ export class MainFormComponent implements OnInit, OnChanges {
                                     this.transactions.push(tr);
                                 }
                             }
-                            //this.tec.setTransactions(this.transactions);//fill transactionsl data to dialog of document
-/*                             let b = this.operation[0].binders;
+                            this.tec.setTransactions(this.transactions);//fill transactionsl data to dialog of document
+                            let b = this.operation[0].binders;
                             for (var key in b) {
                                 if (b.hasOwnProperty(key)) {
                                     var element = b[key];
                                     this.outBinders.push(element);
                                 }
-                            } */
-                            //select Agent from zero lines first transaction
-/*                             if (this.operation[0].transactions[0].j_ag1 != undefined) {
+                            } 
+                            select Agent from zero lines first transaction
+                            if (this.operation[0].transactions[0].j_ag1 != undefined) {
                                 this.mformService.searchAgentPromise('ID', '', this.operation[0].transactions[0].j_ag1)
                                     .then(data => { this.AgTo = data[0];
                                                     this.asc.setAgents(this.AgTo, 'AgTo');})
@@ -94,23 +95,24 @@ export class MainFormComponent implements OnInit, OnChanges {
                                     .then(data => { this.AgFrom = data[0];
                                                     this.asc.setAgents(this.AgFrom, 'AgFrom');})
                                     .catch(error => this._logger.error(error));
-                            } */
+                            }
+*/
                         }
                 )
-            } else { // operation is new
+            } else { //operation is new
                 this.items[1].disabled = false;
                 this.isNewOp = true;
-                //this.outDocNo = "";//obj.docNo;
-                //this.docnodate.clearDocNo();
-                //this.outDocName = obj.docName;
-                //this.outDocDate = this.mformService.getDateToStringFormat();
-                //this.asc.setAgents({}, 'AgTo');
-                //this.asc.setAgents({}, 'AgFrom');
-                //this.tec.setTransactions([]);//clear transactionsl data to dialog of document
-/*                 this.mformService.getCurTemplate().toPromise().then(response => { 
+/*                this.outDocNo = "";//obj.docNo;
+                this.docnodate.clearDocNo();
+                this.outDocName = obj.docName;
+                this.outDocDate = this.mformService.getDateToStringFormat();
+                this.asc.setAgents({}, 'AgTo');
+                this.asc.setAgents({}, 'AgFrom');
+                this.tec.setTransactions([]);//clear transactionsl data to dialog of document
+                this.mformService.getCurTemplate().toPromise().then(response => { 
                     if (response != undefined) this.outTemplateId = response.id; //set default temlate linked to folder
-                }); */
-
+                });
+*/
             }
         }
     }

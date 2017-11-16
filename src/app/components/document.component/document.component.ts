@@ -90,7 +90,7 @@ export class DocumentComponent implements OnInit {
         }
     }
 
-     public onGetDocs(f: Folder){
+    public onGetDocs(f: Folder){
         //console.log(this.documents.documentsOfFooler);
         //this.docs = this.documents.documentsOfFooler;
         //console.log(f.tmlId);
