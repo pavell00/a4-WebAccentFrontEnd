@@ -29,8 +29,7 @@
     <tbody>
     <tr *ngFor="let item of mf.data">
         <td>
-            <i class="fa fa-trash-o" style="font-size:15px;color:red;margin-left: 4px;" 
-                (click)="removeItem(item)" title="удалить"></i>
+            <i class="fa fa-trash-o" (click)="removeItem(item)" title="удалить строку"></i>
         <!--<button class="btn btn-danger" title="remove" (click)="removeItem(item)">
             <span class="glyphicon glyphicon-remove"></span>
         </button>-->

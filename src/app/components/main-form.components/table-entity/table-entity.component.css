@@ -1,33 +1,7 @@
- .items {
-    list-style-type: none;
-    padding: 0em;
-    height: 300px;
-    overflow: hidden;
-    overflow-y: scroll;
-    overflow-x: scroll;
-    text-align: left;
-    white-space: nowrap;
-}
-.items li {
+i {
     cursor: pointer;
-    position: relative;
-    left: 0;
+    cursor: hand;
+    font-size:15px;
+    color:red;
+    margin-left: 4px;
 }
-.items li:hover {
-    background-color: #DDD;
-}
-.items li.selected {
-    background-color: #56C8FF;
-}
-.dropdownLine {
-    display: flex;
-    padding-left: 10px;
-}
-.scrollingtable {
-    overflow: auto;
-    height: 15em;
-
-}
-.scrollingtable * {
-    box-sizing: border-box;
-} 
