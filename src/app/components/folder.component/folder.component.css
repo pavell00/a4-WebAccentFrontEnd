@@ -1,11 +1,11 @@
 /*отображение папок*/
 .isChild {
     list-style: none;  /*Скрываем маркеры списка */
-    text-indent: -1em;
+    text-indent: 0em;
   }
   .isChild::before{
     font-family: FontAwesome;
-    content: '\f114'; /* '\25ba' Добавляем маркер в шестнадцатеричном формате*/
+    /*content: '\f114';*//* '\25ba' Добавляем маркер в шестнадцатеричном формате*/
     padding-right: 0px; /* Расстояние от маркеров до текста */
     /*color:red;*/
   }

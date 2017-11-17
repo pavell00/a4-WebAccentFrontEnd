@@ -1,7 +1,9 @@
 <ul class="items">
     <li *ngFor="let folder of folders" (click)="onSelectFolder(folder)" 
-        [class.selected]="folder === selectedFolder" (dblclick)="onDblClick(folder)" >
-        <span *ngIf="folder.isChildren" [ngClass]="'isChild'"> {{folder.name}}</span>
+        [class.selected]="folder === selectedFolder">
+        <span *ngIf="folder.isChildren" [ngClass]="'isChild'">
+            <i class="fa fa-plus-square-o" aria-hidden="true" (click)="onExpandFolder(folder)"></i>
+            {{folder.name}}</span>
         <span *ngIf="!folder.isChildren" [ngClass]="'noChild'"> {{folder.name}}</span>
     </li>
 </ul>

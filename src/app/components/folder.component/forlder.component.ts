@@ -3,7 +3,6 @@ import { Folder, BreadCramber } from '../../model';
 import { AppService } from '../../services/app.service';
 
 @Component({
-    //moduleId: module.id,
     selector: 'folder',
     templateUrl: './folder.component.html',
     styleUrls: ['./folder.component.css']
@@ -24,31 +23,22 @@ export class FolderComponent implements OnInit {
     getAll(typeSelector: string){
         //Initilize start folder ???
         this.appService.setCurrentFolder(new Folder(0, "", false, 0, typeSelector, 0));
-        /*this.appService.searchFolderObserver("0").subscribe((val) => {this.folders = val});*/
         this.appService.searchFolder();
         this.appService.getFolders()
             .subscribe(
                 (val) => {this.folders = val}
             );
-        //this.appService.getCurfld().subscribe((val) => {this.error = val});
-        /*this.appService.searchDocs2().subscribe(
-            (v) => {this.documentsOfFolder = v}
-        )*/
     }
 
     onSelectFolder(folder: Folder){
       this.selectedFolder = folder;
-      //this.appService.searchDocs(String(folder.id), String(this.dateValue.toLocaleDateString()))
       this.appService.setCurrentFolder(folder);
-      /*console.log('folder.component-onSelectFolder(this.appService.searchDocs2().subscribe)')
-      this.appService.searchDocs2().subscribe(
-          (v) => {this.documentsOfFolder = v}
-      )*/
       this.EventFolderClick.emit(this.selectedFolder);
       this.appService.searchDocs4();
     }
 
-    onDblClick(folder: Folder){
+    onExpandFolder(folder: Folder){
+        this.onSelectFolder(folder);
         if (folder.isChildren) {
             this.appService.searchFolder();
             /*this.appService.searchDocs2().subscribe(
