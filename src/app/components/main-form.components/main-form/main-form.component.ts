@@ -3,12 +3,17 @@ import { Component, OnInit, ViewChild,
         Input, Output } from '@angular/core';
 import { Logger } from "angular2-logger/core";        
 import { MenuItem } from 'primeng/primeng';
-import { AgentSelectorComponent, BinderSelectorComponent, 
-        TableEntityComponent, TemplateSelectorComponent, DocNoDateComponent } from '../';
+/* import { AgentSelectorComponent } from '../agent-selector/agent-selector.component';
+import { BinderSelectorComponent } from '../binder-selector/binder-selector.component';
+import { TableEntityComponent }  from '../table-entity/table-entity.component';
+import { TemplateSelectorComponent } from '../template-selector/template-selector.component';
+import { DocNoDateComponent } from '../doc-no-date/doc-no-date.component'; */
+import { AgentSelectorComponent, BinderSelectorComponent, TableEntityComponent,
+    TemplateSelectorComponent, DocNoDateComponent } from '../index';
 import { MainformService } from '../../../services/main-form.service';
 import { OperationService } from '../../../services/operation.service';
 import { Operation, Binders, Agents, Op,
-        Templates, Entities, Transactions } from '../../../model';
+        Templates, Entities, Transactions, Document } from '../../../model';
 
 @Component({
     selector: 'main-form',
@@ -16,13 +21,16 @@ import { Operation, Binders, Agents, Op,
     styleUrls: ['./main-form.component.css']
 })
 export class MainFormComponent implements OnInit, OnChanges {
-
     @ViewChild(BinderSelectorComponent) private bsc: BinderSelectorComponent;
     @ViewChild(TemplateSelectorComponent) private tsc: TemplateSelectorComponent;
     @ViewChild(AgentSelectorComponent) private asc: AgentSelectorComponent;
     @ViewChild(TableEntityComponent) private tec: TableEntityComponent;
     @ViewChild(DocNoDateComponent) private docnodate: DocNoDateComponent;
-    @Input() curentdoc: Document;
+    //@Input() curentdoc: Document;
+    private _curentdoc: Document;
+     @Input() 
+        set curentdoc(d: Document){this._curentdoc = d}
+        get curentdoc(){return this._curentdoc}
 
     private operation: Op[] = []; // не работет без фиктивного массива ???
     private items: MenuItem[];

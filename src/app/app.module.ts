@@ -6,6 +6,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { routing, appRoutingProviders } from './app.routing';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
+import { ReportModule } from './components/report-list.component/report.module';
+
 //primeng
 import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
         ToolbarModule, SplitButtonModule, DialogModule,
@@ -19,13 +21,16 @@ import { WelcomeComponent, RootComponent, FolderComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
         CallbackComponent, CalendarComponent,
         AutoComplitEntityComponent, EditDialog2Component,
-        SpinnerComponent, OperationInfoComponent} from './components';
+        SpinnerComponent, OperationInfoComponent, ReportListComponent} from './components';
 //interface main form
+import { MainFormComponent } from './components/main-form.components/main-form/main-form.component';
 import { AgentSelectorComponent, BinderSelectorComponent,
-        DocNoDateComponent, MainFormComponent,
+        DocNoDateComponent, //MainFormComponent,
         PriceListComponent, SearchEntityComponent,
         TableEntityComponent, TemplateSelectorComponent
-        } from './components/main-form.components/';
+        } from './components/main-form.components/index';
+
+//import { MainFormModule } from './components/main-form.components/main-form.module';
 
 import {DataTableModule as a2_DataTableModule} from "angular2-datatable";
 
@@ -51,7 +56,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
-                  PanelModule
+                  PanelModule, ReportModule//, MainFormModule
                   ],
   declarations: [ 
                   RootComponent, JournalComponent,
@@ -60,12 +65,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   ProfileComponent, CalendarComponent, AutoComplitEntityComponent,
                   HomeComponent, CallbackComponent,
                   TypeSelectorComponent, InnerComponent, CalendarDlgComponent,
+                  SpinnerComponent, OperationInfoComponent, EditDialog2Component, 
                   //main-form
                   AgentSelectorComponent, BinderSelectorComponent,
                   DocNoDateComponent, MainFormComponent,
                   PriceListComponent, SearchEntityComponent,
-                  TableEntityComponent, TemplateSelectorComponent, EditDialog2Component, 
-                  SpinnerComponent, OperationInfoComponent
+                  TableEntityComponent, TemplateSelectorComponent
                 ],
   providers:    [ AppService, MainformService, appRoutingProviders, OperationService,
                   Auth, AuthGuard, Logger,
@@ -75,7 +80,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                     deps: [Http, RequestOptions]
                   }
                 ],                  
-  bootstrap:    [ WelcomeComponent ],
-  entryComponents: [InnerComponent]
+  bootstrap:    [ WelcomeComponent ]
 })
 export class AppModule { }

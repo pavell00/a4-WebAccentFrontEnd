@@ -16,3 +16,4 @@ export {CallbackComponent} from './callback.component/callback.component';
 export {EditDialog2Component} from './edit-dialog2.component/edit-dialog2.component';
 export {SpinnerComponent} from './spinner.component/spinner.component';
 export {OperationInfoComponent} from './operation-info/operation-info.component';
+export {ReportListComponent} from './report-list.component/report-list.component';
