@@ -6,4 +6,4 @@ export {SearchEntityComponent} from './search-entity-dlg/search-entity-dlg.compo
 export {TableEntityComponent} from './table-entity/table-entity.component';
 export {TemplateSelectorComponent} from './template-selector/template-selector.component';
 //all last sting
-//export {MainFormComponent} from './main-form/main-form.component';
+export {MainFormComponent} from './main-form/main-form.component';

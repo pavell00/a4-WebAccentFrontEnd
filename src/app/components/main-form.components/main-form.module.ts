@@ -18,7 +18,6 @@ import {DataTableModule as a2_DataTableModule} from "angular2-datatable";
     imports: [
         CommonModule,
         FormsModule, DialogModule, MenubarModule, DropdownModule, a2_DataTableModule
-        //HeroRoutingModule
     ],
     declarations: [AgentSelectorComponent, BinderSelectorComponent,
         DocNoDateComponent, 

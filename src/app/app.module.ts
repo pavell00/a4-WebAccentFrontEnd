@@ -29,7 +29,7 @@ import { AgentSelectorComponent, BinderSelectorComponent,
         PriceListComponent, SearchEntityComponent,
         TableEntityComponent, TemplateSelectorComponent
         } from './components/main-form.components/index';
-
+//import { MainFormComponent } from './components/main-form.components/main-form/main-form.component';
 //import { MainFormModule } from './components/main-form.components/main-form.module';
 
 import {DataTableModule as a2_DataTableModule} from "angular2-datatable";
@@ -50,13 +50,14 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 }
 
 @NgModule({
-  imports:      [ BrowserModule, routing,
+  imports:      [ BrowserModule, 
                   BrowserAnimationsModule,
                   HttpModule, FormsModule, JsonpModule,
                   CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
-                  PanelModule, ReportModule//, MainFormModule
+                  PanelModule, ReportModule, //MainFormModule,
+                  routing
                   ],
   declarations: [ 
                   RootComponent, JournalComponent,
