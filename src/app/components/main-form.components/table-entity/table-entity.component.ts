@@ -12,10 +12,10 @@ import * as _ from 'lodash';
 export class TableEntityComponent implements OnInit{
 
     private op: Op;
-    private trans: Transactions[]=[];
-    private selectedType: string;
-    private types: SelectItem[];
-    private myValue: any = '';
+    trans: Transactions[]=[];
+    selectedType: string;
+    types: SelectItem[];
+    myValue: any = '';
 
 
     constructor(private operationService: OperationService) {

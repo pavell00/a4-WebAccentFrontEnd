@@ -33,13 +33,13 @@ export class MainFormComponent implements OnInit, OnChanges {
         get curentdoc(){return this._curentdoc}
 
     private operation: Op[] = []; // не работет без фиктивного массива ???
-    private items: MenuItem[];
+    items: MenuItem[];
     //private outBinders: Binders[] = [];
     private outTemplateId: number;
     private AgTo: Agents = {};
     private AgFrom: Agents = {};
     private transactions: Transactions[] = [];
-    private isNewOp : boolean = false;
+    isNewOp : boolean = false;
 
     @Output() closeDocEvent: EventEmitter<string> = new EventEmitter();
 

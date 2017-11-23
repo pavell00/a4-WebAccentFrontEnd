@@ -17,6 +17,7 @@ export class OperationShortView {
     links: Op[] = [];
     binders: Binders[] = [];
     trnasList: TransactionShortView[] = [];
+    editAccess: boolean = false;
 
     constructor(docName: string, docDate: string,
                 docDone: number, docSum: number,
@@ -26,6 +27,7 @@ export class OperationShortView {
                 folderName: string, lastChange: string,
                 links: Op[], binders: Binders[],
                 trnasList: TransactionShortView[],
+                editAccess: boolean,
                 id?: number){
         this.id = id;
         this.docName = docName;
@@ -41,5 +43,6 @@ export class OperationShortView {
         this.links = links;
         this.binders = binders;
         this.trnasList = trnasList;
+        this.editAccess = editAccess;
     }
 }

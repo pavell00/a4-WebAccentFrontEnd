@@ -13,9 +13,9 @@ export class TemplateSelectorComponent implements OnInit {
 
     //@Input('docTemplateIn') docTemplateId: number;
     private docTemplateId: number;
-    private displayDialog: boolean;
-    private linkTemplates: Templates[] = [];
-    private selectedTemplate: Templates;
+    displayDialog: boolean;
+    linkTemplates: Templates[] = [];
+    selectedTemplate: Templates;
     private index: number = 0;
 
     constructor(private mformService: MainformService,

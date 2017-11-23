@@ -12,12 +12,12 @@ import { OperationService } from '../../services/operation.service';
 
 export class RootComponent implements OnInit { 
 
-    private startDate: string;
-    private endDate: string;
-    private checked: boolean = true;
+    startDate: string;
+    endDate: string;
+    checked: boolean = true;
     private error: any;
     curOp: Op;
-    private isRequesting: boolean;
+    isRequesting: boolean;
 
     constructor(private appService: AppService,
                 private operationService : OperationService){ }

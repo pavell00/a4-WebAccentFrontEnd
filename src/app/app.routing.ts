@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {WelcomeComponent, RootComponent,
         ProfileComponent, HomeComponent,
-        CallbackComponent} from './components';
+        CallbackComponent, ReportListComponent} from './components';
 
 import {AuthGuard} from './auth.guard';
 
@@ -27,7 +27,11 @@ const appRoutes: Routes = [
         path: 'callback', component: CallbackComponent 
     }, {
         path: '**', redirectTo: ''
-    }
+    }, {
+        path: 'compose',
+        component: ReportListComponent,
+        outlet: 'popup'
+      },
 ];
 
 export const appRoutingProviders: any[]=[];

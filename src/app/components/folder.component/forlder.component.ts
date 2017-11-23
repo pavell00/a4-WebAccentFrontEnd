@@ -9,8 +9,8 @@ import { AppService } from '../../services/app.service';
 })
 export class FolderComponent implements OnInit {
 
-    private selectedFolder: Folder;
-    private folders: Folder[] = [];
+    selectedFolder: Folder;
+    folders: Folder[] = [];
     private error: any;
     private bcrambFolders: BreadCramber[] = [];
 

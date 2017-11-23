@@ -16,11 +16,11 @@ import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
         PanelModule } from 'primeng/primeng';
 //interface main window
 import { WelcomeComponent, RootComponent, FolderComponent,
-        DocumentComponent, JournalComponent, EditDialogComponent,
+        DocumentComponent, //JournalComponent, EditDialogComponent,
         BreadCramberComponent, ProfileComponent, TypeSelectorComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
-        CallbackComponent, CalendarComponent,
-        AutoComplitEntityComponent, EditDialog2Component,
+        CallbackComponent, //CalendarComponent, AutoComplitEntityComponent,
+        EditDialog2Component,
         SpinnerComponent, OperationInfoComponent, ReportListComponent} from './components';
 //interface main form
 import { MainFormComponent } from './components/main-form.components/main-form/main-form.component';
@@ -60,10 +60,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   routing
                   ],
   declarations: [ 
-                  RootComponent, JournalComponent,
+                  RootComponent, //JournalComponent, EditDialogComponent,
                   DocumentComponent, FolderComponent,
-                  EditDialogComponent, BreadCramberComponent, WelcomeComponent,
-                  ProfileComponent, CalendarComponent, AutoComplitEntityComponent,
+                  BreadCramberComponent, WelcomeComponent,
+                  ProfileComponent, //CalendarComponent, AutoComplitEntityComponent,
                   HomeComponent, CallbackComponent,
                   TypeSelectorComponent, InnerComponent, CalendarDlgComponent,
                   SpinnerComponent, OperationInfoComponent, EditDialog2Component, 

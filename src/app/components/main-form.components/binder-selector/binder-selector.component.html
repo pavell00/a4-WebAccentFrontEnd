@@ -1,7 +1,7 @@
 <div class="binder" (window:keypress)="onInputSearchTermBinder($event)">
         <p>Подшивка:</p>
         <input name="searchBinder" type="search" [(ngModel)]="BinderName"
-                #bn (input)="clearSearch(bn.value)"
+
                 pInputText placeholder='Укажите подшивку' size=17/>
         <p>Находится в подшивках:</p>
             <ul>
@@ -9,7 +9,7 @@
             </ul>
 </div>
 
- <p-dialog id="addBinders" header="Результат поиска подшивки" [(visible)]="displayDialogAddBinders">
+<p-dialog id="addBinders" header="Результат поиска подшивки" [(visible)]="displayDialogAddBinders">
     <div class="ui-dialog-content"  style="height: 30%; width: 50em;">
         <div class="scrollingtable">
             <table>

@@ -10,11 +10,11 @@ import { MainformService } from '../../../services/main-form.service';
 })
 export class PriceListComponent implements OnInit {
 
-  private pricelists: SelectItem[];
+  pricelists: SelectItem[];
   private items: PriceLists[] = [];
-  private selectedPriceList: PriceLists;
-  private prices: SelectItem[];
-  private selectedPrice: SelectItem;
+  selectedPriceList: PriceLists;
+  prices: SelectItem[];
+  selectedPrice: SelectItem;
 
   constructor(private mformService: MainformService) { }
 

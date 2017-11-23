@@ -17,19 +17,19 @@ import {Subject} from 'rxjs/Subject';
 export class DocumentComponent implements OnInit {
 
     private displayDialog: boolean;
-    private document: Document;
+    document: Document;
     private documentIsNew: boolean;
     private fldTmlId: number = 0;
 
     private documentSource: Subject<Document> = new Subject<Document>();
     private documentSelect$ = this.documentSource.asObservable();
 
-    private selectedRow: Document;
+    selectedRow: Document;
     private docs: Document[];
     private error: any;
-    private counter: number = 0;
-    private docLazy: Document[] = [];
-    private items: MenuItem[];
+    counter: number = 0;
+    docLazy: Document[] = [];
+    items: MenuItem[];
     private isRequesting: boolean;
 
      constructor(private appService: AppService,

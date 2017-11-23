@@ -20,6 +20,7 @@
                 <span> - "{{link.docName}}" от {{link.docDate}} сумма {{link.docSum}}</span>
             </div>
         </span><br>
+        <span>Доступ на создание/изменение: {{operationInfo?.editAccess?'Да':'Нет'}}</span><br>
     </div>
     <div [hidden]="!isExists">
         <table border="1">

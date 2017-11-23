@@ -11,14 +11,14 @@ import { Logger } from "angular2-logger/core";
 })
 export class AgentSelectorComponent implements OnInit {
 
-  private displayDialog: boolean;
+  displayDialog: boolean;
   private AgTo: Agents = {};
   private AgFrom: Agents = {};
-  private AgToName: string;
-  private AgFromName: string;
-  private agents: Agents[] = [];
+  AgToName: string;
+  AgFromName: string;
+  agents: Agents[] = [];
   private currentTrgAgName: string;
-  private selectedAgent: Agents;
+  selectedAgent: Agents;
   private index: number = 0;
   private result_length: number;
   private bFlag: boolean = false;

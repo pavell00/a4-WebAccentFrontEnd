@@ -11,12 +11,12 @@ import { Session, ISession } from '../../model/index';
 })
 export class HomeComponent implements OnInit, AfterContentChecked {
 
-    private user_profile: Session = new Session();
+    user_profile: Session = new Session();
     private a: any;
 
-    private environmentName = environment.envName+' - '+environment.urlPrefix;
+    environmentName = environment.envName+' - '+environment.urlPrefix;
 
-    constructor(private auth: Auth, private appService: AppService) {  }
+    constructor(public auth: Auth, private appService: AppService) {  }
 
     ngOnInit() {
 /*     if (this.auth.userProfile) {

@@ -10,18 +10,18 @@ import { AppService } from '../../services/app.service';
 })
 export class CalendarDlgComponent implements OnInit {
 
-  private display: boolean = false;
-  private years: SelectItem[] = [];
-  private months: SelectItem[] = [];
-  private quartals: SelectItem[] = [];
-  private semiyears: SelectItem[] = [];
-  private selectedYear: number;
-  private selectedMonth: number;
-  private selectedQurtal: string;
-  private selectedSemiYear: string;
-  private selectedType: string;
-  private startDate: string;
-  private endDate: string;
+  display: boolean = false;
+  years: SelectItem[] = [];
+  months: SelectItem[] = [];
+  quartals: SelectItem[] = [];
+  semiyears: SelectItem[] = [];
+  selectedYear: number;
+  selectedMonth: number;
+  selectedQurtal: string;
+  selectedSemiYear: string;
+  selectedType: string;
+  startDate: string;
+  endDate: string;
   
   constructor(private appService: AppService) { }
 

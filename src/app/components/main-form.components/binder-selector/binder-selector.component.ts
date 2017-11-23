@@ -13,15 +13,15 @@ export class BinderSelectorComponent implements OnInit {
 
   //@Input('docBindsIn') linkBinders: Binders[];
   linkBinders: Binders[] = [];
-  private displayDialogAddBinders: boolean;
-  private displayDialogDelBinders: boolean;
+  displayDialogAddBinders: boolean;
+  displayDialogDelBinders: boolean;
   /* private linkBinders: string[] =
       ['Расчеты за материалы', 'Бутков', 'Напханюк В.Н.'];//refactor to add object Binders type
      */
-  private BinderName: string;
-  private binders: Binders[] = [];
+  BinderName: string;
+  binders: Binders[] = [];
   private currentTrgBindName: string;
-  private selectedBinder: Binders;
+  selectedBinder: Binders;
   private index: number = 0;
   private result_length: number;
   private bFlag: boolean = false;

@@ -5,6 +5,7 @@
         <li><i *ngIf="auth.isAuthenticated()" class="fa-li fa fa-calendar fa-2x" (click)="cdlg.showDialog()"></i></li>
         <li><a routerLink="/home" *ngIf="auth.isAuthenticated()">Home</a></li>
         <!--<li><calendar *ngIf="auth.authenticated()"></calendar></li>-->
+        <li><a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" (click)="auth.login()" *ngIf="!auth.isAuthenticated()">Login</a></li>
@@ -23,3 +24,4 @@
 
 <calendar-dlg #cdlg></calendar-dlg>
 <router-outlet></router-outlet>
+<router-outlet name="popup"></router-outlet>

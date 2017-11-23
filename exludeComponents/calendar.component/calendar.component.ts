@@ -9,7 +9,7 @@ import { AppService } from '../../services/app.service';
 })
 export class CalendarComponent implements OnInit {
     
-    private dateValue: Date;
+    dateValue: Date;
 
     constructor(private appService: AppService) {
         this.dateValue = new Date();

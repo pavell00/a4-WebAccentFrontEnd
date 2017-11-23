@@ -17,7 +17,7 @@ export class EditDialogComponent implements OnInit {
     displayDialog: boolean;
     private docIsNew: boolean;
     //private tmlId: number;
-    private tmlName: string;
+    tmlName: string;
 
     @Output() addDocEvent: EventEmitter<Document> = new EventEmitter();
 

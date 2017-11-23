@@ -10,8 +10,8 @@ import { SelectItem } from 'primeng/primeng';
 })
 export class TypeSelectorComponent implements OnInit {
 
-    private ElementTypes: SelectItem[];
-    private selectedType: SelectItem;
+    ElementTypes: SelectItem[];
+    selectedType: SelectItem;
     @Output() EventTypeSelector: EventEmitter<any> = new EventEmitter();
 
   constructor(private appService: AppService) { }

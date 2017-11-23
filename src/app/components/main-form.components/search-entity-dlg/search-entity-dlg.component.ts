@@ -17,7 +17,7 @@ export class SearchEntityComponent implements OnInit {
   result_length: number;
   index: number = 0;
   selectedRow: any;
-  private date;
+  date;
   private bFlag: boolean = false;
 
   @Output() addEntityEvent: EventEmitter<Entities> = new EventEmitter();

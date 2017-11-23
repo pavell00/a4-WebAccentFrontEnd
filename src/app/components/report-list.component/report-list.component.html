@@ -1,4 +1,22 @@
-<ul>
-    <li *ngFor="let el of elements"> {{el.name}}</li>
-</ul>
 <!-- {{_test}} -->
+<h3>Contact Crisis Center</h3>
+    <div *ngIf="details">
+        {{ details }}
+    </div>
+<div>
+    <div>
+        <label>Message: </label>
+    </div>
+    <div>
+        <textarea [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>
+    </div>
+    <div>
+        <ul>
+            <li *ngFor="let el of elements"> {{el.name}}</li>
+        </ul>
+    </div>
+</div>
+<p *ngIf="!sending">
+    <button (click)="send()">Send</button>
+    <button (click)="cancel()">Cancel</button>
+</p>

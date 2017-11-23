@@ -11,7 +11,7 @@ import { BreadCramber, Folder } from '../../model';
 
 export class BreadCramberComponent implements OnInit {
 
-    private bcrambList: BreadCramber[] = [];
+    bcrambList: BreadCramber[] = [];
     private currentTypeSelector: string;
     private error: any
 

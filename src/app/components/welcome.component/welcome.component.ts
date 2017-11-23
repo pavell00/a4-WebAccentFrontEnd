@@ -11,7 +11,7 @@ export class WelcomeComponent implements OnInit {
 
     public isRequesting: boolean;
 
-    constructor(private auth: Auth) {
+    constructor(public auth: Auth) {
       // Comment out this method call if using
       // hash-based routing
       auth.handleAuthentication();

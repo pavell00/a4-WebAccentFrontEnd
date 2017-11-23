@@ -10,11 +10,11 @@ import {AppService} from '../../services/app.service';
 
 export class OperationInfoComponent implements OnInit {
 
-    private operationInfo: OperationShortView;
-    private binders: Binders[];
-    private links: Op[];
-    private translist: TransactionShortView[];
-    private isExists: boolean = false;
+    operationInfo: OperationShortView;
+    binders: Binders[];
+    links: Op[];
+    translist: TransactionShortView[];
+    isExists: boolean = false;
 
     constructor(private appService: AppService) { }
 

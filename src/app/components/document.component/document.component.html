@@ -1,4 +1,4 @@
-<p-dataTable [value]="docLazy" selectionMode="single" [multiSortMeta]="multiSortMeta"
+<p-dataTable [value]="docLazy" selectionMode="single"
              [(selection)]="selectedRow" 
              (onRowSelect)="onRowSelect($event)" 
              (onRowDblclick)="dialog.onOpenDlg(1)"
@@ -33,7 +33,7 @@
 
 <editDialog2 #dialog [document]="document" (addDocEvent)="onGetDocs($event)"></editDialog2>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
-<!-- The Modal -->
+<!-- The Modal [multiSortMeta]="multiSortMeta" -->
 <!-- <div id="myModal" class="modal" [style.display] = "visible">
     <div class="modal-content">
         <div class="modal-header">
