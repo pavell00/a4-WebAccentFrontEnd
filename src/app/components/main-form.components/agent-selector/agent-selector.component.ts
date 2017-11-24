@@ -31,16 +31,21 @@ export class AgentSelectorComponent implements OnInit {
     ngOnInit() {
       this.operationService.getCurrentOperation().subscribe(
         (v) => {this.op = v;
-                if (this.op.transactions[0].j_ag1 != 0 && this.op.transactions[0].j_ag1 != undefined) {
-                    this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag1)
-                    .then(data => { this.AgTo = data[0]; this.AgToName = this.AgTo.agName;})
-                    .catch(error => this._logger.error(error));
-                } else {this.AgTo = {}; this.AgToName=''}
-                if (this.op.transactions[0].j_ag2 != 0 && this.op.transactions[0].j_ag2 != undefined) {
-                    this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag2)
-                    .then(data => { this.AgFrom = data[0]; this.AgFromName = this.AgFrom.agName;})
-                    .catch(error => this._logger.error(error));
-                } else {this.AgFrom = {}; this.AgFromName='';}
+                if (this.op.doc_id != null) {
+                  if (this.op.transactions[0].j_ag1 != 0 && this.op.transactions[0].j_ag1 != undefined) {
+                      this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag1)
+                      .then(data => { this.AgTo = data[0]; this.AgToName = this.AgTo.agName;})
+                      .catch(error => this._logger.error(error));
+                  } else {this.AgTo = {}; this.AgToName=''}
+                  if (this.op.transactions[0].j_ag2 != 0 && this.op.transactions[0].j_ag2 != undefined) {
+                      this.mformService.searchAgentPromise('ID', '', this.op.transactions[0].j_ag2)
+                      .then(data => { this.AgFrom = data[0]; this.AgFromName = this.AgFrom.agName;})
+                      .catch(error => this._logger.error(error));
+                  } else {this.AgFrom = {}; this.AgFromName='';}
+                } else {
+                  this.AgTo = {}; this.AgToName='';
+                  this.AgFrom = {}; this.AgFromName='';
+                }
         }
       )
     }
