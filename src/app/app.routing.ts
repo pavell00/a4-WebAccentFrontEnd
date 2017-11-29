@@ -3,9 +3,10 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {WelcomeComponent, RootComponent,
         ProfileComponent, HomeComponent,
-        CallbackComponent, ReportListComponent} from './components';
+        CallbackComponent, AdminPanelComponent } from './components'; //ReportListComponent
 
 import {AuthGuard} from './auth.guard';
+import {AdminGuard} from './admin.guard';
 
 const appRoutes: Routes = [
     {
@@ -26,12 +27,17 @@ const appRoutes: Routes = [
     }, {
         path: 'callback', component: CallbackComponent 
     }, {
-        path: '**', redirectTo: ''
+        path: 'adminpanel',
+        component: AdminPanelComponent,
+        canActivate: [AdminGuard]
     }, {
+        path: '**', redirectTo: ''
+    }
+    /* , {
         path: 'compose',
         component: ReportListComponent,
         outlet: 'popup'
-      },
+      }, */
 ];
 
 export const appRoutingProviders: any[]=[];

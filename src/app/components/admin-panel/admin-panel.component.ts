@@ -3,12 +3,11 @@ import { Auth } from '../../services/auth0.service';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
-    //moduleId: module.id,
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls: ['./welcome.component.css']
+    selector: 'admin',
+    templateUrl: './admin-panel.component.html',
+    styleUrls: ['./admin-panel.component.css']
 })
-export class WelcomeComponent implements OnInit {
+export class AdminPanelComponent implements OnInit {
 
     public isRequesting: boolean;
 
