@@ -1,0 +1,12 @@
+.admin-window {
+    padding-top: 10px;
+}
+/* #checkboxes {
+    float: left;
+} */
+#checkboxes ul {
+    margin: 0;
+    list-style: none;
+    float: left;
+    padding-left: inherit;
+}
