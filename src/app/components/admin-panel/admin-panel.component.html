@@ -8,7 +8,7 @@
         <div class="ui-g-3">Документы
             <div>
                 <ul>
-                    <li *ngFor="let el of things2"><input type="checkbox" [value]="el.checked">{{el.name}} - {{el.checked}}</li>
+                    <li *ngFor="let el of things[0]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>

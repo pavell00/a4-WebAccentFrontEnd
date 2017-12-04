@@ -4,7 +4,7 @@ import { Http, Response, URLSearchParams, RequestOptions, Headers } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { DbRoles, firstLevelItem }  from '../model/index';
-import { retry } from 'rxjs/operator/retry';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AdminService{
@@ -12,7 +12,7 @@ export class AdminService{
     private options = new RequestOptions({ headers: this.headers });
     
     private user_profile: Session = new Session();
-    public things : firstLevelItem [][] = [];
+    public things : firstLevelItem [] = [];
 
     private urlPrefix = environment.urlPrefix;
     private firstLevelitemUrl: string = this.urlPrefix+'/sp_firstlevel';
@@ -43,24 +43,32 @@ export class AdminService{
             .catch(this.handleError)
     }
 
-    getAccessParams(uid: number): Observable<firstLevelItem[]> {
-        this.things.length = 0;
+    getAccessParams(uid: number) {
         let params = new URLSearchParams();
-        //for(var i: number = 0; i < 7; i++) {
-            this.things[0] = [];
-            params.set('roleid', String(uid));
-            params.set('tabid', String(1));
-            return this.http
-                .get(this.firstLevelitemUrl, { search: params })
-                .map(response =>  response.json())
-                //.do( data => {this.things[0] = data;
-                //     console.log(data);})
-                .catch(this.handleError)
-            /*for(var j: number = 0; j< 10; j++) {
-                this.things[i][j] = new firstLevelItem(j, 'item '+j, true);
-            }*/
-        //} 
-        //return this.things;
+        params.set('roleid', String(uid));
+        params.set('tabid', String(1));
+        let a = this.http
+        .get(this.firstLevelitemUrl, { search: params })
+        .toPromise()
+        .then(response => { let b = response.json();
+            let folders = b[0].folders;
+            let accounts = b[0].accounts;
+            let agents = b[0].agents;
+            let entities = b[0].entities;
+            let miscs = b[0].miscs;
+            let binders = b[0].binders;
+            let templates = b[0].templates;
+            this.things.push(folders);
+            this.things.push(accounts);
+            this.things.push(agents);
+            this.things.push(entities);
+            this.things.push(miscs);
+            this.things.push(binders);
+            this.things.push(templates);
+            //console.log(this.things);
+            })
+            .catch(this.handleError)
+        return this.things;
     }
 
     private handleError(error: any){

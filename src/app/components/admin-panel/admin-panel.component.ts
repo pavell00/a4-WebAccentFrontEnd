@@ -12,8 +12,7 @@ export class AdminPanelComponent implements OnInit {
 
     public ElementTypes: SelectItem[] = [];
     public selectedType: SelectItem;
-    public things : firstLevelItem [][] = [];
-    public things2 : firstLevelItem [] = [];
+    public things : firstLevelItem [] = [];
 
     constructor(private adminService: AdminService) {}
 
@@ -37,10 +36,8 @@ export class AdminPanelComponent implements OnInit {
     setDBRoleAccessParams() {}
 
     getDBRoleAccessParams(e: any) {
-        //console.log(e.uid);
-        this.adminService.getAccessParams(e.uid).subscribe(
-            (v) => {this.things2 = v}
-        );
+        this.things.length = 0;
+        this.things = this.adminService.getAccessParams(e.uid);
 /*         for(var i: number = 0; i < 7; i++) {
             this.things[i] = [];
             for(var j: number = 0; j< 10; j++) {
