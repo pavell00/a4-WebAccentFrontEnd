@@ -7,6 +7,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 //import { ReportModule } from './components/report-list.component/report.module';
+import {AgGridModule} from 'ag-grid-angular/main';
 
 //primeng
 import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
@@ -59,6 +60,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
                   PanelModule, //ReportModule, //MainFormModule,
+                  AgGridModule.withComponents([AdminPanelComponent]),
                   routing
                   ],
   declarations: [ 

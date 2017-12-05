@@ -16,6 +16,7 @@ export class AdminService{
 
     private urlPrefix = environment.urlPrefix;
     private firstLevelitemUrl: string = this.urlPrefix+'/sp_firstlevel';
+    private roleTemplatesUrl: string = this.urlPrefix+'/sp_roletemplates';
     private dbRolesUrl: string = this.urlPrefix+'/sp_dbroles';
 
 
@@ -46,7 +47,6 @@ export class AdminService{
     getAccessParams(uid: number) {
         let params = new URLSearchParams();
         params.set('roleid', String(uid));
-        params.set('tabid', String(1));
         let a = this.http
         .get(this.firstLevelitemUrl, { search: params })
         .toPromise()
@@ -69,6 +69,17 @@ export class AdminService{
             })
             .catch(this.handleError)
         return this.things;
+    }
+
+    getRoleTemplates(uid: number): Promise<firstLevelItem[]> {
+        let params = new URLSearchParams();
+        params.set('roleid', String(uid));
+        return this.http
+            .get(this.roleTemplatesUrl, { search: params })
+            //.do(data => {console.log(data)})
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError)
     }
 
     public getTest(): Observable<any[]> {

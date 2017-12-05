@@ -3,33 +3,34 @@
     <div>
         <p-dropdown [options]="ElementTypes" [(ngModel)]="selectedType" [style]="{'width':'20%'}" (onChange)="onChange($event)">
         </p-dropdown>
+        <button type="button" (click)="saveAccConfig()">Save access config</button>
     </div>
     <div class="ui-g">
         <div class="ui-g-3">Документы
             <div>
                 <ul>
-                    <li *ngFor="let el of things[0]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[0]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-3">Счета
             <div>
                 <ul>
-                    <li *ngFor="let el of things[1]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[1]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-3">Корреспонденты
             <div>
                 <ul>
-                    <li *ngFor="let el of things[2]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[2]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-3">Объекты
             <div>
                 <ul>
-                    <li *ngFor="let el of things[3]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[3]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
@@ -38,27 +39,41 @@
         <div class="ui-g-4">Разное
             <div>
                 <ul>
-                    <li *ngFor="let el of things[4]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[4]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-4">Подшивки
             <div>
                 <ul>
-                    <li *ngFor="let el of things[5]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[5]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-4">Шаблоны
             <div>
                 <ul>
-                    <li *ngFor="let el of things[6]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
+                    <li *ngFor="let el of things[6]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
+
+<ag-grid-angular style="width: 100%; height: 300px;" class="ag-theme-fresh"
+    [rowData]="roleTmls"
+    [columnDefs]="columnDefs"
+    enableSorting
+    enableFilter
+    rowSelection="single"
+    rowHeight="22"
+    [pagination]="true" [paginationPageSize]="20">
+</ag-grid-angular>
+
+<!-- <ul>
+    <li *ngFor="let rtml of roleTmls" style="font-size: 8px;">{{rtml.id}}-{{rtml.name}}</li>
+</ul>
 <ul>
     <li *ngFor="let tst of test" style="font-size: 8px;">{{tst|json}}</li>
-</ul>
+</ul> -->

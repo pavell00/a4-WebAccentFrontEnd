@@ -13,10 +13,28 @@ export class AdminPanelComponent implements OnInit {
     public ElementTypes: SelectItem[] = [];
     public selectedType: SelectItem;
     public things : firstLevelItem [] = [];
+    public roleTmls : firstLevelItem [] = [];
     public test: any[]=[];
+    public columnDefs: any;
+    public rowData: any;
 
-    constructor(private adminService: AdminService) {}
+    constructor(private adminService: AdminService) {
+        this.rowData = [
+            {rowNo: 1, make: "Toyota", model: "Celica", price: 35000},
+            {rowNo: 2, make: "Ford", model: "Mondeo", price: 32000},
+            {rowNo: 3, make: "Porsche", model: "Boxter", price: 72000},
+      
+        ]
+        this.columnDefs = [
+            {headerName:"id", width:50,field:"id"},
+            {headerName: "name", width:500, field: "name"},
+            {headerName: "checked", width:50, field: "checked"},
+            {headerName: "editable", width:50, field: "editable"},
+        ];
+    }
 
+
+    
     ngOnInit() {
         this.adminService.getDBRoles().subscribe(
             (val) => {                
@@ -39,7 +57,9 @@ export class AdminPanelComponent implements OnInit {
     getDBRoleAccessParams(e: any) {
         this.things.length = 0;
         this.things = this.adminService.getAccessParams(e.uid);
-/*         for(var i: number = 0; i < 7; i++) {
+        this.adminService.getRoleTemplates(e.uid)
+            .then(data => this.roleTmls = data)
+        /*  for(var i: number = 0; i < 7; i++) {
             this.things[i] = [];
             for(var j: number = 0; j< 10; j++) {
                 this.things[i][j] = new firstLevelItem(j, 'item '+j, true);
@@ -52,5 +72,9 @@ export class AdminPanelComponent implements OnInit {
         this.adminService.getTest().subscribe(
             (v) => {this.test = v}
         )
+    }
+
+    saveAccConfig() {
+        console.log(JSON.stringify(this.things[0]));
     }
 }
