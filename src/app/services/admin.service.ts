@@ -71,6 +71,13 @@ export class AdminService{
         return this.things;
     }
 
+    public getTest(): Observable<any[]> {
+        return this.http
+            .get('http://localhost:8080/sp_testjson')
+            .map(response => <any[]> response.json())
+            .catch(this.handleError)
+    }
+
     private handleError(error: any){
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

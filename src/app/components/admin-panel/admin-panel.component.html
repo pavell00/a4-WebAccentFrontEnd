@@ -1,5 +1,5 @@
 <div class="admin-window" id="checkboxes">
-    <h4>Welcome to admin panel</h4>
+    <h4>Welcome to admin panel</h4><button type="button" (click)="clickTest()">TEST</button>
     <div>
         <p-dropdown [options]="ElementTypes" [(ngModel)]="selectedType" [style]="{'width':'20%'}" (onChange)="onChange($event)">
         </p-dropdown>
@@ -15,27 +15,21 @@
         <div class="ui-g-3">Счета
             <div>
                 <ul>
-                    <li><input type="checkbox">Основной план счетов</li>
-                    <li><input type="checkbox">Производственный план счетов</li>
-                    <li><input type="checkbox">Налоговый план счетов</li>
+                    <li *ngFor="let el of things[1]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-3">Корреспонденты
             <div>
                 <ul>
-                    <li><input type="checkbox">ООО ДГМЗ №2</li>
-                    <li><input type="checkbox">Банки</li>
-                    <li><input type="checkbox">Поставщики</li>
+                    <li *ngFor="let el of things[2]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-3">Объекты
             <div>
                 <ul>
-                    <li><input type="checkbox">Товары</li>
-                    <li><input type="checkbox">Готовая продукция</li>
-                    <li><input type="checkbox">Основные средства</li>
+                    <li *ngFor="let el of things[3]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
@@ -44,29 +38,27 @@
         <div class="ui-g-4">Разное
             <div>
                 <ul>
-                    <li><input type="checkbox">Торговые марки</li>
-                    <li><input type="checkbox">Жирность продукции</li>
-                    <li><input type="checkbox">Водители молоковозов</li>
+                    <li *ngFor="let el of things[4]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-4">Подшивки
             <div>
                 <ul>
-                    <li><input type="checkbox">361</li>
-                    <li><input type="checkbox">Экспорт Геркулес</li>
-                    <li><input type="checkbox">Договора</li>
+                    <li *ngFor="let el of things[5]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
         <div class="ui-g-4">Шаблоны
             <div>
                 <ul>
-                    <li><input type="checkbox">Операции с кассой</li>
-                    <li><input type="checkbox">Банковские операции</li>
-                    <li><input type="checkbox">Операции с МБП</li>
+                    <li *ngFor="let el of things[6]"><input type="checkbox" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
+<ul>
+    <li *ngFor="let tst of test" style="font-size: 8px;">{{tst|json}}</li>
+</ul>

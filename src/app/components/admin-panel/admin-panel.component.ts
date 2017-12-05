@@ -13,6 +13,7 @@ export class AdminPanelComponent implements OnInit {
     public ElementTypes: SelectItem[] = [];
     public selectedType: SelectItem;
     public things : firstLevelItem [] = [];
+    public test: any[]=[];
 
     constructor(private adminService: AdminService) {}
 
@@ -44,7 +45,12 @@ export class AdminPanelComponent implements OnInit {
                 this.things[i][j] = new firstLevelItem(j, 'item '+j, true);
             }
         } */
-        //console.log(this.things);
     }
 
+    clickTest() {
+        console.log('www');
+        this.adminService.getTest().subscribe(
+            (v) => {this.test = v}
+        )
+    }
 }
