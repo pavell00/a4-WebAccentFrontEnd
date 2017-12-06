@@ -60,9 +60,10 @@
     </div>
 </div>
 
-<ag-grid-angular style="width: 700px; height: 520px;" class="theme-blue"
+<ag-grid-angular style="width: 700px; height: 520px;" class="ag-fresh"
     [gridOptions]="gridOptions"
     [rowData]="roleTmls"
+    (gridReady)="onGridReady($event)"
     enableSorting
     enableFilter
     rowSelection="single"

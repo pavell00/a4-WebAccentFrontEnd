@@ -81,8 +81,7 @@ export class AdminPanelComponent implements OnInit {
         console.log(JSON.stringify(this.things[0]));
     }
 
-    GridReadyEvent() {
-        console.log('onGridReady');
-        this.gridOptions.api.sizeColumnsToFit();
+    onGridReady(params) {
+        params.api.sizeColumnsToFit();
     }
 }
