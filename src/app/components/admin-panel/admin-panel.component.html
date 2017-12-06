@@ -1,33 +1,33 @@
 <div class="admin-window" id="checkboxes">
-    <h4>Welcome to admin panel</h4><button type="button" (click)="clickTest()">TEST</button>
+    <h4>Welcome to admin panel</h4>
     <div>
         <p-dropdown [options]="ElementTypes" [(ngModel)]="selectedType" [style]="{'width':'20%'}" (onChange)="onChange($event)">
         </p-dropdown>
-        <button type="button" (click)="saveAccConfig()">Save access config</button>
+        <button type="button" (click)="saveAccConfig()">Save access All config</button>
     </div>
     <div class="ui-g">
-        <div class="ui-g-3">Документы
+        <div class="ui-g-3">Документы<button type="button" (click)="savePartAccessConfig(0)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[0]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
-        <div class="ui-g-3">Счета
+        <div class="ui-g-3">Счета<button type="button" (click)="savePartAccessConfig(1)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[1]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
-        <div class="ui-g-3">Корреспонденты
+        <div class="ui-g-3">Корреспонденты<button type="button" (click)="savePartAccessConfig(2)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[2]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
-        <div class="ui-g-3">Объекты
+        <div class="ui-g-3">Объекты<button type="button" (click)="savePartAccessConfig(3)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[3]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
@@ -36,21 +36,21 @@
         </div>
     </div>
     <div class="ui-g">
-        <div class="ui-g-4">Разное
+        <div class="ui-g-4">Разное<button type="button" (click)="savePartAccessConfig(4)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[4]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
-        <div class="ui-g-4">Подшивки
+        <div class="ui-g-4">Подшивки<button type="button" (click)="savePartAccessConfig(5)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[5]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
                 </ul>
             </div>
         </div>
-        <div class="ui-g-4">Шаблоны
+        <div class="ui-g-4">Шаблоны<button type="button" (click)="savePartAccessConfig(6)">Save</button>
             <div>
                 <ul>
                     <li *ngFor="let el of things[6]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>

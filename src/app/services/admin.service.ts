@@ -18,7 +18,7 @@ export class AdminService{
     private firstLevelitemUrl: string = this.urlPrefix+'/sp_firstlevel';
     private roleTemplatesUrl: string = this.urlPrefix+'/sp_roletemplates';
     private dbRolesUrl: string = this.urlPrefix+'/sp_dbroles';
-
+    private elementAccessUrl: string = this.urlPrefix+'/sp_elementaccess';
 
     constructor(private http: Http) {}
 
@@ -82,6 +82,14 @@ export class AdminService{
             .catch(this.handleError)
     }
 
+    savePartAccessConfig(tabId: number, arElementAccess: any) {
+        console.log('['+JSON.stringify(arElementAccess)+']');
+        return this.http.post(this.elementAccessUrl, '['+JSON.stringify(arElementAccess)+']', this.options)
+            //.do(response => console.log(response.json()) )
+            .toPromise()
+            //.then(response => response.json())
+            .catch(this.handleError)
+    }
     public getTest(): Observable<any[]> {
         return this.http
             .get('http://localhost:8080/sp_testjson')

@@ -20,21 +20,21 @@ export class AdminPanelComponent implements OnInit {
     public columnDefs: any;
     public rowData: any;
     public gridOptions: GridOptions;
-    public showGrid: boolean;
 
     constructor(private adminService: AdminService) {
         this.gridOptions = <GridOptions>{};
-        this.showGrid = true;
         this.gridOptions.columnDefs = [
             {headerName:"id", width:50, field: "id"},
             {headerName: "name", width:500, field: "name", headerTooltip: "Название шаблона"},
             {cellRendererFramework: CheckComponent, width:70, field: "checked", 
-                headerName: "Виден", colId: "isVisible", headerTooltip: "Пользователь видит шаблон"},
+                headerName: "Виден", colId: "isVisible",
+                headerTooltip: "Пользователь видит документ с этим шаблоном"},
                 //suppressMenu: true, suppressSorting: true,
                 /*headerCellTemplate : `<div> <input id='select-all'
                 type='checkbox'/><span>checked</span> </div>` */
             {cellRendererFramework: CheckComponent, width:100, field: "editable",
-                headerName: "Созд/Редакт", colId: "isEditable", headerTooltip: "Пользователь может создать/изменить шаблон"}
+                headerName: "Созд/Редакт", colId: "isEditable", 
+                headerTooltip: "Пользователь может создать/изменить документ с этим шаблоном"}
         ];
     }
     
@@ -70,6 +70,11 @@ export class AdminPanelComponent implements OnInit {
         } */
     }
 
+    savePartAccessConfig(tabId: number) {
+        console.log(JSON.stringify(this.things[6]));
+        //this.adminService.savePartAccessConfig(tabId, this.roleTmls[tabId]);
+    }
+
     clickTest() {
         console.log('www');
         this.adminService.getTest().subscribe(
@@ -78,7 +83,7 @@ export class AdminPanelComponent implements OnInit {
     }
 
     saveAccConfig() {
-        console.log(JSON.stringify(this.things[0]));
+        //console.log(JSON.stringify(this.things[6]));
     }
 
     onGridReady(params) {
