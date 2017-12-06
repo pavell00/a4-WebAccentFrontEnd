@@ -22,7 +22,7 @@ import { WelcomeComponent, RootComponent, FolderComponent,
         HomeComponent, InnerComponent, CalendarDlgComponent,
         CallbackComponent, //CalendarComponent, AutoComplitEntityComponent,
         EditDialog2Component,
-        SpinnerComponent, OperationInfoComponent, AdminPanelComponent } from './components';
+        SpinnerComponent, OperationInfoComponent, AdminPanelComponent, CheckComponent } from './components';
 //interface main form
 import { MainFormComponent } from './components/main-form.components/main-form/main-form.component';
 import { AgentSelectorComponent, BinderSelectorComponent,
@@ -60,7 +60,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
                   PanelModule, //ReportModule, //MainFormModule,
-                  AgGridModule.withComponents([AdminPanelComponent]),
+                  AgGridModule.withComponents([AdminPanelComponent, CheckComponent]),
                   routing
                   ],
   declarations: [ 
@@ -71,7 +71,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
                   HomeComponent, CallbackComponent,
                   TypeSelectorComponent, InnerComponent, CalendarDlgComponent,
                   SpinnerComponent, OperationInfoComponent, EditDialog2Component,
-                  AdminPanelComponent,
+                  AdminPanelComponent, CheckComponent,
                   //main-form
                   AgentSelectorComponent, BinderSelectorComponent,
                   DocNoDateComponent, MainFormComponent,

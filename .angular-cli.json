@@ -23,9 +23,10 @@
         "../node_modules/primeng/resources/primeng.min.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../src/css/styles.css",
         "../node_modules/ag-grid/dist/styles/ag-grid.css",
         "../node_modules/ag-grid/dist/styles/theme-fresh.css",
-        "../src/css/styles.css"
+        "../node_modules/ag-grid/dist/styles/theme-blue.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

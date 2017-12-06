@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import { DbRoles, firstLevelItem }  from '../../model/index';
 import { SelectItem } from 'primeng/primeng';
+import { GridOptions } from "ag-grid/main";
+import { CheckComponent } from './admin-checkbox.component';
 
 @Component({
     selector: 'admin',
@@ -17,23 +19,24 @@ export class AdminPanelComponent implements OnInit {
     public test: any[]=[];
     public columnDefs: any;
     public rowData: any;
+    public gridOptions: GridOptions;
+    public showGrid: boolean;
 
     constructor(private adminService: AdminService) {
-        this.rowData = [
-            {rowNo: 1, make: "Toyota", model: "Celica", price: 35000},
-            {rowNo: 2, make: "Ford", model: "Mondeo", price: 32000},
-            {rowNo: 3, make: "Porsche", model: "Boxter", price: 72000},
-      
-        ]
-        this.columnDefs = [
-            {headerName:"id", width:50,field:"id"},
-            {headerName: "name", width:500, field: "name"},
-            {headerName: "checked", width:50, field: "checked"},
-            {headerName: "editable", width:50, field: "editable"},
+        this.gridOptions = <GridOptions>{};
+        this.showGrid = true;
+        this.gridOptions.columnDefs = [
+            {headerName:"id", width:50, field: "id"},
+            {headerName: "name", width:500, field: "name", headerTooltip: "Название шаблона"},
+            {cellRendererFramework: CheckComponent, width:70, field: "checked", 
+                headerName: "Виден", colId: "isVisible", headerTooltip: "Пользователь видит шаблон"},
+                //suppressMenu: true, suppressSorting: true,
+                /*headerCellTemplate : `<div> <input id='select-all'
+                type='checkbox'/><span>checked</span> </div>` */
+            {cellRendererFramework: CheckComponent, width:100, field: "editable",
+                headerName: "Созд/Редакт", colId: "isEditable", headerTooltip: "Пользователь может создать/изменить шаблон"}
         ];
     }
-
-
     
     ngOnInit() {
         this.adminService.getDBRoles().subscribe(
@@ -76,5 +79,10 @@ export class AdminPanelComponent implements OnInit {
 
     saveAccConfig() {
         console.log(JSON.stringify(this.things[0]));
+    }
+
+    GridReadyEvent() {
+        console.log('onGridReady');
+        this.gridOptions.api.sizeColumnsToFit();
     }
 }
