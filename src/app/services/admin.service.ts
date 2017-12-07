@@ -4,6 +4,7 @@ import { Http, Response, URLSearchParams, RequestOptions, Headers } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { DbRoles, firstLevelItem }  from '../model/index';
+import { AppService } from './app.service'
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class AdminService{
     private dbRolesUrl: string = this.urlPrefix+'/sp_dbroles';
     private elementAccessUrl: string = this.urlPrefix+'/sp_elementaccess';
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private appService: AppService) {}
 
     public isAdmin(): boolean {
         let a: string;
@@ -58,6 +59,7 @@ export class AdminService{
             let miscs = b[0].miscs;
             let binders = b[0].binders;
             let templates = b[0].templates;
+            let reports = b[0].reports;
             this.things.push(folders);
             this.things.push(accounts);
             this.things.push(agents);
@@ -65,6 +67,7 @@ export class AdminService{
             this.things.push(miscs);
             this.things.push(binders);
             this.things.push(templates);
+            this.things.push(reports);
             //console.log(this.things);
             })
             .catch(this.handleError)
@@ -83,12 +86,19 @@ export class AdminService{
     }
 
     savePartAccessConfig(tabId: number, arElementAccess: any) {
-        console.log('['+JSON.stringify(arElementAccess)+']');
-        return this.http.post(this.elementAccessUrl, '['+JSON.stringify(arElementAccess)+']', this.options)
+        let roleid = this.appService.getProfile2().dBroleId;
+        //add to end array identifier of tabId and roleid
+        let a: any = arElementAccess;
+        let b = {'id':roleid, 'name': 'tabId:'+String(tabId)};
+        a.push(b);
+        console.log(JSON.stringify(a));
+/*         console.log('['+JSON.stringify(arElementAccess)+']');
+        return this.http.post(this.elementAccessUrl,
+            '['+JSON.stringify(arElementAccess)+']', this.options)
             //.do(response => console.log(response.json()) )
             .toPromise()
             //.then(response => response.json())
-            .catch(this.handleError)
+            .catch(this.handleError) */
     }
     public getTest(): Observable<any[]> {
         return this.http

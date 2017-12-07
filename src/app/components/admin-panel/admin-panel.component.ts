@@ -20,12 +20,13 @@ export class AdminPanelComponent implements OnInit {
     public columnDefs: any;
     public rowData: any;
     public gridOptions: GridOptions;
+    public isData: boolean = false;
 
     constructor(private adminService: AdminService) {
         this.gridOptions = <GridOptions>{};
         this.gridOptions.columnDefs = [
             {headerName:"id", width:50, field: "id"},
-            {headerName: "name", width:500, field: "name", headerTooltip: "Название шаблона"},
+            {headerName: "Название шаблона", width:500, field: "name", headerTooltip: "Название шаблона"},
             {cellRendererFramework: CheckComponent, width:70, field: "checked", 
                 headerName: "Виден", colId: "isVisible",
                 headerTooltip: "Пользователь видит документ с этим шаблоном"},
@@ -61,7 +62,9 @@ export class AdminPanelComponent implements OnInit {
         this.things.length = 0;
         this.things = this.adminService.getAccessParams(e.uid);
         this.adminService.getRoleTemplates(e.uid)
-            .then(data => this.roleTmls = data)
+            .then(data => {this.roleTmls = data;
+                if (this.roleTmls.concat.length != null) this.isData = true;
+            })
         /*  for(var i: number = 0; i < 7; i++) {
             this.things[i] = [];
             for(var j: number = 0; j< 10; j++) {
@@ -71,8 +74,7 @@ export class AdminPanelComponent implements OnInit {
     }
 
     savePartAccessConfig(tabId: number) {
-        console.log(JSON.stringify(this.things[6]));
-        //this.adminService.savePartAccessConfig(tabId, this.roleTmls[tabId]);
+        this.adminService.savePartAccessConfig(tabId, this.things[tabId]);
     }
 
     clickTest() {

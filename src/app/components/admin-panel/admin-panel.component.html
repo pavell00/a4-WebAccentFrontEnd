@@ -1,77 +1,231 @@
-<div class="admin-window" id="checkboxes">
+<div class="admin-window">
     <h4>Welcome to admin panel</h4>
     <div>
         <p-dropdown [options]="ElementTypes" [(ngModel)]="selectedType" [style]="{'width':'20%'}" (onChange)="onChange($event)">
         </p-dropdown>
-        <button type="button" (click)="saveAccConfig()">Save access All config</button>
     </div>
-    <div class="ui-g">
-        <div class="ui-g-3">Документы<button type="button" (click)="savePartAccessConfig(0)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[0]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
+    <div [hidden]="!isData">
+        <!-- <button type="button" (click)="saveAccConfig()">Save access All config</button> -->
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Документы
+                                <button type="button" (click)="savePartAccessConfig(0)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[0]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Счета
+                                <button type="button" (click)="savePartAccessConfig(1)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[1]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Корреспонденты
+                                <button type="button" (click)="savePartAccessConfig(2)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[2]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Объекты учета
+                                <button type="button" (click)="savePartAccessConfig(3)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[3]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Разное
+                                <button type="button" (click)="savePartAccessConfig(4)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[4]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Подшивки
+                                <button type="button" (click)="savePartAccessConfig(5)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[5]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Шаблоны
+                                <button type="button" (click)="savePartAccessConfig(6)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[6]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui-g-3">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%" class="text-center">Види мость</th>
+                            <th style="width: 70%" class="text-center">Отчеты
+                                <button type="button" (click)="savePartAccessConfig(7)">Save</button>
+                            </th>
+                            <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let el of things[7]">
+                            <td class="text-center"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked"></td>
+                            <td class="text-left">{{el.name}}</td>
+                            <td class="text-center">
+                                <span *ngIf="el.checked">
+                                    <input type="checkbox" [(ngModel)]="el.editable" 
+                                    [checked]="el.editable">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="ui-g-3">Счета<button type="button" (click)="savePartAccessConfig(1)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[1]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="ui-g-3">Корреспонденты<button type="button" (click)="savePartAccessConfig(2)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[2]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="ui-g-3">Объекты<button type="button" (click)="savePartAccessConfig(3)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[3]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-4">Разное<button type="button" (click)="savePartAccessConfig(4)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[4]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="ui-g-4">Подшивки<button type="button" (click)="savePartAccessConfig(5)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[5]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="ui-g-4">Шаблоны<button type="button" (click)="savePartAccessConfig(6)">Save</button>
-            <div>
-                <ul>
-                    <li *ngFor="let el of things[6]"><input type="checkbox" [(ngModel)]="el.checked" [checked]="el.checked">{{el.name}}</li>
-                </ul>
-            </div>
-        </div>
+        <ag-grid-angular style="width: 740px; height: 530px;" class="ag-fresh"
+            [gridOptions]="gridOptions"
+            [rowData]="roleTmls"
+            enableSorting
+            enableFilter
+            rowSelection="single"
+            rowHeight="22"
+            [pagination]="true" [paginationPageSize]="20">
+        </ag-grid-angular>
     </div>
 </div>
 
-<ag-grid-angular style="width: 700px; height: 520px;" class="ag-fresh"
-    [gridOptions]="gridOptions"
-    [rowData]="roleTmls"
-    (gridReady)="onGridReady($event)"
-    enableSorting
-    enableFilter
-    rowSelection="single"
-    rowHeight="22"
-    [pagination]="true" [paginationPageSize]="20">
-</ag-grid-angular>
+
 
 <!-- <ul>
+                (gridReady)="onGridReady($event)"
     <li *ngFor="let rtml of roleTmls" style="font-size: 8px;">{{rtml.id}}-{{rtml.name}}</li>
 </ul>
 <ul>
