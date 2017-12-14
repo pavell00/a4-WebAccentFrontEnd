@@ -96,6 +96,7 @@ export class AppService {
     }
 
     getSpinnerStatus(): Observable<boolean> {return this.spinnerStatus;}
+    setSpinnerStatus(flag: boolean) { this.spinnerStatus.next(flag); }
 
     setCurrentFolder(f: Folder) {this.currentFolderSource.next(f);}
     getCurrentFolder() {return this.f;}//this.currentFolderSource;}

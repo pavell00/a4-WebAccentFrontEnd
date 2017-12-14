@@ -4,7 +4,7 @@ import { Http, Response, URLSearchParams, RequestOptions, Headers } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { DbRoles, firstLevelItem }  from '../model/index';
-import { AppService } from './app.service'
+import { AppService } from './app.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -20,6 +20,7 @@ export class AdminService{
     private roleTemplatesUrl: string = this.urlPrefix+'/sp_roletemplates';
     private dbRolesUrl: string = this.urlPrefix+'/sp_dbroles';
     private elementAccessUrl: string = this.urlPrefix+'/sp_elementaccess';
+    private listTemplatesUrl: string = this.urlPrefix+'/sp_roottmls';
 
     constructor(private http: Http, private appService: AppService) {}
 
@@ -85,21 +86,35 @@ export class AdminService{
             .catch(this.handleError)
     }
 
-    savePartAccessConfig(tabId: number, arElementAccess: any) {
-        let roleid = this.appService.getProfile2().dBroleId;
+    refreshListTemplates(ar: any, role: any): Promise<firstLevelItem[]> {
+        let params = new URLSearchParams();
+        params.set('rootitems', JSON.stringify(ar));
+        params.set('roleid', String(role.uid));
+        return this.http
+            .get(this.listTemplatesUrl, { search: params })
+            //.do(data => {console.log(data)})
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError)
+    }
+
+    savePartAccessConfig(tabId: number, arElementAccess: any, role: any) {
+        this.appService.setSpinnerStatus(true);
+        let a: firstLevelItem[]=[];
+        a = arElementAccess.filter(ar => ar.checked === true);
         //add to end array identifier of tabId and roleid
-        let a: any = arElementAccess;
-        let b = {'id':roleid, 'name': 'tabId:'+String(tabId)};
+        let b = {'id':role.uid, 'name': 'tabId:'+String(tabId)};
         a.push(b);
-        console.log(JSON.stringify(a));
-/*         console.log('['+JSON.stringify(arElementAccess)+']');
-        return this.http.post(this.elementAccessUrl,
-            '['+JSON.stringify(arElementAccess)+']', this.options)
+        //console.log(JSON.stringify(a));
+        return this.http.post(this.elementAccessUrl, JSON.stringify(a), this.options)
             //.do(response => console.log(response.json()) )
             .toPromise()
-            //.then(response => response.json())
-            .catch(this.handleError) */
+            .then(response => {console.log(response.json());
+                this.appService.setSpinnerStatus(false);
+            })
+            .catch(this.handleError)            
     }
+
     public getTest(): Observable<any[]> {
         return this.http
             .get('http://localhost:8080/sp_testjson')

@@ -4,6 +4,7 @@ import { DbRoles, firstLevelItem }  from '../../model/index';
 import { SelectItem } from 'primeng/primeng';
 import { GridOptions } from "ag-grid/main";
 import { CheckComponent } from './admin-checkbox.component';
+import {AppService} from '../../services/app.service';
 
 @Component({
     selector: 'admin',
@@ -21,8 +22,9 @@ export class AdminPanelComponent implements OnInit {
     public rowData: any;
     public gridOptions: GridOptions;
     public isData: boolean = false;
+    public isRequesting: boolean;
 
-    constructor(private adminService: AdminService) {
+    constructor(private adminService: AdminService, private appService: AppService,) {
         this.gridOptions = <GridOptions>{};
         this.gridOptions.columnDefs = [
             {headerName:"id", width:50, field: "id"},
@@ -45,9 +47,12 @@ export class AdminPanelComponent implements OnInit {
                 val.forEach(element => {
                     this.ElementTypes.push({label: element.name, value:{uid:element.uid}})
               });
-              this.selectedType = this.ElementTypes[33];
+              //this.selectedType = this.ElementTypes[33];
               //this.getDBRoleAccessParams(this.selectedType.value);
             }
+        )
+        this.appService.getSpinnerStatus().subscribe(
+            (v) => {this.isRequesting = v;}
         )
     }
 
@@ -74,7 +79,7 @@ export class AdminPanelComponent implements OnInit {
     }
 
     savePartAccessConfig(tabId: number) {
-        this.adminService.savePartAccessConfig(tabId, this.things[tabId]);
+        this.adminService.savePartAccessConfig(tabId, this.things[tabId], this.selectedType);
     }
 
     clickTest() {
@@ -90,5 +95,14 @@ export class AdminPanelComponent implements OnInit {
 
     onGridReady(params) {
         params.api.sizeColumnsToFit();
+    }
+
+    onCheckBoxTml() {
+        let a, b: any;
+        a = this.things[6];
+        b = a.filter(ar => ar.checked === true) //.filter(ar => ar.checked === true);
+        //console.log(b);
+        this.adminService.refreshListTemplates(b, this.selectedType)
+            .then(data => this.roleTmls = data);
     }
 }
