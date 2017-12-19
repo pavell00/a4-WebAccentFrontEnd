@@ -89,7 +89,7 @@ export class AdminService{
     refreshListTemplates(ar: any, role: any): Promise<firstLevelItem[]> {
         let params = new URLSearchParams();
         params.set('rootitems', JSON.stringify(ar));
-        params.set('roleid', String(role.uid));
+         params.set('roleid', String(role.uid));
         return this.http
             .get(this.listTemplatesUrl, { search: params })
             //.do(data => {console.log(data)})

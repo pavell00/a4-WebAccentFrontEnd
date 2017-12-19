@@ -30,7 +30,7 @@ export class AppService {
 
     private bcramberSource = new Subject<BreadCramber[]>();
     bcramberChange$ = this.bcramberSource.asObservable();
-    private spinnerStatus = new Subject<boolean>();
+    private spinnerStatus = new BehaviorSubject<boolean>(false);
 
     /*private countSource = new BehaviorSubject<number>(0);
     getCounter(): Observable<number>{return this.countSource.asObservable();}
@@ -152,10 +152,12 @@ export class AppService {
     }
 
     searchFolder () {
+        this.folders.next(null);
+        //console.log("this.spinnerStatus "+ this.spinnerStatus.asObservable().subscribe(v=> console.log(v)));
         //resolve error in spiner status - ExpressionChangedAfterItHasBeenCheckedError
         Promise.resolve(null).then(() => this.spinnerStatus.next(true));
+        //this.spinnerStatus.next(true);
         
-        //console.log(this.getProfile2().dBroleName);
         let params = new URLSearchParams();
         params.set('rootid', String(this.f.id));
         params.set('typefolder', this.f.typeFolder);
@@ -164,13 +166,14 @@ export class AppService {
             //.get(this.foldersUrl+'?rootId='+String(this.f.id)+'&typeFolder=document_type')
             .get(this.foldersUrl, { search: params })
             .map(response => <Folder[]> response.json())
-            .do(data => this.spinnerStatus.next(false))
-            .distinctUntilChanged()
+            //.do(data => this.spinnerStatus.next(false))
+            //.distinctUntilChanged()
                 a.subscribe(
                     (val) => {//this.folders.next(val)
                         let a: string = JSON.stringify(val); 
                         let jsonObj: Folder[] = JSON.parse(a); // string to generic object first
                         this.folders.next(jsonObj);
+                        this.spinnerStatus.next(false);
                     },
                     (err) => (this.handleError)
                 )
@@ -193,7 +196,7 @@ export class AppService {
             (err) => (this.handleError),
             () => true
         );
-        //console.log('searchDocs4 ' +currentStartDate, currentEndDate);
+        //console.log('searchDocs4 '+term, currentStartDate, currentEndDate, t, this.getProfile2().dBroleId);
         let params = new URLSearchParams();
         params.set('rootid', term);
         params.set('startdate', currentStartDate);

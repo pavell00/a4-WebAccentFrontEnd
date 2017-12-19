@@ -40,6 +40,7 @@ export class FolderComponent implements OnInit {
     onExpandFolder(folder: Folder){
         this.onSelectFolder(folder);
         if (folder.isChildren) {
+            this.appService.setCurrentFolder(folder);
             this.appService.searchFolder();
             /*this.appService.searchDocs2().subscribe(
                     (v) => {this.documentsOfFolder = v}

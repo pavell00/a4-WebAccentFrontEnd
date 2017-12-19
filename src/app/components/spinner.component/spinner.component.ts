@@ -15,6 +15,7 @@ export class SpinnerComponent implements OnInit, OnDestroy {
 
     @Input()
     public set isRunning(value: boolean) {
+        //console.log(value);
         if (!value) {
             this.cancelTimeout();
             this.isDelayedRunning = false;
