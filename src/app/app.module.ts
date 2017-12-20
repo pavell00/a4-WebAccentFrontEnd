@@ -14,7 +14,7 @@ import { CalendarModule, DataTableModule, ContextMenuModule, MenuModule,
         ToolbarModule, SplitButtonModule, DialogModule,
         InputSwitchModule, DropdownModule, CheckboxModule,
         RadioButtonModule, MenubarModule, AutoCompleteModule,
-        PanelModule } from 'primeng/primeng';
+        PanelModule, GrowlModule } from 'primeng/primeng';
 //interface main window
 import { WelcomeComponent, RootComponent, FolderComponent,
         DocumentComponent, //JournalComponent, EditDialogComponent,
@@ -56,10 +56,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   imports:      [ BrowserModule, 
                   BrowserAnimationsModule,
                   HttpModule, FormsModule, JsonpModule,
-                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule,
+                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule, 
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
-                  PanelModule, //ReportModule, //MainFormModule,
+                  PanelModule, GrowlModule, //ReportModule, //MainFormModule,
                   AgGridModule.withComponents([AdminPanelComponent, CheckComponent]),
                   routing
                   ],

@@ -23,6 +23,7 @@ export class AdminPanelComponent implements OnInit {
     public gridOptions: GridOptions;
     public isData: boolean = false;
     public isRequesting: boolean;
+    public msgs: any[] = [];
 
     constructor(private adminService: AdminService, private appService: AppService,) {
         this.gridOptions = <GridOptions>{};
@@ -31,7 +32,8 @@ export class AdminPanelComponent implements OnInit {
             {headerName: "Название шаблона", width:500, field: "name", headerTooltip: "Название шаблона"},
             {cellRendererFramework: CheckComponent, width:70, field: "checked", 
                 headerName: "Виден", colId: "isVisible",
-                headerTooltip: "Пользователь видит документ с этим шаблоном"},
+                headerTooltip: "Пользователь видит документ с этим шаблоном"
+            },
                 //suppressMenu: true, suppressSorting: true,
                 /*headerCellTemplate : `<div> <input id='select-all'
                 type='checkbox'/><span>checked</span> </div>` */
@@ -78,8 +80,19 @@ export class AdminPanelComponent implements OnInit {
         } */
     }
 
-    savePartAccessConfig(tabId: number) {
-        this.adminService.savePartAccessConfig(tabId, this.things[tabId], this.selectedType);
+    saveRootFoldersAccessConfig(tabId: number) {
+        this.adminService.saveRootFoldersAccessConfig(tabId, this.things[tabId], this.selectedType);
+    }
+
+    saveCheckedTmls() {
+        let a, b: any;
+        a = this.things[6];
+        b = a.filter(ar => ar.checked === true);
+        this.adminService.saveCheckedTmls(b, this.selectedType)
+            .then(data => { this.msgs = [];
+                this.msgs.push({severity:'success', summary:'Операция сохранения', detail:'кофигурация доступа - сохранена'});
+            }
+        );
     }
 
     clickTest() {
@@ -100,8 +113,7 @@ export class AdminPanelComponent implements OnInit {
     onCheckBoxTml() {
         let a, b: any;
         a = this.things[6];
-        b = a.filter(ar => ar.checked === true) //.filter(ar => ar.checked === true);
-        //console.log(b);
+        b = a.filter(ar => ar.checked === true);
         this.adminService.refreshListTemplates(b, this.selectedType)
             .then(data => this.roleTmls = data);
     }

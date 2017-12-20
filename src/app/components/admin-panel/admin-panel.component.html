@@ -13,7 +13,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Документы
-                                <button type="button" (click)="savePartAccessConfig(0)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(0)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -38,7 +38,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Счета
-                                <button type="button" (click)="savePartAccessConfig(1)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(1)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -63,7 +63,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Корреспонденты
-                                <button type="button" (click)="savePartAccessConfig(2)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(2)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -88,7 +88,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Объекты учета
-                                <button type="button" (click)="savePartAccessConfig(3)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(3)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -115,7 +115,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Разное
-                                <button type="button" (click)="savePartAccessConfig(4)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(4)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -140,7 +140,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Подшивки
-                                <button type="button" (click)="savePartAccessConfig(5)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(5)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -165,7 +165,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Шаблоны
-                                <button type="button" (click)="savePartAccessConfig(6)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(6)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -190,7 +190,7 @@
                         <tr>
                             <th style="width: 15%" class="text-center">Види мость</th>
                             <th style="width: 70%" class="text-center">Отчеты
-                                <button type="button" (click)="savePartAccessConfig(7)">Save</button>
+                                <button type="button" (click)="saveRootFoldersAccessConfig(7)">Save</button>
                             </th>
                             <th style="width: 15%" class="text-center">Созд./изм. элем-ов</th>
                         </tr>
@@ -210,6 +210,8 @@
                 </table>
             </div>
         </div>
+        <button type="button" (click)="onCheckBoxTml()">Все шаблоны в выбраных папках</button>
+        <button type="button" (click)="saveCheckedTmls()">Сохранить список шаблонов</button>
         <ag-grid-angular style="width: 740px; height: 530px;" class="ag-fresh"
             [gridOptions]="gridOptions"
             [rowData]="roleTmls"
@@ -223,7 +225,7 @@
 </div>
 
 <spinner [isRunning]="isRequesting"></spinner>
-
+<p-growl [(value)]="msgs"></p-growl>
 <!-- <ul>
                 (gridReady)="onGridReady($event)"
     <li *ngFor="let rtml of roleTmls" style="font-size: 8px;">{{rtml.id}}-{{rtml.name}}</li>

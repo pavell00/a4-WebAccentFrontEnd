@@ -89,7 +89,7 @@ export class AdminService{
     refreshListTemplates(ar: any, role: any): Promise<firstLevelItem[]> {
         let params = new URLSearchParams();
         params.set('rootitems', JSON.stringify(ar));
-         params.set('roleid', String(role.uid));
+        params.set('roleid', String(role.uid));
         return this.http
             .get(this.listTemplatesUrl, { search: params })
             //.do(data => {console.log(data)})
@@ -98,7 +98,20 @@ export class AdminService{
             .catch(this.handleError)
     }
 
-    savePartAccessConfig(tabId: number, arElementAccess: any, role: any) {
+    saveCheckedTmls(ar: any, role: any): Promise<any> {
+        return Promise.resolve(null).then(() => (true));
+/*         let params = new URLSearchParams();
+        params.set('tmls', JSON.stringify(ar));
+        params.set('roleid', String(role.uid));
+        return this.http
+            .get(this.listTemplatesUrl, { search: params })
+            //.do(data => {console.log(data)})
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError) */
+    }
+
+    saveRootFoldersAccessConfig(tabId: number, arElementAccess: any, role: any) {
         this.appService.setSpinnerStatus(true);
         let a: firstLevelItem[]=[];
         a = arElementAccess.filter(ar => ar.checked === true);
