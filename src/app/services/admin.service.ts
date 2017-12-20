@@ -21,6 +21,7 @@ export class AdminService{
     private dbRolesUrl: string = this.urlPrefix+'/sp_dbroles';
     private elementAccessUrl: string = this.urlPrefix+'/sp_elementaccess';
     private listTemplatesUrl: string = this.urlPrefix+'/sp_roottmls';
+    private templatesAccessUrl: string = this.urlPrefix+'/sp_tmlsaccess';
 
     constructor(private http: Http, private appService: AppService) {}
 
@@ -99,16 +100,16 @@ export class AdminService{
     }
 
     saveCheckedTmls(ar: any, role: any): Promise<any> {
-        return Promise.resolve(null).then(() => (true));
-/*         let params = new URLSearchParams();
-        params.set('tmls', JSON.stringify(ar));
-        params.set('roleid', String(role.uid));
-        return this.http
-            .get(this.listTemplatesUrl, { search: params })
-            //.do(data => {console.log(data)})
+        //return Promise.resolve(null).then(() => (true));
+        let params = new URLSearchParams();
+        console.log(JSON.stringify(ar));
+        //params.set('tmls', JSON.stringify(ar));
+        //params.set('roleid', String(role.uid));
+        return this.http.post(this.templatesAccessUrl, JSON.stringify(ar), this.options)
+            .do(data => {console.log(data)})
             .toPromise()
             .then(response => response.json())
-            .catch(this.handleError) */
+            .catch(this.handleError)
     }
 
     saveRootFoldersAccessConfig(tabId: number, arElementAccess: any, role: any) {

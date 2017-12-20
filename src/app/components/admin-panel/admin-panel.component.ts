@@ -86,7 +86,7 @@ export class AdminPanelComponent implements OnInit {
 
     saveCheckedTmls() {
         let a, b: any;
-        a = this.things[6];
+        a = this.roleTmls;
         b = a.filter(ar => ar.checked === true);
         this.adminService.saveCheckedTmls(b, this.selectedType)
             .then(data => { this.msgs = [];
