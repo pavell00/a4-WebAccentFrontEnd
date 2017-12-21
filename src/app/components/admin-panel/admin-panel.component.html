@@ -210,8 +210,11 @@
                 </table>
             </div>
         </div>
-        <button type="button" (click)="onCheckBoxTml()">Все шаблоны в выбраных папках</button>
+<!--         <button type="button" (click)="onCheckBoxTml()">Все шаблоны в выбраных папках</button>
         <button type="button" (click)="saveCheckedTmls()">Сохранить список шаблонов</button>
+        <button type="button" (click)="checkAll_Views_Create(0)">Отметить все Виден</button>
+        <button type="button" (click)="checkAll_Views_Create(1)">Отметить все Созд/Редакт</button> -->
+        <p-splitButton label="Все шаблоны в выбраных папках" icon="fa-refresh" (onClick)="onCheckBoxTml()" [model]="items"></p-splitButton>
         <ag-grid-angular style="width: 740px; height: 530px;" class="ag-fresh"
             [gridOptions]="gridOptions"
             [rowData]="roleTmls"
@@ -219,6 +222,7 @@
             enableFilter
             rowSelection="single"
             rowHeight="22"
+            (gridReady)="onGridReady($event)"
             [pagination]="true" [paginationPageSize]="20">
         </ag-grid-angular>
     </div>

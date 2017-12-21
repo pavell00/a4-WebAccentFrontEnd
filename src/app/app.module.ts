@@ -56,10 +56,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   imports:      [ BrowserModule, 
                   BrowserAnimationsModule,
                   HttpModule, FormsModule, JsonpModule,
-                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule, 
+                  CalendarModule, DataTableModule, MenubarModule, AutoCompleteModule, MenuModule,
                   ToolbarModule, SplitButtonModule, DialogModule, DropdownModule, ContextMenuModule,
                   InputSwitchModule, CheckboxModule, RadioButtonModule, a2_DataTableModule,
-                  PanelModule, GrowlModule, //ReportModule, //MainFormModule,
+                  PanelModule, GrowlModule,  //ReportModule, //MainFormModule,
                   AgGridModule.withComponents([AdminPanelComponent, CheckComponent]),
                   routing
                   ],

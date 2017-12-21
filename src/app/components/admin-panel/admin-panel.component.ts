@@ -4,7 +4,8 @@ import { DbRoles, firstLevelItem }  from '../../model/index';
 import { SelectItem } from 'primeng/primeng';
 import { GridOptions } from "ag-grid/main";
 import { CheckComponent } from './admin-checkbox.component';
-import {AppService} from '../../services/app.service';
+import { AppService } from '../../services/app.service';
+import { MenuItem } from 'primeng/components/common/api';
 
 @Component({
     selector: 'admin',
@@ -24,6 +25,10 @@ export class AdminPanelComponent implements OnInit {
     public isData: boolean = false;
     public isRequesting: boolean;
     public msgs: any[] = [];
+    private flag: boolean = false;
+    private gridApi;
+    private gridColumnApi;
+    items: MenuItem[];
 
     constructor(private adminService: AdminService, private appService: AppService,) {
         this.gridOptions = <GridOptions>{};
@@ -52,10 +57,23 @@ export class AdminPanelComponent implements OnInit {
               //this.selectedType = this.ElementTypes[33];
               //this.getDBRoleAccessParams(this.selectedType.value);
             }
-        )
+        );
+
         this.appService.getSpinnerStatus().subscribe(
             (v) => {this.isRequesting = v;}
-        )
+        );
+
+        this.items = [
+            {label: 'Отметить все Виден', icon: 'fa-check', command: () => {
+                this.checkAll_Views_Create(0);
+            }},
+            {label: 'Отметить все Созд/Редакт', icon: 'fa-check', command: () => {
+                this.checkAll_Views_Create(1);
+            }},
+            {label: 'Сохранить список шаблонов', icon: 'fa-save', command: () => {
+                this.saveCheckedTmls();
+            }}
+        ];
     }
 
     onChange(e: any) {
@@ -95,19 +113,21 @@ export class AdminPanelComponent implements OnInit {
         );
     }
 
-    clickTest() {
-        console.log('www');
-        this.adminService.getTest().subscribe(
-            (v) => {this.test = v}
-        )
-    }
-
-    saveAccConfig() {
-        //console.log(JSON.stringify(this.things[6]));
+    checkAll_Views_Create(p: number) {
+        if (p === 0) {
+            this.roleTmls.map(ar => {ar.checked = this.flag});
+            this.flag = !this.flag;
+        } else {
+            this.roleTmls.map(ar => {ar.editable = this.flag});
+            this.flag = !this.flag;
+        }
+        this.gridApi.redrawRows();
     }
 
     onGridReady(params) {
-        params.api.sizeColumnsToFit();
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+        if (this.roleTmls.length != 0) params.api.sizeColumnsToFit();
     }
 
     onCheckBoxTml() {

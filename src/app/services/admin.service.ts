@@ -100,13 +100,11 @@ export class AdminService{
     }
 
     saveCheckedTmls(ar: any, role: any): Promise<any> {
-        //return Promise.resolve(null).then(() => (true));
         let params = new URLSearchParams();
-        console.log(JSON.stringify(ar));
-        //params.set('tmls', JSON.stringify(ar));
-        //params.set('roleid', String(role.uid));
+        let b = {'id':role.uid, 'name': 'roleid'};
+        ar.push(b);
         return this.http.post(this.templatesAccessUrl, JSON.stringify(ar), this.options)
-            .do(data => {console.log(data)})
+            //.do(data => {console.log(data)})
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError)
