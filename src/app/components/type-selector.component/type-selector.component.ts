@@ -25,6 +25,7 @@ export class TypeSelectorComponent implements OnInit {
         this.ElementTypes.push({label:'Разное', value:{id:5, name: 'Miscs', code: 'misc_type'}});
         this.ElementTypes.push({label:'Подшивки', value:{id:5, name: 'Binders', code: 'binder_type'}});
         this.ElementTypes.push({label:'Шаблоны', value:{id:6, name: 'Templates', code: 'template_type'}});
+        this.ElementTypes.push({label:'Отчеты', value:{id:7, name: 'Reports', code: 'report_type'}});
         //set dedault value of type selector
         this.selectedType = this.ElementTypes[0];
         //console.log(this.selectedType.value.code);
